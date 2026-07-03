@@ -1,0 +1,57 @@
+#ifndef BOOK_H
+#define BOOK_H
+
+#pragma once
+#include "Rating.h"
+#include "Genre.h"
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class Book {
+private:
+    int id;
+    std::string title;
+    std::string author;
+    int publisherId;
+    Genre genre;
+    std::string description;
+    double basePrice;
+    std::string coverImagePath;
+    std::string pdfFileName;
+    std::string publishDate;
+    bool isActive;      // فعال/غیرفعال توسط ناشر یا ادمین
+    bool isDeleted;      // حذف نرم
+    std::vector<Rating> userRatings;
+    double averageRating;
+
+public:
+    Book(int id, std::string title, std::string author, int publisherId, Genre genre,
+         std::string description, double basePrice, std::string coverImagePath,
+         std::string pdfFileName, std::string publishDate);
+
+    int getId() const;
+    std::string getTitle() const;
+    std::string getAuthor() const;
+    int getPublisherId() const;
+    Genre getGenre() const;
+    std::string getDescription() const;
+    double getBasePrice() const;
+    std::string getCoverImagePath() const;
+    std::string getPdfFileName() const;
+    std::string getPublishDate() const;
+    bool isFree() const;
+
+    bool getIsActive() const;
+    void setIsActive(bool active);
+    bool getIsDeleted() const;
+    void setIsDeleted(bool deleted);
+
+    void addRating(const Rating &rating);
+    std::vector<Rating> getRatings() const;
+    double getAverageRating() const;
+    void updateAverageRating();
+};
+
+#endif // BOOK_H

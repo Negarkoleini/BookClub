@@ -11,12 +11,11 @@ qt_add_executable(BookClub
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
+    Book.cpp
+    Book.h
+    Gener.h
 )
 
-qt_add_translations(
-    TARGETS BookClub
-    TS_FILES BookClub_en_US.ts
-)
 
 target_link_libraries(BookClub
     PRIVATE

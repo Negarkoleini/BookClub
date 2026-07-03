@@ -63,8 +63,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-u506jl"
-      binary: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-u506jl"
+      source: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-7ou8oy"
+      binary: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-7ou8oy"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -74,29 +74,29 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-u506jl'
+        Change Dir: 'D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-7ou8oy'
         
-        Run Build Command(s): D:/ME/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_de176\\fast
+        Run Build Command(s): D:/ME/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_16c85\\fast
         jom: parallel job execution disabled for Makefile
-        	D:\\ME\\Tools\\QtCreator\\bin\\jom\\jom.exe  -f CMakeFiles\\cmTC_de176.dir\\build.make /nologo -L CMakeFiles\\cmTC_de176.dir\\build
-        Building CXX object CMakeFiles/cmTC_de176.dir/CMakeCXXCompilerABI.cpp.obj
-        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_de176.dir\\CMakeCXXCompilerABI.cpp.obj.d --working-dir=D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-u506jl --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\HostX64\\x64\\cl.exe @C:\\Users\\ACER\\AppData\\Local\\Temp\\CMakeCXXCompilerABI.cpp.obj.78124.16.jom
+        	D:\\ME\\Tools\\QtCreator\\bin\\jom\\jom.exe  -f CMakeFiles\\cmTC_16c85.dir\\build.make /nologo -L CMakeFiles\\cmTC_16c85.dir\\build
+        Building CXX object CMakeFiles/cmTC_16c85.dir/CMakeCXXCompilerABI.cpp.obj
+        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_16c85.dir\\CMakeCXXCompilerABI.cpp.obj.d --working-dir=D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-7ou8oy --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\HostX64\\x64\\cl.exe @C:\\Users\\ACER\\AppData\\Local\\Temp\\CMakeCXXCompilerABI.cpp.obj.69036.0.jom
         CMakeCXXCompilerABI.cpp
-        Linking CXX executable cmTC_de176.exe
-        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E vs_link_exe --intdir=CMakeFiles\\cmTC_de176.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_de176.dir\\objects1.rsp @C:\\Users\\ACER\\AppData\\Local\\Temp\\cmTC_de176.exe.78124.547.jom
+        Linking CXX executable cmTC_16c85.exe
+        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E vs_link_exe --intdir=CMakeFiles\\cmTC_16c85.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_16c85.dir\\objects1.rsp @C:\\Users\\ACER\\AppData\\Local\\Temp\\cmTC_16c85.exe.69036.500.jom
         Visual Studio Incremental Link with embedded manifests
-        Create CMakeFiles\\cmTC_de176.dir/manifest.rc
-        Create empty: CMakeFiles\\cmTC_de176.dir/embed.manifest
+        Create CMakeFiles\\cmTC_16c85.dir/manifest.rc
+        Create empty: CMakeFiles\\cmTC_16c85.dir/embed.manifest
         RC Pass 1:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_de176.dir/manifest.res CMakeFiles\\cmTC_de176.dir/manifest.rc
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_16c85.dir/manifest.res CMakeFiles\\cmTC_16c85.dir/manifest.rc
         LINK Pass 1:
-        C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_de176.dir\\objects1.rsp /out:cmTC_de176.exe /implib:cmTC_de176.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-u506jl\\cmTC_de176.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_de176.dir/intermediate.manifest CMakeFiles\\cmTC_de176.dir/manifest.res
+        C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_16c85.dir\\objects1.rsp /out:cmTC_16c85.exe /implib:cmTC_16c85.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-7ou8oy\\cmTC_16c85.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_16c85.dir/intermediate.manifest CMakeFiles\\cmTC_16c85.dir/manifest.res
         MT:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe /nologo /manifest CMakeFiles\\cmTC_de176.dir/intermediate.manifest /out:CMakeFiles\\cmTC_de176.dir/embed.manifest /notify_update
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe /nologo /manifest CMakeFiles\\cmTC_16c85.dir/intermediate.manifest /out:CMakeFiles\\cmTC_16c85.dir/embed.manifest /notify_update
         RC Pass 2:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_de176.dir/manifest.res CMakeFiles\\cmTC_de176.dir/manifest.rc
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_16c85.dir/manifest.res CMakeFiles\\cmTC_16c85.dir/manifest.rc
         FINAL LINK:
-        C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_de176.dir\\objects1.rsp /out:cmTC_de176.exe /implib:cmTC_de176.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-u506jl\\cmTC_de176.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_de176.dir/intermediate.manifest CMakeFiles\\cmTC_de176.dir/manifest.res
+        C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_16c85.dir\\objects1.rsp /out:cmTC_16c85.exe /implib:cmTC_16c85.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-7ou8oy\\cmTC_16c85.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_16c85.dir/intermediate.manifest CMakeFiles\\cmTC_16c85.dir/manifest.res
         
       exitCode: 0
   -
@@ -146,8 +146,8 @@ events:
       - "build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/.qtcreator/cmake-helper/maintenance_tool_provider.cmake:235 (find_package)"
       - "CMakeLists.txt:4 (find_package)"
     directories:
-      source: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-fb1gzz"
-      binary: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-fb1gzz"
+      source: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-t4qc8w"
+      binary: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-t4qc8w"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -157,17 +157,17 @@ events:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: 'D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-fb1gzz'
+        Change Dir: 'D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-t4qc8w'
         
-        Run Build Command(s): D:/ME/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_34534\\fast
+        Run Build Command(s): D:/ME/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_08803\\fast
         jom: parallel job execution disabled for Makefile
-        	D:\\ME\\Tools\\QtCreator\\bin\\jom\\jom.exe  -f CMakeFiles\\cmTC_34534.dir\\build.make /nologo -L CMakeFiles\\cmTC_34534.dir\\build
-        Building CXX object CMakeFiles/cmTC_34534.dir/src.cxx.obj
-        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_34534.dir\\src.cxx.obj.d --working-dir=D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-fb1gzz --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\HostX64\\x64\\cl.exe @C:\\Users\\ACER\\AppData\\Local\\Temp\\src.cxx.obj.113944.15.jom
+        	D:\\ME\\Tools\\QtCreator\\bin\\jom\\jom.exe  -f CMakeFiles\\cmTC_08803.dir\\build.make /nologo -L CMakeFiles\\cmTC_08803.dir\\build
+        Building CXX object CMakeFiles/cmTC_08803.dir/src.cxx.obj
+        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_08803.dir\\src.cxx.obj.d --working-dir=D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-t4qc8w --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\HostX64\\x64\\cl.exe @C:\\Users\\ACER\\AppData\\Local\\Temp\\src.cxx.obj.113032.0.jom
         src.cxx
-        D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-fb1gzz\\src.cxx(1): fatal error C1083: Cannot open include file: 'pthread.h': No such file or directory
-        jom: D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-fb1gzz\\CMakeFiles\\cmTC_34534.dir\\build.make [CMakeFiles\\cmTC_34534.dir\\src.cxx.obj] Error 2
-        jom: D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-fb1gzz\\Makefile [cmTC_34534\\fast] Error 2
+        D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-t4qc8w\\src.cxx(1): fatal error C1083: Cannot open include file: 'pthread.h': No such file or directory
+        jom: D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-t4qc8w\\CMakeFiles\\cmTC_08803.dir\\build.make [CMakeFiles\\cmTC_08803.dir\\src.cxx.obj] Error 2
+        jom: D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-t4qc8w\\Makefile [cmTC_08803\\fast] Error 2
         
       exitCode: 2
   -
@@ -188,8 +188,8 @@ events:
       - "build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/.qtcreator/cmake-helper/maintenance_tool_provider.cmake:235 (find_package)"
       - "CMakeLists.txt:4 (find_package)"
     directories:
-      source: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-rxnzlz"
-      binary: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-rxnzlz"
+      source: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-04clhr"
+      binary: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-04clhr"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -199,27 +199,27 @@ events:
       variable: "CMAKE_HAVE_PTHREADS_CREATE"
       cached: true
       stdout: |
-        Change Dir: 'D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-rxnzlz'
+        Change Dir: 'D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-04clhr'
         
-        Run Build Command(s): D:/ME/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_f0a25\\fast
+        Run Build Command(s): D:/ME/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_ba9d6\\fast
         jom: parallel job execution disabled for Makefile
-        	D:\\ME\\Tools\\QtCreator\\bin\\jom\\jom.exe  -f CMakeFiles\\cmTC_f0a25.dir\\build.make /nologo -L CMakeFiles\\cmTC_f0a25.dir\\build
-        Building CXX object CMakeFiles/cmTC_f0a25.dir/CheckFunctionExists.cxx.obj
-        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_f0a25.dir\\CheckFunctionExists.cxx.obj.d --working-dir=D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-rxnzlz --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\HostX64\\x64\\cl.exe @C:\\Users\\ACER\\AppData\\Local\\Temp\\CheckFunctionExists.cxx.obj.112480.15.jom
+        	D:\\ME\\Tools\\QtCreator\\bin\\jom\\jom.exe  -f CMakeFiles\\cmTC_ba9d6.dir\\build.make /nologo -L CMakeFiles\\cmTC_ba9d6.dir\\build
+        Building CXX object CMakeFiles/cmTC_ba9d6.dir/CheckFunctionExists.cxx.obj
+        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_ba9d6.dir\\CheckFunctionExists.cxx.obj.d --working-dir=D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-04clhr --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\HostX64\\x64\\cl.exe @C:\\Users\\ACER\\AppData\\Local\\Temp\\CheckFunctionExists.cxx.obj.96996.16.jom
         CheckFunctionExists.cxx
-        Linking CXX executable cmTC_f0a25.exe
-        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E vs_link_exe --intdir=CMakeFiles\\cmTC_f0a25.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_f0a25.dir\\objects1.rsp @C:\\Users\\ACER\\AppData\\Local\\Temp\\cmTC_f0a25.exe.112480.172.jom
+        Linking CXX executable cmTC_ba9d6.exe
+        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E vs_link_exe --intdir=CMakeFiles\\cmTC_ba9d6.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_ba9d6.dir\\objects1.rsp @C:\\Users\\ACER\\AppData\\Local\\Temp\\cmTC_ba9d6.exe.96996.219.jom
         Visual Studio Incremental Link with embedded manifests
-        Create CMakeFiles\\cmTC_f0a25.dir/manifest.rc
-        Create empty: CMakeFiles\\cmTC_f0a25.dir/embed.manifest
+        Create CMakeFiles\\cmTC_ba9d6.dir/manifest.rc
+        Create empty: CMakeFiles\\cmTC_ba9d6.dir/embed.manifest
         RC Pass 1:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_f0a25.dir/manifest.res CMakeFiles\\cmTC_f0a25.dir/manifest.rc
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_ba9d6.dir/manifest.res CMakeFiles\\cmTC_ba9d6.dir/manifest.rc
         LINK Pass 1:
-        C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_f0a25.dir\\objects1.rsp /out:cmTC_f0a25.exe /implib:cmTC_f0a25.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-rxnzlz\\cmTC_f0a25.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_f0a25.dir/intermediate.manifest CMakeFiles\\cmTC_f0a25.dir/manifest.res
-        LINK Pass 1: command "C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_f0a25.dir\\objects1.rsp /out:cmTC_f0a25.exe /implib:cmTC_f0a25.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-rxnzlz\\cmTC_f0a25.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_f0a25.dir/intermediate.manifest CMakeFiles\\cmTC_f0a25.dir/manifest.res" failed (exit code 1104) with the following output:
+        C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_ba9d6.dir\\objects1.rsp /out:cmTC_ba9d6.exe /implib:cmTC_ba9d6.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-04clhr\\cmTC_ba9d6.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_ba9d6.dir/intermediate.manifest CMakeFiles\\cmTC_ba9d6.dir/manifest.res
+        LINK Pass 1: command "C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_ba9d6.dir\\objects1.rsp /out:cmTC_ba9d6.exe /implib:cmTC_ba9d6.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-04clhr\\cmTC_ba9d6.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_ba9d6.dir/intermediate.manifest CMakeFiles\\cmTC_ba9d6.dir/manifest.res" failed (exit code 1104) with the following output:
         LINK : fatal error LNK1104: cannot open file 'pthreads.lib'
-        jom: D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-rxnzlz\\CMakeFiles\\cmTC_f0a25.dir\\build.make [cmTC_f0a25.exe] Error 2
-        jom: D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-rxnzlz\\Makefile [cmTC_f0a25\\fast] Error 2
+        jom: D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-04clhr\\CMakeFiles\\cmTC_ba9d6.dir\\build.make [cmTC_ba9d6.exe] Error 2
+        jom: D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-04clhr\\Makefile [cmTC_ba9d6\\fast] Error 2
         
       exitCode: 2
   -
@@ -240,8 +240,8 @@ events:
       - "build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/.qtcreator/cmake-helper/maintenance_tool_provider.cmake:235 (find_package)"
       - "CMakeLists.txt:4 (find_package)"
     directories:
-      source: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-wu8ts8"
-      binary: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-wu8ts8"
+      source: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-lqg6af"
+      binary: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-lqg6af"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -251,27 +251,27 @@ events:
       variable: "CMAKE_HAVE_PTHREAD_CREATE"
       cached: true
       stdout: |
-        Change Dir: 'D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-wu8ts8'
+        Change Dir: 'D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-lqg6af'
         
-        Run Build Command(s): D:/ME/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_14fca\\fast
+        Run Build Command(s): D:/ME/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_c1ffe\\fast
         jom: parallel job execution disabled for Makefile
-        	D:\\ME\\Tools\\QtCreator\\bin\\jom\\jom.exe  -f CMakeFiles\\cmTC_14fca.dir\\build.make /nologo -L CMakeFiles\\cmTC_14fca.dir\\build
-        Building CXX object CMakeFiles/cmTC_14fca.dir/CheckFunctionExists.cxx.obj
-        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_14fca.dir\\CheckFunctionExists.cxx.obj.d --working-dir=D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-wu8ts8 --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\HostX64\\x64\\cl.exe @C:\\Users\\ACER\\AppData\\Local\\Temp\\CheckFunctionExists.cxx.obj.51288.15.jom
+        	D:\\ME\\Tools\\QtCreator\\bin\\jom\\jom.exe  -f CMakeFiles\\cmTC_c1ffe.dir\\build.make /nologo -L CMakeFiles\\cmTC_c1ffe.dir\\build
+        Building CXX object CMakeFiles/cmTC_c1ffe.dir/CheckFunctionExists.cxx.obj
+        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_c1ffe.dir\\CheckFunctionExists.cxx.obj.d --working-dir=D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-lqg6af --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\HostX64\\x64\\cl.exe @C:\\Users\\ACER\\AppData\\Local\\Temp\\CheckFunctionExists.cxx.obj.83648.0.jom
         CheckFunctionExists.cxx
-        Linking CXX executable cmTC_14fca.exe
-        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E vs_link_exe --intdir=CMakeFiles\\cmTC_14fca.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_14fca.dir\\objects1.rsp @C:\\Users\\ACER\\AppData\\Local\\Temp\\cmTC_14fca.exe.51288.218.jom
+        Linking CXX executable cmTC_c1ffe.exe
+        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E vs_link_exe --intdir=CMakeFiles\\cmTC_c1ffe.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_c1ffe.dir\\objects1.rsp @C:\\Users\\ACER\\AppData\\Local\\Temp\\cmTC_c1ffe.exe.83648.297.jom
         Visual Studio Incremental Link with embedded manifests
-        Create CMakeFiles\\cmTC_14fca.dir/manifest.rc
-        Create empty: CMakeFiles\\cmTC_14fca.dir/embed.manifest
+        Create CMakeFiles\\cmTC_c1ffe.dir/manifest.rc
+        Create empty: CMakeFiles\\cmTC_c1ffe.dir/embed.manifest
         RC Pass 1:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_14fca.dir/manifest.res CMakeFiles\\cmTC_14fca.dir/manifest.rc
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_c1ffe.dir/manifest.res CMakeFiles\\cmTC_c1ffe.dir/manifest.rc
         LINK Pass 1:
-        C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_14fca.dir\\objects1.rsp /out:cmTC_14fca.exe /implib:cmTC_14fca.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-wu8ts8\\cmTC_14fca.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_14fca.dir/intermediate.manifest CMakeFiles\\cmTC_14fca.dir/manifest.res
-        LINK Pass 1: command "C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_14fca.dir\\objects1.rsp /out:cmTC_14fca.exe /implib:cmTC_14fca.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-wu8ts8\\cmTC_14fca.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_14fca.dir/intermediate.manifest CMakeFiles\\cmTC_14fca.dir/manifest.res" failed (exit code 1104) with the following output:
+        C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_c1ffe.dir\\objects1.rsp /out:cmTC_c1ffe.exe /implib:cmTC_c1ffe.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-lqg6af\\cmTC_c1ffe.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_c1ffe.dir/intermediate.manifest CMakeFiles\\cmTC_c1ffe.dir/manifest.res
+        LINK Pass 1: command "C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_c1ffe.dir\\objects1.rsp /out:cmTC_c1ffe.exe /implib:cmTC_c1ffe.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-lqg6af\\cmTC_c1ffe.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_c1ffe.dir/intermediate.manifest CMakeFiles\\cmTC_c1ffe.dir/manifest.res" failed (exit code 1104) with the following output:
         LINK : fatal error LNK1104: cannot open file 'pthread.lib'
-        jom: D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-wu8ts8\\CMakeFiles\\cmTC_14fca.dir\\build.make [cmTC_14fca.exe] Error 2
-        jom: D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-wu8ts8\\Makefile [cmTC_14fca\\fast] Error 2
+        jom: D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-lqg6af\\CMakeFiles\\cmTC_c1ffe.dir\\build.make [cmTC_c1ffe.exe] Error 2
+        jom: D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-lqg6af\\Makefile [cmTC_c1ffe\\fast] Error 2
         
       exitCode: 2
   -
@@ -290,8 +290,8 @@ events:
     checks:
       - "Performing Test HAVE_STDATOMIC"
     directories:
-      source: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-t97ey4"
-      binary: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-t97ey4"
+      source: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-v85zoj"
+      binary: "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-v85zoj"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -301,29 +301,29 @@ events:
       variable: "HAVE_STDATOMIC"
       cached: true
       stdout: |
-        Change Dir: 'D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-t97ey4'
+        Change Dir: 'D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/CMakeScratch/TryCompile-v85zoj'
         
-        Run Build Command(s): D:/ME/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_e8793\\fast
+        Run Build Command(s): D:/ME/Tools/CMake_64/bin/cmake.exe -E env VERBOSE=1 jom -f Makefile /nologo cmTC_eb0e1\\fast
         jom: parallel job execution disabled for Makefile
-        	D:\\ME\\Tools\\QtCreator\\bin\\jom\\jom.exe  -f CMakeFiles\\cmTC_e8793.dir\\build.make /nologo -L CMakeFiles\\cmTC_e8793.dir\\build
-        Building CXX object CMakeFiles/cmTC_e8793.dir/src.cxx.obj
-        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_e8793.dir\\src.cxx.obj.d --working-dir=D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-t97ey4 --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\HostX64\\x64\\cl.exe @C:\\Users\\ACER\\AppData\\Local\\Temp\\src.cxx.obj.118248.0.jom
+        	D:\\ME\\Tools\\QtCreator\\bin\\jom\\jom.exe  -f CMakeFiles\\cmTC_eb0e1.dir\\build.make /nologo -L CMakeFiles\\cmTC_eb0e1.dir\\build
+        Building CXX object CMakeFiles/cmTC_eb0e1.dir/src.cxx.obj
+        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\\cmTC_eb0e1.dir\\src.cxx.obj.d --working-dir=D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-v85zoj --filter-prefix="Note: including file: " -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\HostX64\\x64\\cl.exe @C:\\Users\\ACER\\AppData\\Local\\Temp\\src.cxx.obj.100740.0.jom
         src.cxx
-        Linking CXX executable cmTC_e8793.exe
-        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E vs_link_exe --intdir=CMakeFiles\\cmTC_e8793.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_e8793.dir\\objects1.rsp @C:\\Users\\ACER\\AppData\\Local\\Temp\\cmTC_e8793.exe.118248.343.jom
+        Linking CXX executable cmTC_eb0e1.exe
+        	D:\\ME\\Tools\\CMake_64\\bin\\cmake.exe -E vs_link_exe --intdir=CMakeFiles\\cmTC_eb0e1.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe --manifests -- C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_eb0e1.dir\\objects1.rsp @C:\\Users\\ACER\\AppData\\Local\\Temp\\cmTC_eb0e1.exe.100740.235.jom
         Visual Studio Incremental Link with embedded manifests
-        Create CMakeFiles\\cmTC_e8793.dir/manifest.rc
-        Create empty: CMakeFiles\\cmTC_e8793.dir/embed.manifest
+        Create CMakeFiles\\cmTC_eb0e1.dir/manifest.rc
+        Create empty: CMakeFiles\\cmTC_eb0e1.dir/embed.manifest
         RC Pass 1:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_e8793.dir/manifest.res CMakeFiles\\cmTC_e8793.dir/manifest.rc
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_eb0e1.dir/manifest.res CMakeFiles\\cmTC_eb0e1.dir/manifest.rc
         LINK Pass 1:
-        C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_e8793.dir\\objects1.rsp /out:cmTC_e8793.exe /implib:cmTC_e8793.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-t97ey4\\cmTC_e8793.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_e8793.dir/intermediate.manifest CMakeFiles\\cmTC_e8793.dir/manifest.res
+        C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_eb0e1.dir\\objects1.rsp /out:cmTC_eb0e1.exe /implib:cmTC_eb0e1.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-v85zoj\\cmTC_eb0e1.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_eb0e1.dir/intermediate.manifest CMakeFiles\\cmTC_eb0e1.dir/manifest.res
         MT:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe /nologo /manifest CMakeFiles\\cmTC_e8793.dir/intermediate.manifest /out:CMakeFiles\\cmTC_e8793.dir/embed.manifest /notify_update
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\mt.exe /nologo /manifest CMakeFiles\\cmTC_eb0e1.dir/intermediate.manifest /out:CMakeFiles\\cmTC_eb0e1.dir/embed.manifest /notify_update
         RC Pass 2:
-        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_e8793.dir/manifest.res CMakeFiles\\cmTC_e8793.dir/manifest.rc
+        C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100261~1.0\\x64\\rc.exe /fo CMakeFiles\\cmTC_eb0e1.dir/manifest.res CMakeFiles\\cmTC_eb0e1.dir/manifest.rc
         FINAL LINK:
-        C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_e8793.dir\\objects1.rsp /out:cmTC_e8793.exe /implib:cmTC_e8793.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-t97ey4\\cmTC_e8793.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_e8793.dir/intermediate.manifest CMakeFiles\\cmTC_e8793.dir/manifest.res
+        C:\\PROGRA~1\\MIB055~1\\18\\Insiders\\VC\\Tools\\MSVC\\1451~1.362\\bin\\Hostx64\\x64\\link.exe /nologo @CMakeFiles\\cmTC_eb0e1.dir\\objects1.rsp /out:cmTC_eb0e1.exe /implib:cmTC_eb0e1.lib /pdb:D:\\ME\\project\\BookClub\\build\\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\\CMakeFiles\\CMakeScratch\\TryCompile-v85zoj\\cmTC_eb0e1.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_eb0e1.dir/intermediate.manifest CMakeFiles\\cmTC_eb0e1.dir/manifest.res
         
       exitCode: 0
 ...
