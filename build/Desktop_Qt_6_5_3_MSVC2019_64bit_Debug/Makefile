@@ -225,6 +225,102 @@ BookClub_autogen\mocs_compilation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\BookClub_autogen\mocs_compilation.cpp.s
 .PHONY : BookClub_autogen\mocs_compilation.cpp.s
 
+CartItem.obj: CartItem.cpp.obj
+.PHONY : CartItem.obj
+
+# target to build an object file
+CartItem.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\CartItem.cpp.obj
+.PHONY : CartItem.cpp.obj
+
+CartItem.i: CartItem.cpp.i
+.PHONY : CartItem.i
+
+# target to preprocess a source file
+CartItem.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\CartItem.cpp.i
+.PHONY : CartItem.cpp.i
+
+CartItem.s: CartItem.cpp.s
+.PHONY : CartItem.s
+
+# target to generate assembly for a file
+CartItem.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\CartItem.cpp.s
+.PHONY : CartItem.cpp.s
+
+Rating.obj: Rating.cpp.obj
+.PHONY : Rating.obj
+
+# target to build an object file
+Rating.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Rating.cpp.obj
+.PHONY : Rating.cpp.obj
+
+Rating.i: Rating.cpp.i
+.PHONY : Rating.i
+
+# target to preprocess a source file
+Rating.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Rating.cpp.i
+.PHONY : Rating.cpp.i
+
+Rating.s: Rating.cpp.s
+.PHONY : Rating.s
+
+# target to generate assembly for a file
+Rating.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Rating.cpp.s
+.PHONY : Rating.cpp.s
+
+ShppingCart.obj: ShppingCart.cpp.obj
+.PHONY : ShppingCart.obj
+
+# target to build an object file
+ShppingCart.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\ShppingCart.cpp.obj
+.PHONY : ShppingCart.cpp.obj
+
+ShppingCart.i: ShppingCart.cpp.i
+.PHONY : ShppingCart.i
+
+# target to preprocess a source file
+ShppingCart.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\ShppingCart.cpp.i
+.PHONY : ShppingCart.cpp.i
+
+ShppingCart.s: ShppingCart.cpp.s
+.PHONY : ShppingCart.s
+
+# target to generate assembly for a file
+ShppingCart.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\ShppingCart.cpp.s
+.PHONY : ShppingCart.cpp.s
+
+comment.obj: comment.cpp.obj
+.PHONY : comment.obj
+
+# target to build an object file
+comment.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\comment.cpp.obj
+.PHONY : comment.cpp.obj
+
+comment.i: comment.cpp.i
+.PHONY : comment.i
+
+# target to preprocess a source file
+comment.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\comment.cpp.i
+.PHONY : comment.cpp.i
+
+comment.s: comment.cpp.s
+.PHONY : comment.s
+
+# target to generate assembly for a file
+comment.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\comment.cpp.s
+.PHONY : comment.cpp.s
+
 main.obj: main.cpp.obj
 .PHONY : main.obj
 
@@ -293,6 +389,18 @@ help:
 	@echo ... BookClub_autogen/mocs_compilation.obj
 	@echo ... BookClub_autogen/mocs_compilation.i
 	@echo ... BookClub_autogen/mocs_compilation.s
+	@echo ... CartItem.obj
+	@echo ... CartItem.i
+	@echo ... CartItem.s
+	@echo ... Rating.obj
+	@echo ... Rating.i
+	@echo ... Rating.s
+	@echo ... ShppingCart.obj
+	@echo ... ShppingCart.i
+	@echo ... ShppingCart.s
+	@echo ... comment.obj
+	@echo ... comment.i
+	@echo ... comment.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

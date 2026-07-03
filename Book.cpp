@@ -1,3 +1,75 @@
 #include "Book.h"
+#include <algorithm>
+#include <numeric>
+#include"Genre.h"
 
-Book::Book() {}
+using namespace std;
+
+Book::Book(int id, std::string title, std::string author, int publisherId, Genre genre,
+           std::string description, double basePrice, std::string coverImagePath,
+           std::string pdfFileName, std::string publishDate)
+    : id(id), title(std::move(title)), author(std::move(author)), publisherId(publisherId),
+    genre(genre), description(std::move(description)), basePrice(basePrice),
+    coverImagePath(std::move(coverImagePath)), pdfFileName(std::move(pdfFileName)),
+    publishDate(std::move(publishDate)), isActive(true), isDeleted(false), averageRating(0.0) {
+}
+
+int Book::getId() const { return id; }
+std::string Book::getTitle() const { return title; }
+std::string Book::getAuthor() const { return author; }
+int Book::getPublisherId() const { return publisherId; }
+Genre Book::getGenre() const { return genre; }
+std::string Book::getDescription() const { return description; }
+double Book::getBasePrice() const { return basePrice; }
+std::string Book::getCoverImagePath() const { return coverImagePath; }
+std::string Book::getPdfFileName() const { return pdfFileName; }
+std::string Book::getPublishDate() const { return publishDate; }
+
+bool Book::isFree() const { return basePrice <= 0.0; }
+
+bool Book::getIsActive() const { return isActive; }
+void Book::setIsActive(bool active) { isActive = active; }
+bool Book::getIsDeleted() const { return isDeleted; }
+void Book::setIsDeleted(bool deleted) { isDeleted = deleted; }
+
+void Book::setTitle(const std::string &newTitle) { title = newTitle; }
+void Book::setAuthor(const std::string &newAuthor) { author = newAuthor; }
+void Book::setGenre(Genre newGenre) { genre = newGenre; }
+void Book::setDescription(const std::string &newDescription) { description = newDescription; }
+void Book::setBasePrice(double newPrice) { if (newPrice >= 0) basePrice = newPrice; }
+void Book::setCoverImagePath(const std::string &path) { coverImagePath = path; }
+void Book::setPdfFileName(const std::string &fileName) { pdfFileName = fileName; }
+
+void Book::addRating(const Rating &rating) {
+    userRatings.push_back(rating);
+    updateAverageRating();
+}
+
+bool Book::updateUserRating(int userId, int newScore) {
+    for (auto &r : userRatings) {
+        if (r.getUserId() == userId) {
+            r.setScore(newScore);
+            updateAverageRating();
+            return true;
+        }
+    }
+    return false;
+}
+
+std::vector<Rating> Book::getRatings() const { return userRatings; }
+
+double Book::getAverageRating() const { return averageRating; }
+
+void Book::updateAverageRating() {
+    if (userRatings.empty()) {
+        averageRating = 0.0;
+        return;
+    }
+    int sum = std::accumulate(userRatings.begin(), userRatings.end(), 0,
+                              [](int acc, const Rating &r) { return acc + r.getScore(); });
+    averageRating = static_cast<double>(sum) / static_cast<double>(userRatings.size());
+}
+
+int Book::getRatingCount() const {
+    return static_cast<int>(userRatings.size());
+}

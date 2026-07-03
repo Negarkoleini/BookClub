@@ -42,6 +42,16 @@ public:
     std::string getPdfFileName() const;
     std::string getPublishDate() const;
     bool isFree() const;
+    void setTitle(const std::string &newTitle);
+    void setAuthor(const std::string &newAuthor);
+    void setGenre(Genre newGenre);
+    void setDescription(const std::string &newDescription);
+    void setBasePrice(double newPrice);
+    void setCoverImagePath(const std::string &path);
+    void setPdfFileName(const std::string &fileName);
+    void addRating(const Rating &rating);
+    bool updateUserRating(int userId, int newScore);
+    std::vector<Rating> getRatings() const ;
 
     bool getIsActive() const;
     void setIsActive(bool active);
@@ -52,6 +62,7 @@ public:
     std::vector<Rating> getRatings() const;
     double getAverageRating() const;
     void updateAverageRating();
+    int Book::getRatingCount() const ;
 };
 
 #endif // BOOK_H

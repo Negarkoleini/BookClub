@@ -298,9 +298,33 @@
 			null
 		],
 		[
-			"D:/ME/project/BookClub/Gener.h",
+			"D:/ME/project/BookClub/CartItem.h",
 			"MU",
-			"EWIEGA46WW/moc_Gener.cpp",
+			"EWIEGA46WW/moc_CartItem.cpp",
+			null
+		],
+		[
+			"D:/ME/project/BookClub/Comment.h",
+			"MU",
+			"EWIEGA46WW/moc_Comment.cpp",
+			null
+		],
+		[
+			"D:/ME/project/BookClub/Genre.h",
+			"MU",
+			"EWIEGA46WW/moc_Genre.cpp",
+			null
+		],
+		[
+			"D:/ME/project/BookClub/Rating.h",
+			"MU",
+			"EWIEGA46WW/moc_Rating.cpp",
+			null
+		],
+		[
+			"D:/ME/project/BookClub/ShppingCart.h",
+			"MU",
+			"EWIEGA46WW/moc_ShppingCart.cpp",
 			null
 		],
 		[
@@ -366,6 +390,10 @@
 	"SOURCES" : 
 	[
 		[ "D:/ME/project/BookClub/Book.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/CartItem.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/Rating.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/ShppingCart.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/comment.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/main.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/mainwindow.cpp", "MU", null ]
 	],

@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-fec1780535bd90691e8f.json",
+					"jsonFile" : "directory-.-Debug-cd9677bb868278ad99ef.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -44,7 +44,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "BookClub::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-BookClub-Debug-cf1112f8a4b9cb9d09e0.json",
+					"jsonFile" : "target-BookClub-Debug-749e506092a2eccff309.json",
 					"name" : "BookClub",
 					"projectIndex" : 0
 				},
