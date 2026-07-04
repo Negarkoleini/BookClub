@@ -24,7 +24,7 @@ public:
     virtual ~User()=default;
 
     int getId()const;
-    void setId(const int &id);
+    void setId(const int &newid);
 
     std::string getUsername()const;
     void setUsername(const std::string &uname);
@@ -33,7 +33,7 @@ public:
     void setPasswordHash(const std::string &pass);
 
     std::string getEmail()const;
-    void setEmail(const std::string &email);
+    void setEmail(const std::string &newemail);
 
     std::string getRoleString()const;
     std::string getRegistrationDate() const;
