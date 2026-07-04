@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 20.0.0, 2026-07-04T17:16:56. -->
+<!-- Written by QtCreator 20.0.0, 2026-07-05T02:25:34. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -88,7 +88,7 @@
 -DQT_ENABLE_QML_DEBUG:BOOL=%{Qt:QT_ENABLE_QML_DEBUG}
 -DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}</value>
     <value type="int" key="EnableQmlDebugging">0</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">.\build\%{FileSystemFriendly:%{Kit:Name}_%{BuildConfig:Name}}</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="QString" key="CMakeProjectManager.MakeStep.BuildPreset"></value>

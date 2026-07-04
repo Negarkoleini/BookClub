@@ -45,6 +45,10 @@ void Book::addRating(const Rating &rating) {
     updateAverageRating();
 }
 
+void Book::addcomment(int userId , Comment newComment){
+    userComments.push-back(newComment);
+}
+
 bool Book::updateUserRating(int userId, int newScore) {
     for (auto &r : userRatings) {
         if (r.getUserId() == userId) {
@@ -57,6 +61,8 @@ bool Book::updateUserRating(int userId, int newScore) {
 }
 
 std::vector<Rating> Book::getRatings() const { return userRatings; }
+
+vector<Comment> Book::getComments() const{ return userComments; }
 
 double Book::getAverageRating() const { return averageRating; }
 

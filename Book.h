@@ -3,6 +3,7 @@
 
 #pragma once
 #include "Rating.h"
+#include"Comment"
 #include "Genre.h"
 #include <string>
 #include <vector>
@@ -24,6 +25,7 @@ private:
     bool isActive;      // فعال/غیرفعال توسط ناشر یا ادمین
     bool isDeleted;      // حذف نرم
     std::vector<Rating> userRatings;
+    vector<Comment> userComments:
     double averageRating;
 
 public:
@@ -51,7 +53,9 @@ public:
     void setPdfFileName(const std::string &fileName);
     void addRating(const Rating &rating);
     bool updateUserRating(int userId, int newScore);
+    void addcomment(int userId , Comment newComment);
     std::vector<Rating> getRatings() const ;
+    vector<Comment> getComments() const;
 
     bool getIsActive() const;
     void setIsActive(bool active);

@@ -17,12 +17,13 @@ qt_add_executable(BookClub
     CartItem.cpp
     CartItem.h
     Comment.h
-
     Rating.h
     Rating.cpp
     ShoppingCart.cpp
     ShoppingCart.h
     Genre.cpp
+    bookshelf.h
+    bookshelf.cpp
 )
 
 

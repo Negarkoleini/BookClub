@@ -58,6 +58,7 @@ double ShoppingCart::calculateTotalWithDiscounts(const std::vector<TimedDiscount
 }
 
 double ShoppingCart::getTotalDiscountAmount(const std::vector<TimedDiscount> &availableDiscounts,
+                                            3
                                             const std::string &currentSystemTime) const {
     double withoutDiscount = calculateTotal();
     double withDiscount = calculateTotalWithDiscounts(availableDiscounts, currentSystemTime);
