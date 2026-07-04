@@ -13,7 +13,16 @@ qt_add_executable(BookClub
     mainwindow.ui
     Book.cpp
     Book.h
-    Gener.h
+    Genre.h
+    CartItem.cpp
+    CartItem.h
+    Comment.h
+
+    Rating.h
+    Rating.cpp
+    ShoppingCart.cpp
+    ShoppingCart.h
+    Genre.cpp
 )
 
 

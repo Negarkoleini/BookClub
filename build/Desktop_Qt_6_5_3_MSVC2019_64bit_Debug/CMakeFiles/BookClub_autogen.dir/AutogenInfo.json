@@ -289,51 +289,7 @@
 	"CROSS_CONFIG" : false,
 	"DEP_FILE" : "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/BookClub_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "BookClub_autogen/timestamp",
-	"HEADERS" : 
-	[
-		[
-			"D:/ME/project/BookClub/Book.h",
-			"MU",
-			"EWIEGA46WW/moc_Book.cpp",
-			null
-		],
-		[
-			"D:/ME/project/BookClub/CartItem.h",
-			"MU",
-			"EWIEGA46WW/moc_CartItem.cpp",
-			null
-		],
-		[
-			"D:/ME/project/BookClub/Comment.h",
-			"MU",
-			"EWIEGA46WW/moc_Comment.cpp",
-			null
-		],
-		[
-			"D:/ME/project/BookClub/Genre.h",
-			"MU",
-			"EWIEGA46WW/moc_Genre.cpp",
-			null
-		],
-		[
-			"D:/ME/project/BookClub/Rating.h",
-			"MU",
-			"EWIEGA46WW/moc_Rating.cpp",
-			null
-		],
-		[
-			"D:/ME/project/BookClub/ShppingCart.h",
-			"MU",
-			"EWIEGA46WW/moc_ShppingCart.cpp",
-			null
-		],
-		[
-			"D:/ME/project/BookClub/mainwindow.h",
-			"MU",
-			"EWIEGA46WW/moc_mainwindow.cpp",
-			null
-		]
-	],
+	"HEADERS" : [],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
 	"INCLUDE_DIR" : "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/BookClub_autogen/include",
 	"MOC_COMPILATION_FILE" : "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/BookClub_autogen/mocs_compilation.cpp",
@@ -387,16 +343,7 @@
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 5,
 	"SETTINGS_FILE" : "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/CMakeFiles/BookClub_autogen.dir/AutogenUsed.txt",
-	"SOURCES" : 
-	[
-		[ "D:/ME/project/BookClub/Book.cpp", "MU", null ],
-		[ "D:/ME/project/BookClub/CartItem.cpp", "MU", null ],
-		[ "D:/ME/project/BookClub/Rating.cpp", "MU", null ],
-		[ "D:/ME/project/BookClub/ShppingCart.cpp", "MU", null ],
-		[ "D:/ME/project/BookClub/comment.cpp", "MU", null ],
-		[ "D:/ME/project/BookClub/main.cpp", "MU", null ],
-		[ "D:/ME/project/BookClub/mainwindow.cpp", "MU", null ]
-	],
+	"SOURCES" : [],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],
 	"UIC_SKIP" : [],
