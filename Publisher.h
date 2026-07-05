@@ -16,6 +16,7 @@ private:
     std::vector<TimedDiscount> activeDiscounts;
     AnalyticsData publisherAnalytics;
 
+
 public:
     Publisher(int id, std::string username, std::string passwordHash, std::string email,
               std::string registrationDate, std::string publisherName, std::string corporateId);
@@ -30,6 +31,8 @@ public:
 
     void createDiscount(const TimedDiscount &discount);
     std::vector<TimedDiscount> getActiveDiscounts() const;
+
+    void applyDiscountsToOwnBooks(const std::string &currentSystemTime);
 
     AnalyticsData getAnalytics() const;
     void updateAnalytics(const AnalyticsData &newData);
