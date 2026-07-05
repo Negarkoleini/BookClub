@@ -8,6 +8,8 @@ enum class DiscountType{
 
 class TimedDiscount{
 private:
+    int DiscountId;
+    static int NextDiscountId;
     int targetBookId;
     DiscountType discountType;
     double discountValue;
