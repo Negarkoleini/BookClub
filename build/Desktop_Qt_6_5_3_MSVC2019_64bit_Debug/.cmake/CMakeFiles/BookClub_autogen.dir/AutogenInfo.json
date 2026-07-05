@@ -289,7 +289,57 @@
 	"CROSS_CONFIG" : false,
 	"DEP_FILE" : "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/.cmake/BookClub_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "BookClub_autogen/timestamp",
-	"HEADERS" : [],
+	"HEADERS" : 
+	[
+		[
+			"D:/ME/project/BookClub/Book.h",
+			"MU",
+			"EWIEGA46WW/moc_Book.cpp",
+			null
+		],
+		[
+			"D:/ME/project/BookClub/CartItem.h",
+			"MU",
+			"EWIEGA46WW/moc_CartItem.cpp",
+			null
+		],
+		[
+			"D:/ME/project/BookClub/Comment.h",
+			"MU",
+			"EWIEGA46WW/moc_Comment.cpp",
+			null
+		],
+		[
+			"D:/ME/project/BookClub/Genre.h",
+			"MU",
+			"EWIEGA46WW/moc_Genre.cpp",
+			null
+		],
+		[
+			"D:/ME/project/BookClub/Rating.h",
+			"MU",
+			"EWIEGA46WW/moc_Rating.cpp",
+			null
+		],
+		[
+			"D:/ME/project/BookClub/ShoppingCart.h",
+			"MU",
+			"EWIEGA46WW/moc_ShoppingCart.cpp",
+			null
+		],
+		[
+			"D:/ME/project/BookClub/bookshelf.h",
+			"MU",
+			"EWIEGA46WW/moc_bookshelf.cpp",
+			null
+		],
+		[
+			"D:/ME/project/BookClub/mainwindow.h",
+			"MU",
+			"EWIEGA46WW/moc_mainwindow.cpp",
+			null
+		]
+	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
 	"INCLUDE_DIR" : "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/.cmake/BookClub_autogen/include",
 	"MOC_COMPILATION_FILE" : "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/.cmake/BookClub_autogen/mocs_compilation.cpp",
@@ -343,7 +393,17 @@
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 5,
 	"SETTINGS_FILE" : "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/.cmake/CMakeFiles/BookClub_autogen.dir/AutogenUsed.txt",
-	"SOURCES" : [],
+	"SOURCES" : 
+	[
+		[ "D:/ME/project/BookClub/Book.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/CartItem.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/Genre.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/Rating.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/ShoppingCart.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/bookshelf.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/main.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/mainwindow.cpp", "MU", null ]
+	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],
 	"UIC_SKIP" : [],

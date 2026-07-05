@@ -32,35 +32,31 @@ int ShoppingCart::getItemCount() const {
     return static_cast<int>(items.size());
 }
 
+// ShoppingCart.cpp
+
+// ۱. قیمت کل بدون هیچ تخفیفی (قیمت پایه کتاب‌ها)
 double ShoppingCart::calculateTotal() const {
     double total = 0.0;
     for (const auto &item : items) {
-        total += item.getSubtotal();
+        total += item.getBook().getBasePrice() * item.getQuantity();
     }
     return total;
 }
 
-double ShoppingCart::calculateTotalWithDiscounts(const std::vector<TimedDiscount> &availableDiscounts,
-                                                 const std::string &currentSystemTime) const {
+// ۲. قیمت کل با اعمال آنی تخفیف‌های درون کتاب‌ها
+double ShoppingCart::calculateTotalWithDiscounts(const std::string &currentSystemTime) const {
     double total = 0.0;
     for (const auto &item : items) {
-        double itemSubtotal = item.getSubtotal();
-        for (const auto &discount : availableDiscounts) {
-            if (discount.getTargetBookId() == item.getBook().getId() &&
-                discount.isActiveNow(currentSystemTime)) {
-                itemSubtotal = item.getSubtotalWithDiscount(discount, currentSystemTime);
-                break;
-            }
-        }
-        total += itemSubtotal;
+        // درخواست قیمت نهایی مستقیم از خود کتاب
+        double finalBookPrice = item.getBook().getFinalPrice(currentSystemTime);
+        total += finalBookPrice * item.getQuantity();
     }
     return total;
 }
 
-double ShoppingCart::getTotalDiscountAmount(const std::vector<TimedDiscount> &availableDiscounts,
-                                            3
-                                            const std::string &currentSystemTime) const {
+// ۳. مجموع سود کاربر از تخفیف‌ها
+double ShoppingCart::getTotalDiscountAmount(const std::string &currentSystemTime) const {
     double withoutDiscount = calculateTotal();
-    double withDiscount = calculateTotalWithDiscounts(availableDiscounts, currentSystemTime);
+    double withDiscount = calculateTotalWithDiscounts(currentSystemTime);
     return withoutDiscount - withDiscount;
 }

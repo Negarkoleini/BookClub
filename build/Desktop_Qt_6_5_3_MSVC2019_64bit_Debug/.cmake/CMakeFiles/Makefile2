@@ -69,15 +69,16 @@ clean: CMakeFiles\BookClub_autogen.dir\clean
 # Target rules for target CMakeFiles/BookClub.dir
 
 # All Build rule for target.
+CMakeFiles\BookClub.dir\all: CMakeFiles\BookClub_autogen_timestamp_deps.dir\all
 CMakeFiles\BookClub.dir\all: CMakeFiles\BookClub_autogen.dir\all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=1,2 "Built target BookClub"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target BookClub"
 .PHONY : CMakeFiles\BookClub.dir\all
 
 # Build rule for subdir invocation for target.
 CMakeFiles\BookClub.dir\rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles 11
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\all
 	$(CMAKE_COMMAND) -E cmake_progress_start D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles 0
 .PHONY : CMakeFiles\BookClub.dir\rule
@@ -124,7 +125,7 @@ CMakeFiles\BookClub_autogen_timestamp_deps.dir\clean:
 CMakeFiles\BookClub_autogen.dir\all: CMakeFiles\BookClub_autogen_timestamp_deps.dir\all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub_autogen.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub_autogen.dir\depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub_autogen.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub_autogen.dir\build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=3 "Built target BookClub_autogen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=11 "Built target BookClub_autogen"
 .PHONY : CMakeFiles\BookClub_autogen.dir\all
 
 # Build rule for subdir invocation for target.

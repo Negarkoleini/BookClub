@@ -7,6 +7,7 @@
 #include "Genre.h"
 #include <string>
 #include <vector>
+#include "TimedDiscount"
 
 using namespace std;
 
@@ -27,6 +28,7 @@ private:
     std::vector<Rating> userRatings;
     vector<Comment> userComments:
     double averageRating;
+    std::vector<TimedDiscount> discounts;
 
 public:
     Book(int id, std::string title, std::string author, int publisherId, Genre genre,
@@ -43,6 +45,7 @@ public:
     std::string getCoverImagePath() const;
     std::string getPdfFileName() const;
     std::string getPublishDate() const;
+    double getBasePrice() const;
     bool isFree() const;
     void setTitle(const std::string &newTitle);
     void setAuthor(const std::string &newAuthor);
@@ -67,6 +70,8 @@ public:
     double getAverageRating() const;
     void updateAverageRating();
     int Book::getRatingCount() const ;
+    void addDiscount(const TimedDiscount& discount);
+    double getFinalPrice(const std::string& currentSystemTime) const;
 };
 
 #endif // BOOK_H

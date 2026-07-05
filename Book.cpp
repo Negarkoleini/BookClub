@@ -79,3 +79,30 @@ void Book::updateAverageRating() {
 int Book::getRatingCount() const {
     return static_cast<int>(userRatings.size());
 }
+
+double getBasePrice() const { return basePrice; }
+
+void addDiscount(const TimedDiscount& discount) {
+    discounts.push_back(discount);
+}
+
+double getFinalPrice(const std::string& currentSystemTime) const {
+    double finalPrice = basePrice;
+
+    for (const auto& discount : discounts) {
+        if (discount.isActiveNow(currentSystemTime)) {
+            if (discount.getType() == DiscountType::PERCENTAGE) {
+                // اعمال تخفیف درصدی (مثلاً ۲۰ درصد تخفیف)
+                finalPrice -= (basePrice * (discount.getValue() / 100.0));
+            } else if (discount.getType() == DiscountType::CASH) {
+                // اعمال تخفیف مبلغی (مثلاً ۵۰ هزار تومان تخفیف)
+                finalPrice -= discount.getValue();
+            }
+            // اگر داک گفته فقط یک تخفیف همزمان اعمال شود:
+            break;
+        }
+    }
+
+    // قیمت نباید منفی شود
+    return finalPrice < 0.0 ? 0.0 : finalPrice;
+}
