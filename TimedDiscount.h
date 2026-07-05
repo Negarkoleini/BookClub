@@ -2,16 +2,22 @@
 #define TIMEDDISCOUNT_H
 #include<string>
 
+enum class DiscountType{
+    Percentage,Cash
+};
+
 class TimedDiscount{
 private:
     int targetBookId;
-    double discountPercentage;
+    DiscountType discountType;
+    double discountValue;
     std::string startDateTime;
     std::string endDateTime;
 public:
-    TimedDiscount(int targetBookId, double discountPercentage, std::string startDateTime, std::string endDateTime);
+    TimedDiscount(int targetBookId, double discountValue, std::string startDateTime, std::string endDateTime);
     int getTargetBookId() const;
-    double getDiscountPercentage() const;
+    DiscountType getDiscountType() const;
+    double getDiscountValue() const;
     bool isActiveNow(const std::string &currentSystemTime) const;
     double getDiscountedPrice(double originalPrice) const;
 
