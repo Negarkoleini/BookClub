@@ -1,24 +1,41 @@
 #include "TimedDiscount.h"
 
-TimedDiscount::TimedDiscount(int targetBookId, double discountPercentage, std::string startDateTime, std::string endDateTime):
+TimedDiscount::TimedDiscount(int targetBookId, double discountValue, std::string startDateTime, std::string endDateTime):
 targetBookId(targetBookId),
-discountPercentage(discountPercentage>=0.0 && discountPercentage<=100?discountPercentage:0.0),
+discountValue(discountValue),
 startDateTime(startDateTime),
 endDateTime(endDateTime){}
 
 int TimedDiscount::getTargetBookId() const{
     return targetBookId;
 }
-double TimedDiscount::getDiscountPercentage() const{
-    return discountPercentage;
+DiscountType TimedDiscount::getDiscountType() const {
+    return discountType;
+}
+double TimedDiscount::getDiscountValue() const{
+    return discountValue;
 }
 bool TimedDiscount::isActiveNow(const std::string &currentSystemTime) const{
     return currentSystemTime>=startDateTime && currentSystemTime<=endDateTime;
 }
 double TimedDiscount::getDiscountedPrice(double originalPrice) const{
-    if (originalPrice < 0.0) {
-        return 0.0;
+    double finalPrice = originalPrice;
+
+    switch (discountType) {
+    case DiscountType::Percentage: {
+        double clampedPercentage = std::min(std::max(discountValue, 0.0), 100.0);
+        finalPrice = originalPrice - (originalPrice * (clampedPercentage / 100.0));
+        break;
     }
-    double discountamount=originalPrice*(discountPercentage/100.0);
-    return originalPrice-discountamount;
+    case DiscountType::Cash: {
+        finalPrice = originalPrice - discountValue;
+        break;
+    }
+    }
+
+    if (finalPrice < 0.0) {
+        finalPrice = 0.0;
+    }
+
+    return finalPrice;
 }
