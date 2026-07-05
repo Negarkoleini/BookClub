@@ -38,10 +38,36 @@ bool Publisher::softDeleteBook(int bookId){
 }
 
 void Publisher::createDiscount(const TimedDiscount &discount){
+    bool ownsBook=std::any_of(publishedBooks.begin(),publishedBooks.end(),
+                               [&discount](const Book &b){
+                                   return b.getId()==discount.getTargetBookId();
+    });
+    if(ownsBook){
     activeDiscounts.push_back(discount);
+    }
 }
 std::vector<TimedDiscount> Publisher::getActiveDiscounts(){
     return activeDiscounts;
+}
+void Publisher::applyDiscountsToOwnBooks(const std::string &currentSystemTime) {
+    for (Book &book : publishedBooks) {
+        bool discountFound = false;
+
+        for (const TimedDiscount &discount : activeDiscounts) {
+            if (discount.getTargetBookId() == book.getId() &&
+                discount.isActiveNow(currentSystemTime)) {
+
+                double newPrice = discount.getDiscountedPrice(book.getBasePrice());
+                book.FinalPrice(newPrice);
+                discountFound = true;
+                break;
+            }
+        }
+
+        if (!discountFound) {
+            book.clearDiscount();
+        }
+    }
 }
 
 AnalyticsData Publisher::getAnalytics() const{
