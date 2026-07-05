@@ -16,6 +16,9 @@ bool TimedDiscount::isActiveNow(const std::string &currentSystemTime) const{
     return currentSystemTime>=startDateTime && currentSystemTime<=endDateTime;
 }
 double TimedDiscount::getDiscountedPrice(double originalPrice) const{
+    if (originalPrice < 0.0) {
+        return 0.0;
+    }
     double discountamount=originalPrice*(discountPercentage/100.0);
     return originalPrice-discountamount;
 }
