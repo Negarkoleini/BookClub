@@ -27,7 +27,24 @@ qt_add_executable(BookClub
     AppNotification.h AppNotification.cpp
     NetworkMessage.h NetworkMessage.cpp
     CommandType.h
-    Gener.h
+    User.h
+    User.cpp
+    Admin.h
+    Admin.cpp
+    RegularUser.h
+    RegularUser.cpp
+    Publisher.h
+    Publisher.cpp
+    TimedDiscount.cpp
+    TimedDiscount.cpp
+    AnalyticsData.h
+    AnalyticsData.cpp
+    SecurityUtils.h
+    SecurityUtils.cpp
+    Transaction.h
+    Transaction.cpp
+    ReadingSession.h
+    ReadingSession.cpp
 )
 
 
