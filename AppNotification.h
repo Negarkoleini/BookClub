@@ -17,8 +17,8 @@ private:
     std::string timestamp;   // همیشه توسط خودِ کلاس، هنگام ساخت، پر می‌شود
     int targetUserId;
 
-    // زمان لحظه‌ی حال سیستم را به‌صورت رشته‌ی قابل‌ذخیره برمی‌گرداند (مثل "2026-07-05 14:32:07")
-    static std::string getCurrentTimestamp();
+    static std::string getCurrentTime();
+
 
 public:
     // توجه: پارامتر timestamp دیگر گرفته نمی‌شود؛ خودِ سازنده آن را ست می‌کند

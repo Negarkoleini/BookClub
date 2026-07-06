@@ -321,6 +321,30 @@ Genre.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Genre.cpp.s
 .PHONY : Genre.cpp.s
 
+NetworkMessage.obj: NetworkMessage.cpp.obj
+.PHONY : NetworkMessage.obj
+
+# target to build an object file
+NetworkMessage.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\NetworkMessage.cpp.obj
+.PHONY : NetworkMessage.cpp.obj
+
+NetworkMessage.i: NetworkMessage.cpp.i
+.PHONY : NetworkMessage.i
+
+# target to preprocess a source file
+NetworkMessage.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\NetworkMessage.cpp.i
+.PHONY : NetworkMessage.cpp.i
+
+NetworkMessage.s: NetworkMessage.cpp.s
+.PHONY : NetworkMessage.s
+
+# target to generate assembly for a file
+NetworkMessage.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\NetworkMessage.cpp.s
+.PHONY : NetworkMessage.cpp.s
+
 Rating.obj: Rating.cpp.obj
 .PHONY : Rating.obj
 
@@ -449,6 +473,9 @@ help:
 	@echo ... Genre.obj
 	@echo ... Genre.i
 	@echo ... Genre.s
+	@echo ... NetworkMessage.obj
+	@echo ... NetworkMessage.i
+	@echo ... NetworkMessage.s
 	@echo ... Rating.obj
 	@echo ... Rating.i
 	@echo ... Rating.s

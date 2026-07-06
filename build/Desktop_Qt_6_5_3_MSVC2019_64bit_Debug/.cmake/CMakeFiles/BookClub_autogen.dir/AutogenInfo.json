@@ -316,6 +316,12 @@
 			null
 		],
 		[
+			"D:/ME/project/BookClub/CommandType.h",
+			"MU",
+			"EWIEGA46WW/moc_CommandType.cpp",
+			null
+		],
+		[
 			"D:/ME/project/BookClub/Comment.h",
 			"MU",
 			"EWIEGA46WW/moc_Comment.cpp",
@@ -325,6 +331,12 @@
 			"D:/ME/project/BookClub/Genre.h",
 			"MU",
 			"EWIEGA46WW/moc_Genre.cpp",
+			null
+		],
+		[
+			"D:/ME/project/BookClub/NetworkMessage.h",
+			"MU",
+			"EWIEGA46WW/moc_NetworkMessage.cpp",
 			null
 		],
 		[
@@ -406,6 +418,7 @@
 		[ "D:/ME/project/BookClub/Bookshelf.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/CartItem.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/Genre.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/NetworkMessage.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/Rating.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/ShoppingCart.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/main.cpp", "MU", null ],

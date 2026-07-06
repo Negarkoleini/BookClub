@@ -25,6 +25,8 @@ qt_add_executable(BookClub
     Bookshelf.h
     Bookshelf.cpp
     AppNotification.h AppNotification.cpp
+    NetworkMessage.h NetworkMessage.cpp
+    CommandType.h
 )
 
 

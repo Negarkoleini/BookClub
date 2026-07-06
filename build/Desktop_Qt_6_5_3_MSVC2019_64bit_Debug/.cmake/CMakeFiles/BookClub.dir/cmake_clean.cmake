@@ -15,6 +15,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/BookClub.dir/CartItem.cpp.obj.d"
   "CMakeFiles/BookClub.dir/Genre.cpp.obj"
   "CMakeFiles/BookClub.dir/Genre.cpp.obj.d"
+  "CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj"
+  "CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj.d"
   "CMakeFiles/BookClub.dir/Rating.cpp.obj"
   "CMakeFiles/BookClub.dir/Rating.cpp.obj.d"
   "CMakeFiles/BookClub.dir/ShoppingCart.cpp.obj"

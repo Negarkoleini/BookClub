@@ -1,38 +1,20 @@
 #include "AppNotification.h"
-#include <chrono>
-#include <ctime>
-#include <sstream>
-#include <iomanip>
+#include <QDateTime>
 
-// ----------------------------------------------------------------------
-// زمان لحظه‌ی حال سیستم (system clock) را می‌گیرد و به فرمت "YYYY-MM-DD HH:MM:SS"
-// تبدیل می‌کند. این متد private است چون فقط خودِ کلاس باید صدایش بزند؛
-// هیچ کد بیرونی نباید مستقیماً زمان بسازد و به AppNotification تحمیل کند.
-// ----------------------------------------------------------------------
-std::string AppNotification::getCurrentTimestamp() {
-    using namespace std::chrono;
-
-    const auto now = system_clock::now();
-    const std::time_t nowAsTimeT = system_clock::to_time_t(now);
-
-    std::tm localTm{};
-#if defined(_WIN32)
-    localtime_s(&localTm, &nowAsTimeT);
-#else
-    localtime_r(&nowAsTimeT, &localTm);
-#endif
-
-    std::ostringstream oss;
-    oss << std::put_time(&localTm, "%Y-%m-%d %H:%M:%S");
-    return oss.str();
+std::string AppNotification::getCurrentTime()
+{
+    return QDateTime::currentDateTime()
+    .toString("yyyy-MM-dd HH:mm:ss")
+        .toStdString();
 }
+
 
 AppNotification::AppNotification(int id, NotificationType type, std::string message, int targetUserId)
     : id(id),
     type(type),
     message(std::move(message)),
     isRead(false),
-    timestamp(getCurrentTimestamp()),   // <-- همین‌جا، لحظه‌ی ساخت آبجکت، زمان سیستم ثبت می‌شود
+    timestamp(getCurrentTime()),
     targetUserId(targetUserId) {
 }
 
@@ -44,9 +26,6 @@ std::string AppNotification::getMessage() const { return message; }
 std::string AppNotification::getTimestamp() const { return timestamp; }
 int AppNotification::getTargetUserId() const { return targetUserId; }
 
-// ----------------------------------------------------------------------
-// متدهای کارخانه‌ای -- دیگر timestamp نمی‌گیرند، چون سازنده خودش می‌سازدش
-// ----------------------------------------------------------------------
 AppNotification AppNotification::createNewBookNotification(int id, int targetUserId,
                                                            const std::string &bookTitle) {
     std::string msg = "کتاب جدیدی با عنوان \"" + bookTitle + "\" در یکی از ژانرهای مورد علاقه‌ی شما منتشر شد.";

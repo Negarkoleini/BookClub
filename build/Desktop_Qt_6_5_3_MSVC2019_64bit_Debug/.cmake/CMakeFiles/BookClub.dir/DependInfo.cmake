@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/ME/project/BookClub/Bookshelf.cpp" "CMakeFiles/BookClub.dir/Bookshelf.cpp.obj" "msvc" "CMakeFiles/BookClub.dir/Bookshelf.cpp.obj.d"
   "D:/ME/project/BookClub/CartItem.cpp" "CMakeFiles/BookClub.dir/CartItem.cpp.obj" "msvc" "CMakeFiles/BookClub.dir/CartItem.cpp.obj.d"
   "D:/ME/project/BookClub/Genre.cpp" "CMakeFiles/BookClub.dir/Genre.cpp.obj" "msvc" "CMakeFiles/BookClub.dir/Genre.cpp.obj.d"
+  "D:/ME/project/BookClub/NetworkMessage.cpp" "CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj" "msvc" "CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj.d"
   "D:/ME/project/BookClub/Rating.cpp" "CMakeFiles/BookClub.dir/Rating.cpp.obj" "msvc" "CMakeFiles/BookClub.dir/Rating.cpp.obj.d"
   "D:/ME/project/BookClub/ShoppingCart.cpp" "CMakeFiles/BookClub.dir/ShoppingCart.cpp.obj" "msvc" "CMakeFiles/BookClub.dir/ShoppingCart.cpp.obj.d"
   "D:/ME/project/BookClub/main.cpp" "CMakeFiles/BookClub.dir/main.cpp.obj" "msvc" "CMakeFiles/BookClub.dir/main.cpp.obj.d"
