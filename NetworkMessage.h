@@ -2,8 +2,6 @@
 #include <vector>
 #include "CommandType.h"
 
-// قالب‌بندی پیام‌های شبکه‌ای بین کلاینت و سرور
-// ساختار باینری: [commandType (4 بایت)][dataLength (4 بایت)][payload]
 class NetworkMessage {
 private:
     CommandType commandType;

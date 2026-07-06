@@ -72,9 +72,7 @@ NetworkMessage NetworkMessage::unwrap(const std::vector<char>& rawData)
             "NetworkMessage::unwrap - Invalid payload length");
     }
 
-    std::vector<char> payloadData(
-        rawData.begin() + HEADER_SIZE,
-        rawData.begin() + HEADER_SIZE + length);
+    std::vector<char> payloadData(rawData.begin() + HEADER_SIZE, rawData.begin() + HEADER_SIZE + length);
 
     return NetworkMessage(
         static_cast<CommandType>(cmd),

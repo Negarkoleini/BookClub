@@ -3,7 +3,7 @@
 
 #pragma once
 #include "Rating.h"
-#include"Comment"
+#include"Comment.h"
 #include "Genre.h"
 #include <string>
 #include <vector>
@@ -24,10 +24,10 @@ private:
     std::string coverImagePath;
     std::string pdfFileName;
     std::string publishDate;
-    bool isActive;      // فعال/غیرفعال توسط ناشر یا ادمین
-    bool isDeleted;      // حذف نرم
+    bool isActive;
+    bool isDeleted;
     std::vector<Rating> userRatings;
-    vector<Comment> userComments:
+    vector<Comment> userComments;
     double averageRating;
     std::vector<TimedDiscount> discounts;
 
@@ -42,7 +42,6 @@ public:
     int getPublisherId() const;
     Genre getGenre() const;
     std::string getDescription() const;
-    double getBasePrice() const;
     std::string getCoverImagePath() const;
     std::string getPdfFileName() const;
     std::string getPublishDate() const;
@@ -66,8 +65,6 @@ public:
     bool getIsDeleted() const;
     void setIsDeleted(bool deleted);
 
-    void addRating(const Rating &rating);
-    std::vector<Rating> getRatings() const;
     double getAverageRating() const;
     void updateAverageRating();
     int getRatingCount() const ;

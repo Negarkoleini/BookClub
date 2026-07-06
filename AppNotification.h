@@ -14,14 +14,14 @@ private:
     NotificationType type;
     std::string message;
     bool isRead;
-    std::string timestamp;   // همیشه توسط خودِ کلاس، هنگام ساخت، پر می‌شود
+    std::string timestamp;
     int targetUserId;
 
     static std::string getCurrentTime();
 
 
 public:
-    // توجه: پارامتر timestamp دیگر گرفته نمی‌شود؛ خودِ سازنده آن را ست می‌کند
+
     AppNotification(int id, NotificationType type, std::string message, int targetUserId);
 
     void markAsRead();
@@ -32,8 +32,7 @@ public:
     std::string getTimestamp() const;
     int getTargetUserId() const;
 
-    // متدهای کارخانه‌ای (Factory) برای ساخت آسان انواع اعلان‌های ذکرشده در سند (بخش ۵)
-    // این‌ها هم دیگر timestamp نمی‌گیرند؛ همان لحظه‌ی فراخوانی به‌صورت خودکار ثبت می‌شود
+    // متدهای کارخانه‌ای (Factory)
     static AppNotification createNewBookNotification(int id, int targetUserId, const std::string &bookTitle);
     static AppNotification createDiscountNotification(int id, int targetUserId, const std::string &bookTitle,
                                                       double discountPercentage);

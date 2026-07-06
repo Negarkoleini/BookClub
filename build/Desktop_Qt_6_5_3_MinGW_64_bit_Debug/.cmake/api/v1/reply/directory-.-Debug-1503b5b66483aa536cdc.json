@@ -17,13 +17,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 38,
+				"line" : 39,
 				"parent" : 0
 			},
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 49,
+				"line" : 50,
 				"parent" : 0
 			}
 		]
@@ -45,7 +45,7 @@
 		{
 			"backtrace" : 2,
 			"component" : "Unspecified",
-			"scriptFile" : "build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/.cmake/.qt/deploy_BookClub_1d2142431c.cmake",
+			"scriptFile" : "build/Desktop_Qt_6_5_3_MinGW_64_bit_Debug/.qt/deploy_BookClub_1d2142431c.cmake",
 			"type" : "script"
 		}
 	],
