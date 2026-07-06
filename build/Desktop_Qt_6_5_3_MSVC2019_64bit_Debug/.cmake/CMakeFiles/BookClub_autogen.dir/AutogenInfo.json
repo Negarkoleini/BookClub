@@ -292,9 +292,21 @@
 	"HEADERS" : 
 	[
 		[
+			"D:/ME/project/BookClub/AppNotification.h",
+			"MU",
+			"EWIEGA46WW/moc_AppNotification.cpp",
+			null
+		],
+		[
 			"D:/ME/project/BookClub/Book.h",
 			"MU",
 			"EWIEGA46WW/moc_Book.cpp",
+			null
+		],
+		[
+			"D:/ME/project/BookClub/Bookshelf.h",
+			"MU",
+			"EWIEGA46WW/moc_Bookshelf.cpp",
 			null
 		],
 		[
@@ -325,12 +337,6 @@
 			"D:/ME/project/BookClub/ShoppingCart.h",
 			"MU",
 			"EWIEGA46WW/moc_ShoppingCart.cpp",
-			null
-		],
-		[
-			"D:/ME/project/BookClub/bookshelf.h",
-			"MU",
-			"EWIEGA46WW/moc_bookshelf.cpp",
 			null
 		],
 		[
@@ -395,12 +401,13 @@
 	"SETTINGS_FILE" : "D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Debug/.cmake/CMakeFiles/BookClub_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[ "D:/ME/project/BookClub/AppNotification.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/Book.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/Bookshelf.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/CartItem.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/Genre.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/Rating.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/ShoppingCart.cpp", "MU", null ],
-		[ "D:/ME/project/BookClub/bookshelf.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/main.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/mainwindow.cpp", "MU", null ]
 	],

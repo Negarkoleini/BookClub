@@ -22,8 +22,9 @@ qt_add_executable(BookClub
     ShoppingCart.cpp
     ShoppingCart.h
     Genre.cpp
-    bookshelf.h
-    bookshelf.cpp
+    Bookshelf.h
+    Bookshelf.cpp
+    AppNotification.h AppNotification.cpp
 )
 
 

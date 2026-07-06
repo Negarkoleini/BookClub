@@ -177,6 +177,30 @@ BookClub_autogen\fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub_autogen.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub_autogen.dir\build
 .PHONY : BookClub_autogen\fast
 
+AppNotification.obj: AppNotification.cpp.obj
+.PHONY : AppNotification.obj
+
+# target to build an object file
+AppNotification.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\AppNotification.cpp.obj
+.PHONY : AppNotification.cpp.obj
+
+AppNotification.i: AppNotification.cpp.i
+.PHONY : AppNotification.i
+
+# target to preprocess a source file
+AppNotification.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\AppNotification.cpp.i
+.PHONY : AppNotification.cpp.i
+
+AppNotification.s: AppNotification.cpp.s
+.PHONY : AppNotification.s
+
+# target to generate assembly for a file
+AppNotification.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\AppNotification.cpp.s
+.PHONY : AppNotification.cpp.s
+
 Book.obj: Book.cpp.obj
 .PHONY : Book.obj
 
@@ -224,6 +248,30 @@ BookClub_autogen\mocs_compilation.s: BookClub_autogen\mocs_compilation.cpp.s
 BookClub_autogen\mocs_compilation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\BookClub_autogen\mocs_compilation.cpp.s
 .PHONY : BookClub_autogen\mocs_compilation.cpp.s
+
+Bookshelf.obj: Bookshelf.cpp.obj
+.PHONY : Bookshelf.obj
+
+# target to build an object file
+Bookshelf.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Bookshelf.cpp.obj
+.PHONY : Bookshelf.cpp.obj
+
+Bookshelf.i: Bookshelf.cpp.i
+.PHONY : Bookshelf.i
+
+# target to preprocess a source file
+Bookshelf.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Bookshelf.cpp.i
+.PHONY : Bookshelf.cpp.i
+
+Bookshelf.s: Bookshelf.cpp.s
+.PHONY : Bookshelf.s
+
+# target to generate assembly for a file
+Bookshelf.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Bookshelf.cpp.s
+.PHONY : Bookshelf.cpp.s
 
 CartItem.obj: CartItem.cpp.obj
 .PHONY : CartItem.obj
@@ -321,30 +369,6 @@ ShoppingCart.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\ShoppingCart.cpp.s
 .PHONY : ShoppingCart.cpp.s
 
-bookshelf.obj: bookshelf.cpp.obj
-.PHONY : bookshelf.obj
-
-# target to build an object file
-bookshelf.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\bookshelf.cpp.obj
-.PHONY : bookshelf.cpp.obj
-
-bookshelf.i: bookshelf.cpp.i
-.PHONY : bookshelf.i
-
-# target to preprocess a source file
-bookshelf.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\bookshelf.cpp.i
-.PHONY : bookshelf.cpp.i
-
-bookshelf.s: bookshelf.cpp.s
-.PHONY : bookshelf.s
-
-# target to generate assembly for a file
-bookshelf.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\bookshelf.cpp.s
-.PHONY : bookshelf.cpp.s
-
 main.obj: main.cpp.obj
 .PHONY : main.obj
 
@@ -407,12 +431,18 @@ help:
 	@echo ... BookClub_autogen
 	@echo ... BookClub_autogen_timestamp_deps
 	@echo ... BookClub
+	@echo ... AppNotification.obj
+	@echo ... AppNotification.i
+	@echo ... AppNotification.s
 	@echo ... Book.obj
 	@echo ... Book.i
 	@echo ... Book.s
 	@echo ... BookClub_autogen/mocs_compilation.obj
 	@echo ... BookClub_autogen/mocs_compilation.i
 	@echo ... BookClub_autogen/mocs_compilation.s
+	@echo ... Bookshelf.obj
+	@echo ... Bookshelf.i
+	@echo ... Bookshelf.s
 	@echo ... CartItem.obj
 	@echo ... CartItem.i
 	@echo ... CartItem.s
@@ -425,9 +455,6 @@ help:
 	@echo ... ShoppingCart.obj
 	@echo ... ShoppingCart.i
 	@echo ... ShoppingCart.s
-	@echo ... bookshelf.obj
-	@echo ... bookshelf.i
-	@echo ... bookshelf.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

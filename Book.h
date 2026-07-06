@@ -14,6 +14,7 @@ using namespace std;
 class Book {
 private:
     int id;
+    static int nextId;
     std::string title;
     std::string author;
     int publisherId;
@@ -31,7 +32,7 @@ private:
     std::vector<TimedDiscount> discounts;
 
 public:
-    Book(int id, std::string title, std::string author, int publisherId, Genre genre,
+    Book(std::string title, std::string author, int publisherId, Genre genre,
          std::string description, double basePrice, std::string coverImagePath,
          std::string pdfFileName, std::string publishDate);
 
@@ -69,7 +70,8 @@ public:
     std::vector<Rating> getRatings() const;
     double getAverageRating() const;
     void updateAverageRating();
-    int Book::getRatingCount() const ;
+    int getRatingCount() const ;
+    bool removeDiscount(int discountId);
     void addDiscount(const TimedDiscount& discount);
     double getFinalPrice(const std::string& currentSystemTime) const;
 };

@@ -1,6 +1,7 @@
 #include "Book.h"
 #include "CartItem.h"
 #include "ShoppingCart.h"
+#include "Bookshelf.h"
 #include <algorithm>
 
 ShoppingCart::ShoppingCart(int ownerUserId) : ownerUserId(ownerUserId) {
@@ -59,4 +60,25 @@ double ShoppingCart::getTotalDiscountAmount(const std::string &currentSystemTime
     double withoutDiscount = calculateTotal();
     double withDiscount = calculateTotalWithDiscounts(currentSystemTime);
     return withoutDiscount - withDiscount;
+}
+
+// این متد را به ShoppingCart.h هم در بخش public اضافه کن:
+// bool checkout(Bookshelf &library);
+
+bool ShoppingCart::checkout(Bookshelf &library) {
+    // ۱. اگر سبد خرید خالی باشد، خریدی انجام نمی‌شود
+    if (items.empty()) {
+        return false;
+    }
+
+    // ۲. انتقال تک‌تک کتاب‌های سبد خرید به بخش کتاب‌های من در کتابخانه کاربر
+    for (const auto &item : items) {
+        // شیء کامل کتاب را به کتابخانه شخصی می‌فرستیم
+        library.addPurchasedBook(item.getBook());
+    }
+
+    // ۳. خالی کردن سبد خرید بعد از انتقال موفق کتاب‌ها
+    clearAll();
+
+    return true;
 }

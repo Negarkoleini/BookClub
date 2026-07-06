@@ -5,13 +5,16 @@
 
 using namespace std;
 
-Book::Book(int id, std::string title, std::string author, int publisherId, Genre genre,
+nextId = 1;
+
+Book::Book(std::string title, std::string author, int publisherId, Genre genre,
            std::string description, double basePrice, std::string coverImagePath,
            std::string pdfFileName, std::string publishDate)
-    : id(id), title(std::move(title)), author(std::move(author)), publisherId(publisherId),
+    : id(nextId), title(std::move(title)), author(std::move(author)), publisherId(publisherId),
     genre(genre), description(std::move(description)), basePrice(basePrice),
     coverImagePath(std::move(coverImagePath)), pdfFileName(std::move(pdfFileName)),
     publishDate(std::move(publishDate)), isActive(true), isDeleted(false), averageRating(0.0) {
+    ++nextId;
 }
 
 int Book::getId() const { return id; }
@@ -81,6 +84,21 @@ int Book::getRatingCount() const {
 }
 
 double getBasePrice() const { return basePrice; }
+
+bool Book::removeDiscount(int discountId)
+{
+    auto it = std::remove_if(discounts.begin(), discounts.end(),
+                             [discountId](const TimedDiscount& d)
+                             {
+                                 return d.getId() == discountId;
+                             });
+
+    if (it == discounts.end())
+        return false;   // تخفیفی با این شناسه پیدا نشد
+
+    discounts.erase(it, discounts.end());
+    return true;
+}
 
 void addDiscount(const TimedDiscount& discount) {
     discounts.push_back(discount);

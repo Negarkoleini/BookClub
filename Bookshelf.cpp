@@ -1,5 +1,6 @@
 #include "Bookshelf.h"
 #include <algorithm>
+#include <iostream>
 
 // سازنده کلاس
 Bookshelf::Bookshelf(int shelfId, std::string shelfName)
@@ -38,16 +39,21 @@ std::vector<int> Bookshelf::getBookIds() const { return bookIds; }
 
 
 // --- الف) بخش کتاب‌های من (خریداری‌شده) ---
-void Bookshelf::addPurchasedBook(int bookId) {
-    if (!isBookPurchased(bookId)) {
-        myBooksIds.push_back(bookId);
+void Bookshelf::addPurchasedBook(const Book &book) {
+    if (!isBookPurchased(book.getId())) {
+        myBooks.push_back(book);
     }
 }
 
-std::vector<int> getPurchasedBookIds() const { return myBooksIds; }
+std::vector<Book> Bookshelf::getPurchasedBooks() const {
+    return myBooks;
+}
 
 bool Bookshelf::isBookPurchased(int bookId) const {
-    return std::find(myBooksIds.begin(), myBooksIds.end(), bookId) != myBooksIds.end();
+    for (const auto &book : myBooks) {
+        if (book.getId() == bookId) return true;
+    }
+    return false;
 }
 
 
@@ -69,13 +75,10 @@ std::vector<int> Bookshelf::getSavedBookIds() const { return savedBooksIds; }
 
 
 // --- ج) مدیریت قفسه‌ها و دسته‌بندی‌های شخصی ---
-
-// ایجاد قفسه جدید
 void Bookshelf::createCustomShelf(const std::string &name) {
     customSubShelves.emplace_back(nextSubShelfId++, name);
 }
 
-// حذف قفسه
 void Bookshelf::deleteCustomShelf(int subShelfId) {
     for (auto it = customSubShelves.begin(); it != customSubShelves.end(); ++it) {
         if (it->getShelfId() == subShelfId) {
@@ -85,7 +88,6 @@ void Bookshelf::deleteCustomShelf(int subShelfId) {
     }
 }
 
-// ویرایش/تغییر نام قفسه
 void Bookshelf::renameCustomShelf(int subShelfId, const std::string &newName) {
     for (auto &shelf : customSubShelves) {
         if (shelf.getShelfId() == subShelfId) {
@@ -95,11 +97,9 @@ void Bookshelf::renameCustomShelf(int subShelfId, const std::string &newName) {
     }
 }
 
-// افزودن کتاب خریداری‌شده به قفسه دلخواه
 bool Bookshelf::addBookToCustomShelf(int subShelfId, int bookId) {
-    // طبق داک، فقط کتاب‌هایی که قبلاً خریداری شده‌اند می‌توانند به قفسه‌ها اضافه شوند
     if (!isBookPurchased(bookId)) {
-        return false;
+        return false; // فقط کتاب‌های خریداری شده اجازه ورود به قفسه شخصی را دارند
     }
 
     for (auto &shelf : customSubShelves) {
@@ -111,7 +111,6 @@ bool Bookshelf::addBookToCustomShelf(int subShelfId, int bookId) {
     return false;
 }
 
-// حذف کتاب از یک قفسه خاص
 bool Bookshelf::removeBookFromCustomShelf(int subShelfId, int bookId) {
     for (auto &shelf : customSubShelves) {
         if (shelf.getShelfId() == subShelfId) {
@@ -122,18 +121,15 @@ bool Bookshelf::removeBookFromCustomShelf(int subShelfId, int bookId) {
     return false;
 }
 
-// انتقال کتاب بین دو قفسه شخصی کاربر
 bool Bookshelf::moveBookBetweenCustomShelves(int fromShelfId, int toShelfId, int bookId) {
     Bookshelf* fromShelf = nullptr;
     Bookshelf* toShelf = nullptr;
 
-    // پیدا کردن قفسه‌های مبدا و مقصد
     for (auto &shelf : customSubShelves) {
         if (shelf.getShelfId() == fromShelfId) fromShelf = &shelf;
         if (shelf.getShelfId() == toShelfId) toShelf = &shelf;
     }
 
-    // اگر هر دو قفسه پیدا شدند و کتاب در مبدا بود، جابه‌جایی صورت می‌گیرد
     if (fromShelf && toShelf && fromShelf->containsBook(bookId)) {
         fromShelf->removeBook(bookId);
         toShelf->addBook(bookId);
@@ -142,7 +138,6 @@ bool Bookshelf::moveBookBetweenCustomShelves(int fromShelfId, int toShelfId, int
     return false;
 }
 
-// دریافت لیست کامل قفسه‌ها برای نمایش و سازماندهی
 std::vector<Bookshelf> Bookshelf::getCustomShelves() const {
     return customSubShelves;
 }
