@@ -8,6 +8,9 @@
 #include <string>
 #include <vector>
 #include "TimedDiscount"
+#include "Genre.h"
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -33,6 +36,13 @@ private:
 
 public:
     Book(std::string title, std::string author, int publisherId, Genre genre,
+    bool isActive;      // فعال/غیرفعال توسط ناشر یا ادمین
+    bool isDeleted;      // حذف نرم
+    std::vector<Rating> userRatings;
+    double averageRating;
+
+public:
+    Book(int id, std::string title, std::string author, int publisherId, Genre genre,
          std::string description, double basePrice, std::string coverImagePath,
          std::string pdfFileName, std::string publishDate);
 
@@ -59,6 +69,11 @@ public:
     void addcomment(int userId , Comment newComment);
     std::vector<Rating> getRatings() const ;
     vector<Comment> getComments() const;
+    double getBasePrice() const;
+    std::string getCoverImagePath() const;
+    std::string getPdfFileName() const;
+    std::string getPublishDate() const;
+    bool isFree() const;
 
     bool getIsActive() const;
     void setIsActive(bool active);
@@ -71,6 +86,10 @@ public:
     bool removeDiscount(int discountId);
     void addDiscount(const TimedDiscount& discount);
     double getFinalPrice(const std::string& currentSystemTime) const;
+    void addRating(const Rating &rating);
+    std::vector<Rating> getRatings() const;
+    double getAverageRating() const;
+    void updateAverageRating();
 };
 
 #endif // BOOK_H

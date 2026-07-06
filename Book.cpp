@@ -124,3 +124,5 @@ double getFinalPrice(const std::string& currentSystemTime) const {
     // قیمت نباید منفی شود
     return finalPrice < 0.0 ? 0.0 : finalPrice;
 }
+
+Book::Book() {}
