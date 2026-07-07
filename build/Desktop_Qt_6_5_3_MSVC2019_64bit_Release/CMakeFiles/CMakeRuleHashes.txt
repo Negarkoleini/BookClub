@@ -1,3 +1,0 @@
-# Hashes of file build rules.
-33dd60933749dc03539e7d718a944fbe BookClub_autogen/timestamp
-3812a6eb027f152290446458175af045 CMakeFiles/BookClub_autogen

@@ -1,3 +1,0 @@
-D:\ME\Tools\CMake_64\bin\cmake.exe -E rm -f CMakeFiles\BookClub.dir/objects.a
-D:\ME\Tools\mingw1120_64\bin\ar.exe qc CMakeFiles\BookClub.dir/objects.a @CMakeFiles\BookClub.dir\objects1.rsp
-D:\ME\Tools\mingw1120_64\bin\g++.exe -g -mwindows -Wl,--whole-archive CMakeFiles\BookClub.dir/objects.a -Wl,--no-whole-archive -o BookClub.exe -Wl,--out-implib,libBookClub.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\BookClub.dir\linkLibs.rsp
