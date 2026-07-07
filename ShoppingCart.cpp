@@ -27,7 +27,9 @@ void ShoppingCart::clearAll() {
     items.clear();
 }
 
-std::vector<CartItem> ShoppingCart::getItems() const { return items; }
+const std::vector<CartItem>& ShoppingCart::getItems() const {
+    return items;
+}
 
 int ShoppingCart::getItemCount() const {
     return static_cast<int>(items.size());

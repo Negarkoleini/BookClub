@@ -278,6 +278,186 @@ CMakeFiles\BookClub.dir\NetworkMessage.cpp.s: cmake_force
  /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\BookClub.dir\NetworkMessage.cpp.s /c D:\ME\project\BookClub\NetworkMessage.cpp
 <<
 
+CMakeFiles\BookClub.dir\User.cpp.obj: CMakeFiles\BookClub.dir\flags.make
+CMakeFiles\BookClub.dir\User.cpp.obj: D:\ME\project\BookClub\User.cpp
+CMakeFiles\BookClub.dir\User.cpp.obj: CMakeFiles\BookClub.dir\compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/BookClub.dir/User.cpp.obj"
+	$(CMAKE_COMMAND) -E cmake_cl_compile_depends --dep-file=CMakeFiles\BookClub.dir\User.cpp.obj.d --working-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake --filter-prefix="Note: including file: " -- C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /showIncludes /FoCMakeFiles\BookClub.dir\User.cpp.obj /FdCMakeFiles\BookClub.dir\ /FS -c D:\ME\project\BookClub\User.cpp
+<<
+
+CMakeFiles\BookClub.dir\User.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/User.cpp.i"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe > CMakeFiles\BookClub.dir\User.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\User.cpp
+<<
+
+CMakeFiles\BookClub.dir\User.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/User.cpp.s"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\BookClub.dir\User.cpp.s /c D:\ME\project\BookClub\User.cpp
+<<
+
+CMakeFiles\BookClub.dir\Admin.cpp.obj: CMakeFiles\BookClub.dir\flags.make
+CMakeFiles\BookClub.dir\Admin.cpp.obj: D:\ME\project\BookClub\Admin.cpp
+CMakeFiles\BookClub.dir\Admin.cpp.obj: CMakeFiles\BookClub.dir\compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/BookClub.dir/Admin.cpp.obj"
+	$(CMAKE_COMMAND) -E cmake_cl_compile_depends --dep-file=CMakeFiles\BookClub.dir\Admin.cpp.obj.d --working-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake --filter-prefix="Note: including file: " -- C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /showIncludes /FoCMakeFiles\BookClub.dir\Admin.cpp.obj /FdCMakeFiles\BookClub.dir\ /FS -c D:\ME\project\BookClub\Admin.cpp
+<<
+
+CMakeFiles\BookClub.dir\Admin.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/Admin.cpp.i"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe > CMakeFiles\BookClub.dir\Admin.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\Admin.cpp
+<<
+
+CMakeFiles\BookClub.dir\Admin.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/Admin.cpp.s"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\BookClub.dir\Admin.cpp.s /c D:\ME\project\BookClub\Admin.cpp
+<<
+
+CMakeFiles\BookClub.dir\RegularUser.cpp.obj: CMakeFiles\BookClub.dir\flags.make
+CMakeFiles\BookClub.dir\RegularUser.cpp.obj: D:\ME\project\BookClub\RegularUser.cpp
+CMakeFiles\BookClub.dir\RegularUser.cpp.obj: CMakeFiles\BookClub.dir\compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/BookClub.dir/RegularUser.cpp.obj"
+	$(CMAKE_COMMAND) -E cmake_cl_compile_depends --dep-file=CMakeFiles\BookClub.dir\RegularUser.cpp.obj.d --working-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake --filter-prefix="Note: including file: " -- C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /showIncludes /FoCMakeFiles\BookClub.dir\RegularUser.cpp.obj /FdCMakeFiles\BookClub.dir\ /FS -c D:\ME\project\BookClub\RegularUser.cpp
+<<
+
+CMakeFiles\BookClub.dir\RegularUser.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/RegularUser.cpp.i"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe > CMakeFiles\BookClub.dir\RegularUser.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\RegularUser.cpp
+<<
+
+CMakeFiles\BookClub.dir\RegularUser.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/RegularUser.cpp.s"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\BookClub.dir\RegularUser.cpp.s /c D:\ME\project\BookClub\RegularUser.cpp
+<<
+
+CMakeFiles\BookClub.dir\Publisher.cpp.obj: CMakeFiles\BookClub.dir\flags.make
+CMakeFiles\BookClub.dir\Publisher.cpp.obj: D:\ME\project\BookClub\Publisher.cpp
+CMakeFiles\BookClub.dir\Publisher.cpp.obj: CMakeFiles\BookClub.dir\compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/BookClub.dir/Publisher.cpp.obj"
+	$(CMAKE_COMMAND) -E cmake_cl_compile_depends --dep-file=CMakeFiles\BookClub.dir\Publisher.cpp.obj.d --working-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake --filter-prefix="Note: including file: " -- C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /showIncludes /FoCMakeFiles\BookClub.dir\Publisher.cpp.obj /FdCMakeFiles\BookClub.dir\ /FS -c D:\ME\project\BookClub\Publisher.cpp
+<<
+
+CMakeFiles\BookClub.dir\Publisher.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/Publisher.cpp.i"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe > CMakeFiles\BookClub.dir\Publisher.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\Publisher.cpp
+<<
+
+CMakeFiles\BookClub.dir\Publisher.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/Publisher.cpp.s"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\BookClub.dir\Publisher.cpp.s /c D:\ME\project\BookClub\Publisher.cpp
+<<
+
+CMakeFiles\BookClub.dir\TimedDiscount.cpp.obj: CMakeFiles\BookClub.dir\flags.make
+CMakeFiles\BookClub.dir\TimedDiscount.cpp.obj: D:\ME\project\BookClub\TimedDiscount.cpp
+CMakeFiles\BookClub.dir\TimedDiscount.cpp.obj: CMakeFiles\BookClub.dir\compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj"
+	$(CMAKE_COMMAND) -E cmake_cl_compile_depends --dep-file=CMakeFiles\BookClub.dir\TimedDiscount.cpp.obj.d --working-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake --filter-prefix="Note: including file: " -- C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /showIncludes /FoCMakeFiles\BookClub.dir\TimedDiscount.cpp.obj /FdCMakeFiles\BookClub.dir\ /FS -c D:\ME\project\BookClub\TimedDiscount.cpp
+<<
+
+CMakeFiles\BookClub.dir\TimedDiscount.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/TimedDiscount.cpp.i"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe > CMakeFiles\BookClub.dir\TimedDiscount.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\TimedDiscount.cpp
+<<
+
+CMakeFiles\BookClub.dir\TimedDiscount.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/TimedDiscount.cpp.s"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\BookClub.dir\TimedDiscount.cpp.s /c D:\ME\project\BookClub\TimedDiscount.cpp
+<<
+
+CMakeFiles\BookClub.dir\AnalyticsData.cpp.obj: CMakeFiles\BookClub.dir\flags.make
+CMakeFiles\BookClub.dir\AnalyticsData.cpp.obj: D:\ME\project\BookClub\AnalyticsData.cpp
+CMakeFiles\BookClub.dir\AnalyticsData.cpp.obj: CMakeFiles\BookClub.dir\compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/BookClub.dir/AnalyticsData.cpp.obj"
+	$(CMAKE_COMMAND) -E cmake_cl_compile_depends --dep-file=CMakeFiles\BookClub.dir\AnalyticsData.cpp.obj.d --working-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake --filter-prefix="Note: including file: " -- C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /showIncludes /FoCMakeFiles\BookClub.dir\AnalyticsData.cpp.obj /FdCMakeFiles\BookClub.dir\ /FS -c D:\ME\project\BookClub\AnalyticsData.cpp
+<<
+
+CMakeFiles\BookClub.dir\AnalyticsData.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/AnalyticsData.cpp.i"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe > CMakeFiles\BookClub.dir\AnalyticsData.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\AnalyticsData.cpp
+<<
+
+CMakeFiles\BookClub.dir\AnalyticsData.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/AnalyticsData.cpp.s"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\BookClub.dir\AnalyticsData.cpp.s /c D:\ME\project\BookClub\AnalyticsData.cpp
+<<
+
+CMakeFiles\BookClub.dir\SecurityUtils.cpp.obj: CMakeFiles\BookClub.dir\flags.make
+CMakeFiles\BookClub.dir\SecurityUtils.cpp.obj: D:\ME\project\BookClub\SecurityUtils.cpp
+CMakeFiles\BookClub.dir\SecurityUtils.cpp.obj: CMakeFiles\BookClub.dir\compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj"
+	$(CMAKE_COMMAND) -E cmake_cl_compile_depends --dep-file=CMakeFiles\BookClub.dir\SecurityUtils.cpp.obj.d --working-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake --filter-prefix="Note: including file: " -- C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /showIncludes /FoCMakeFiles\BookClub.dir\SecurityUtils.cpp.obj /FdCMakeFiles\BookClub.dir\ /FS -c D:\ME\project\BookClub\SecurityUtils.cpp
+<<
+
+CMakeFiles\BookClub.dir\SecurityUtils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/SecurityUtils.cpp.i"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe > CMakeFiles\BookClub.dir\SecurityUtils.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\SecurityUtils.cpp
+<<
+
+CMakeFiles\BookClub.dir\SecurityUtils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/SecurityUtils.cpp.s"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\BookClub.dir\SecurityUtils.cpp.s /c D:\ME\project\BookClub\SecurityUtils.cpp
+<<
+
+CMakeFiles\BookClub.dir\Transaction.cpp.obj: CMakeFiles\BookClub.dir\flags.make
+CMakeFiles\BookClub.dir\Transaction.cpp.obj: D:\ME\project\BookClub\Transaction.cpp
+CMakeFiles\BookClub.dir\Transaction.cpp.obj: CMakeFiles\BookClub.dir\compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/BookClub.dir/Transaction.cpp.obj"
+	$(CMAKE_COMMAND) -E cmake_cl_compile_depends --dep-file=CMakeFiles\BookClub.dir\Transaction.cpp.obj.d --working-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake --filter-prefix="Note: including file: " -- C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /showIncludes /FoCMakeFiles\BookClub.dir\Transaction.cpp.obj /FdCMakeFiles\BookClub.dir\ /FS -c D:\ME\project\BookClub\Transaction.cpp
+<<
+
+CMakeFiles\BookClub.dir\Transaction.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/Transaction.cpp.i"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe > CMakeFiles\BookClub.dir\Transaction.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\Transaction.cpp
+<<
+
+CMakeFiles\BookClub.dir\Transaction.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/Transaction.cpp.s"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\BookClub.dir\Transaction.cpp.s /c D:\ME\project\BookClub\Transaction.cpp
+<<
+
+CMakeFiles\BookClub.dir\ReadingSession.cpp.obj: CMakeFiles\BookClub.dir\flags.make
+CMakeFiles\BookClub.dir\ReadingSession.cpp.obj: D:\ME\project\BookClub\ReadingSession.cpp
+CMakeFiles\BookClub.dir\ReadingSession.cpp.obj: CMakeFiles\BookClub.dir\compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/BookClub.dir/ReadingSession.cpp.obj"
+	$(CMAKE_COMMAND) -E cmake_cl_compile_depends --dep-file=CMakeFiles\BookClub.dir\ReadingSession.cpp.obj.d --working-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake --filter-prefix="Note: including file: " -- C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /showIncludes /FoCMakeFiles\BookClub.dir\ReadingSession.cpp.obj /FdCMakeFiles\BookClub.dir\ /FS -c D:\ME\project\BookClub\ReadingSession.cpp
+<<
+
+CMakeFiles\BookClub.dir\ReadingSession.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/ReadingSession.cpp.i"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe > CMakeFiles\BookClub.dir\ReadingSession.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\ReadingSession.cpp
+<<
+
+CMakeFiles\BookClub.dir\ReadingSession.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/ReadingSession.cpp.s"
+	C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\HostX64\x64\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\BookClub.dir\ReadingSession.cpp.s /c D:\ME\project\BookClub\ReadingSession.cpp
+<<
+
 # Object files for target BookClub
 BookClub_OBJECTS = \
 "CMakeFiles\BookClub.dir\BookClub_autogen\mocs_compilation.cpp.obj" \
@@ -290,7 +470,16 @@ BookClub_OBJECTS = \
 "CMakeFiles\BookClub.dir\Genre.cpp.obj" \
 "CMakeFiles\BookClub.dir\Bookshelf.cpp.obj" \
 "CMakeFiles\BookClub.dir\AppNotification.cpp.obj" \
-"CMakeFiles\BookClub.dir\NetworkMessage.cpp.obj"
+"CMakeFiles\BookClub.dir\NetworkMessage.cpp.obj" \
+"CMakeFiles\BookClub.dir\User.cpp.obj" \
+"CMakeFiles\BookClub.dir\Admin.cpp.obj" \
+"CMakeFiles\BookClub.dir\RegularUser.cpp.obj" \
+"CMakeFiles\BookClub.dir\Publisher.cpp.obj" \
+"CMakeFiles\BookClub.dir\TimedDiscount.cpp.obj" \
+"CMakeFiles\BookClub.dir\AnalyticsData.cpp.obj" \
+"CMakeFiles\BookClub.dir\SecurityUtils.cpp.obj" \
+"CMakeFiles\BookClub.dir\Transaction.cpp.obj" \
+"CMakeFiles\BookClub.dir\ReadingSession.cpp.obj"
 
 # External object files for target BookClub
 BookClub_EXTERNAL_OBJECTS =
@@ -306,13 +495,22 @@ BookClub.exe: CMakeFiles\BookClub.dir\Genre.cpp.obj
 BookClub.exe: CMakeFiles\BookClub.dir\Bookshelf.cpp.obj
 BookClub.exe: CMakeFiles\BookClub.dir\AppNotification.cpp.obj
 BookClub.exe: CMakeFiles\BookClub.dir\NetworkMessage.cpp.obj
+BookClub.exe: CMakeFiles\BookClub.dir\User.cpp.obj
+BookClub.exe: CMakeFiles\BookClub.dir\Admin.cpp.obj
+BookClub.exe: CMakeFiles\BookClub.dir\RegularUser.cpp.obj
+BookClub.exe: CMakeFiles\BookClub.dir\Publisher.cpp.obj
+BookClub.exe: CMakeFiles\BookClub.dir\TimedDiscount.cpp.obj
+BookClub.exe: CMakeFiles\BookClub.dir\AnalyticsData.cpp.obj
+BookClub.exe: CMakeFiles\BookClub.dir\SecurityUtils.cpp.obj
+BookClub.exe: CMakeFiles\BookClub.dir\Transaction.cpp.obj
+BookClub.exe: CMakeFiles\BookClub.dir\ReadingSession.cpp.obj
 BookClub.exe: CMakeFiles\BookClub.dir\build.make
 BookClub.exe: D:\ME\6.5.3\msvc2019_64\lib\Qt6Widgetsd.lib
 BookClub.exe: D:\ME\6.5.3\msvc2019_64\lib\Qt6Guid.lib
 BookClub.exe: D:\ME\6.5.3\msvc2019_64\lib\Qt6Cored.lib
 BookClub.exe: D:\ME\6.5.3\msvc2019_64\lib\Qt6EntryPointd.lib
 BookClub.exe: CMakeFiles\BookClub.dir\objects1.rsp
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable BookClub.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Linking CXX executable BookClub.exe"
 	D:\ME\Tools\CMake_64\bin\cmake.exe -E vs_link_exe --intdir=CMakeFiles\BookClub.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100261~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100261~1.0\x64\mt.exe --manifests -- C:\PROGRA~1\MIB055~1\18\Insiders\VC\Tools\MSVC\1451~1.362\bin\Hostx64\x64\link.exe /nologo @CMakeFiles\BookClub.dir\objects1.rsp @<<
  /out:BookClub.exe /implib:BookClub.lib /pdb:D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MSVC2019_64bit_Debug\.cmake\BookClub.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:windows  D:\ME\6.5.3\msvc2019_64\lib\Qt6Widgetsd.lib D:\ME\6.5.3\msvc2019_64\lib\Qt6Guid.lib D:\ME\6.5.3\msvc2019_64\lib\Qt6Cored.lib mpr.lib userenv.lib D:\ME\6.5.3\msvc2019_64\lib\Qt6EntryPointd.lib shell32.lib d3d11.lib dxgi.lib dxguid.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib 
 <<

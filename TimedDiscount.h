@@ -17,6 +17,7 @@ private:
     std::string endDateTime;
 public:
     TimedDiscount(int targetBookId, double discountValue, std::string startDateTime, std::string endDateTime);
+    int getDiscountId() const;
     int getTargetBookId() const;
     DiscountType getDiscountType() const;
     double getDiscountValue() const;

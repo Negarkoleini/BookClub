@@ -5,7 +5,7 @@
 
 using namespace std;
 
-nextId = 1;
+int nextId = 1;
 
 Book::Book(std::string title, std::string author, int publisherId, Genre genre,
            std::string description, double basePrice, std::string coverImagePath,
@@ -23,7 +23,7 @@ std::string Book::getAuthor() const { return author; }
 int Book::getPublisherId() const { return publisherId; }
 Genre Book::getGenre() const { return genre; }
 std::string Book::getDescription() const { return description; }
-double Book::getBasePrice() const { return basePrice; }
+double Book::getBasePrice() const{ return basePrice; }
 std::string Book::getCoverImagePath() const { return coverImagePath; }
 std::string Book::getPdfFileName() const { return pdfFileName; }
 std::string Book::getPublishDate() const { return publishDate; }
@@ -49,7 +49,7 @@ void Book::addRating(const Rating &rating) {
 }
 
 void Book::addcomment(int userId , Comment newComment){
-    userComments.push-back(newComment);
+    userComments.push_back(newComment);
 }
 
 bool Book::updateUserRating(int userId, int newScore) {
@@ -83,14 +83,13 @@ int Book::getRatingCount() const {
     return static_cast<int>(userRatings.size());
 }
 
-double getBasePrice() const { return basePrice; }
 
 bool Book::removeDiscount(int discountId)
 {
     auto it = std::remove_if(discounts.begin(), discounts.end(),
                              [discountId](const TimedDiscount& d)
                              {
-                                 return d.getId() == discountId;
+                                 return d.getDiscountId() == discountId;
                              });
 
     if (it == discounts.end())
@@ -100,21 +99,21 @@ bool Book::removeDiscount(int discountId)
     return true;
 }
 
-void addDiscount(const TimedDiscount& discount) {
+void Book::addDiscount(const TimedDiscount& discount) {
     discounts.push_back(discount);
 }
 
-double getFinalPrice(const std::string& currentSystemTime) const {
+double Book::getFinalPrice(const std::string& currentSystemTime) const {
     double finalPrice = basePrice;
 
     for (const auto& discount : discounts) {
         if (discount.isActiveNow(currentSystemTime)) {
-            if (discount.getType() == DiscountType::PERCENTAGE) {
+            if (discount.getDiscountType() == DiscountType::Percentage) {
                 // اعمال تخفیف درصدی (مثلاً ۲۰ درصد تخفیف)
-                finalPrice -= (basePrice * (discount.getValue() / 100.0));
-            } else if (discount.getType() == DiscountType::CASH) {
+                finalPrice -= (basePrice * (discount.getDiscountValue() / 100.0));
+            } else if (discount.getDiscountType() == DiscountType::Cash) {
                 // اعمال تخفیف مبلغی (مثلاً ۵۰ هزار تومان تخفیف)
-                finalPrice -= discount.getValue();
+                finalPrice -= discount.getDiscountValue();
             }
             // اگر داک گفته فقط یک تخفیف همزمان اعمال شود:
             break;

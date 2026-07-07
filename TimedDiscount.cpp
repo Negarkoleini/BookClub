@@ -19,6 +19,10 @@ DiscountType TimedDiscount::getDiscountType() const {
 double TimedDiscount::getDiscountValue() const{
     return discountValue;
 }
+
+int TimedDiscount::getDiscountId() const{
+    return DiscountId;
+}
 bool TimedDiscount::isActiveNow(const std::string &currentSystemTime) const{
     return currentSystemTime>=startDateTime && currentSystemTime<=endDateTime;
 }

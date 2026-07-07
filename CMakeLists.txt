@@ -35,7 +35,7 @@ qt_add_executable(BookClub
     RegularUser.cpp
     Publisher.h
     Publisher.cpp
-    TimedDiscount.cpp
+    TimedDiscount.h
     TimedDiscount.cpp
     AnalyticsData.h
     AnalyticsData.cpp

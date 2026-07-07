@@ -177,6 +177,54 @@ BookClub_autogen\fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub_autogen.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub_autogen.dir\build
 .PHONY : BookClub_autogen\fast
 
+Admin.obj: Admin.cpp.obj
+.PHONY : Admin.obj
+
+# target to build an object file
+Admin.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Admin.cpp.obj
+.PHONY : Admin.cpp.obj
+
+Admin.i: Admin.cpp.i
+.PHONY : Admin.i
+
+# target to preprocess a source file
+Admin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Admin.cpp.i
+.PHONY : Admin.cpp.i
+
+Admin.s: Admin.cpp.s
+.PHONY : Admin.s
+
+# target to generate assembly for a file
+Admin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Admin.cpp.s
+.PHONY : Admin.cpp.s
+
+AnalyticsData.obj: AnalyticsData.cpp.obj
+.PHONY : AnalyticsData.obj
+
+# target to build an object file
+AnalyticsData.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\AnalyticsData.cpp.obj
+.PHONY : AnalyticsData.cpp.obj
+
+AnalyticsData.i: AnalyticsData.cpp.i
+.PHONY : AnalyticsData.i
+
+# target to preprocess a source file
+AnalyticsData.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\AnalyticsData.cpp.i
+.PHONY : AnalyticsData.cpp.i
+
+AnalyticsData.s: AnalyticsData.cpp.s
+.PHONY : AnalyticsData.s
+
+# target to generate assembly for a file
+AnalyticsData.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\AnalyticsData.cpp.s
+.PHONY : AnalyticsData.cpp.s
+
 AppNotification.obj: AppNotification.cpp.obj
 .PHONY : AppNotification.obj
 
@@ -345,6 +393,30 @@ NetworkMessage.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\NetworkMessage.cpp.s
 .PHONY : NetworkMessage.cpp.s
 
+Publisher.obj: Publisher.cpp.obj
+.PHONY : Publisher.obj
+
+# target to build an object file
+Publisher.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Publisher.cpp.obj
+.PHONY : Publisher.cpp.obj
+
+Publisher.i: Publisher.cpp.i
+.PHONY : Publisher.i
+
+# target to preprocess a source file
+Publisher.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Publisher.cpp.i
+.PHONY : Publisher.cpp.i
+
+Publisher.s: Publisher.cpp.s
+.PHONY : Publisher.s
+
+# target to generate assembly for a file
+Publisher.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Publisher.cpp.s
+.PHONY : Publisher.cpp.s
+
 Rating.obj: Rating.cpp.obj
 .PHONY : Rating.obj
 
@@ -369,6 +441,78 @@ Rating.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Rating.cpp.s
 .PHONY : Rating.cpp.s
 
+ReadingSession.obj: ReadingSession.cpp.obj
+.PHONY : ReadingSession.obj
+
+# target to build an object file
+ReadingSession.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\ReadingSession.cpp.obj
+.PHONY : ReadingSession.cpp.obj
+
+ReadingSession.i: ReadingSession.cpp.i
+.PHONY : ReadingSession.i
+
+# target to preprocess a source file
+ReadingSession.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\ReadingSession.cpp.i
+.PHONY : ReadingSession.cpp.i
+
+ReadingSession.s: ReadingSession.cpp.s
+.PHONY : ReadingSession.s
+
+# target to generate assembly for a file
+ReadingSession.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\ReadingSession.cpp.s
+.PHONY : ReadingSession.cpp.s
+
+RegularUser.obj: RegularUser.cpp.obj
+.PHONY : RegularUser.obj
+
+# target to build an object file
+RegularUser.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\RegularUser.cpp.obj
+.PHONY : RegularUser.cpp.obj
+
+RegularUser.i: RegularUser.cpp.i
+.PHONY : RegularUser.i
+
+# target to preprocess a source file
+RegularUser.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\RegularUser.cpp.i
+.PHONY : RegularUser.cpp.i
+
+RegularUser.s: RegularUser.cpp.s
+.PHONY : RegularUser.s
+
+# target to generate assembly for a file
+RegularUser.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\RegularUser.cpp.s
+.PHONY : RegularUser.cpp.s
+
+SecurityUtils.obj: SecurityUtils.cpp.obj
+.PHONY : SecurityUtils.obj
+
+# target to build an object file
+SecurityUtils.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\SecurityUtils.cpp.obj
+.PHONY : SecurityUtils.cpp.obj
+
+SecurityUtils.i: SecurityUtils.cpp.i
+.PHONY : SecurityUtils.i
+
+# target to preprocess a source file
+SecurityUtils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\SecurityUtils.cpp.i
+.PHONY : SecurityUtils.cpp.i
+
+SecurityUtils.s: SecurityUtils.cpp.s
+.PHONY : SecurityUtils.s
+
+# target to generate assembly for a file
+SecurityUtils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\SecurityUtils.cpp.s
+.PHONY : SecurityUtils.cpp.s
+
 ShoppingCart.obj: ShoppingCart.cpp.obj
 .PHONY : ShoppingCart.obj
 
@@ -392,6 +536,78 @@ ShoppingCart.s: ShoppingCart.cpp.s
 ShoppingCart.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\ShoppingCart.cpp.s
 .PHONY : ShoppingCart.cpp.s
+
+TimedDiscount.obj: TimedDiscount.cpp.obj
+.PHONY : TimedDiscount.obj
+
+# target to build an object file
+TimedDiscount.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\TimedDiscount.cpp.obj
+.PHONY : TimedDiscount.cpp.obj
+
+TimedDiscount.i: TimedDiscount.cpp.i
+.PHONY : TimedDiscount.i
+
+# target to preprocess a source file
+TimedDiscount.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\TimedDiscount.cpp.i
+.PHONY : TimedDiscount.cpp.i
+
+TimedDiscount.s: TimedDiscount.cpp.s
+.PHONY : TimedDiscount.s
+
+# target to generate assembly for a file
+TimedDiscount.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\TimedDiscount.cpp.s
+.PHONY : TimedDiscount.cpp.s
+
+Transaction.obj: Transaction.cpp.obj
+.PHONY : Transaction.obj
+
+# target to build an object file
+Transaction.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Transaction.cpp.obj
+.PHONY : Transaction.cpp.obj
+
+Transaction.i: Transaction.cpp.i
+.PHONY : Transaction.i
+
+# target to preprocess a source file
+Transaction.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Transaction.cpp.i
+.PHONY : Transaction.cpp.i
+
+Transaction.s: Transaction.cpp.s
+.PHONY : Transaction.s
+
+# target to generate assembly for a file
+Transaction.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\Transaction.cpp.s
+.PHONY : Transaction.cpp.s
+
+User.obj: User.cpp.obj
+.PHONY : User.obj
+
+# target to build an object file
+User.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\User.cpp.obj
+.PHONY : User.cpp.obj
+
+User.i: User.cpp.i
+.PHONY : User.i
+
+# target to preprocess a source file
+User.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\User.cpp.i
+.PHONY : User.cpp.i
+
+User.s: User.cpp.s
+.PHONY : User.s
+
+# target to generate assembly for a file
+User.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\BookClub.dir\User.cpp.s
+.PHONY : User.cpp.s
 
 main.obj: main.cpp.obj
 .PHONY : main.obj
@@ -455,6 +671,12 @@ help:
 	@echo ... BookClub_autogen
 	@echo ... BookClub_autogen_timestamp_deps
 	@echo ... BookClub
+	@echo ... Admin.obj
+	@echo ... Admin.i
+	@echo ... Admin.s
+	@echo ... AnalyticsData.obj
+	@echo ... AnalyticsData.i
+	@echo ... AnalyticsData.s
 	@echo ... AppNotification.obj
 	@echo ... AppNotification.i
 	@echo ... AppNotification.s
@@ -476,12 +698,33 @@ help:
 	@echo ... NetworkMessage.obj
 	@echo ... NetworkMessage.i
 	@echo ... NetworkMessage.s
+	@echo ... Publisher.obj
+	@echo ... Publisher.i
+	@echo ... Publisher.s
 	@echo ... Rating.obj
 	@echo ... Rating.i
 	@echo ... Rating.s
+	@echo ... ReadingSession.obj
+	@echo ... ReadingSession.i
+	@echo ... ReadingSession.s
+	@echo ... RegularUser.obj
+	@echo ... RegularUser.i
+	@echo ... RegularUser.s
+	@echo ... SecurityUtils.obj
+	@echo ... SecurityUtils.i
+	@echo ... SecurityUtils.s
 	@echo ... ShoppingCart.obj
 	@echo ... ShoppingCart.i
 	@echo ... ShoppingCart.s
+	@echo ... TimedDiscount.obj
+	@echo ... TimedDiscount.i
+	@echo ... TimedDiscount.s
+	@echo ... Transaction.obj
+	@echo ... Transaction.i
+	@echo ... Transaction.s
+	@echo ... User.obj
+	@echo ... User.i
+	@echo ... User.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

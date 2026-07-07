@@ -13,7 +13,7 @@ private:
     std::vector<int> purchasedBookIds;
     std::vector<int> savedBookIds;
     std::vector<Genre> favorateGeners;
-    std::vector<BookShelf>personalShelves;
+    std::vector<Bookshelf> personalShelves;
     std::map<int,int>BookmarkPages;
 public:
     RegularUser(int id,std::string username, std::string passwordHash, std::string email,

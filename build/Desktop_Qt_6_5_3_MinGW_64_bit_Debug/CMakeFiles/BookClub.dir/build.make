@@ -233,6 +233,141 @@ CMakeFiles/BookClub.dir/NetworkMessage.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/NetworkMessage.cpp.s"
 	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\ME\project\BookClub\NetworkMessage.cpp -o CMakeFiles\BookClub.dir\NetworkMessage.cpp.s
 
+CMakeFiles/BookClub.dir/User.cpp.obj: CMakeFiles/BookClub.dir/flags.make
+CMakeFiles/BookClub.dir/User.cpp.obj: CMakeFiles/BookClub.dir/includes_CXX.rsp
+CMakeFiles/BookClub.dir/User.cpp.obj: D:/ME/project/BookClub/User.cpp
+CMakeFiles/BookClub.dir/User.cpp.obj: CMakeFiles/BookClub.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/BookClub.dir/User.cpp.obj"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BookClub.dir/User.cpp.obj -MF CMakeFiles\BookClub.dir\User.cpp.obj.d -o CMakeFiles\BookClub.dir\User.cpp.obj -c D:\ME\project\BookClub\User.cpp
+
+CMakeFiles/BookClub.dir/User.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/User.cpp.i"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\User.cpp > CMakeFiles\BookClub.dir\User.cpp.i
+
+CMakeFiles/BookClub.dir/User.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/User.cpp.s"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\ME\project\BookClub\User.cpp -o CMakeFiles\BookClub.dir\User.cpp.s
+
+CMakeFiles/BookClub.dir/Admin.cpp.obj: CMakeFiles/BookClub.dir/flags.make
+CMakeFiles/BookClub.dir/Admin.cpp.obj: CMakeFiles/BookClub.dir/includes_CXX.rsp
+CMakeFiles/BookClub.dir/Admin.cpp.obj: D:/ME/project/BookClub/Admin.cpp
+CMakeFiles/BookClub.dir/Admin.cpp.obj: CMakeFiles/BookClub.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/BookClub.dir/Admin.cpp.obj"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BookClub.dir/Admin.cpp.obj -MF CMakeFiles\BookClub.dir\Admin.cpp.obj.d -o CMakeFiles\BookClub.dir\Admin.cpp.obj -c D:\ME\project\BookClub\Admin.cpp
+
+CMakeFiles/BookClub.dir/Admin.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/Admin.cpp.i"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\Admin.cpp > CMakeFiles\BookClub.dir\Admin.cpp.i
+
+CMakeFiles/BookClub.dir/Admin.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/Admin.cpp.s"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\ME\project\BookClub\Admin.cpp -o CMakeFiles\BookClub.dir\Admin.cpp.s
+
+CMakeFiles/BookClub.dir/RegularUser.cpp.obj: CMakeFiles/BookClub.dir/flags.make
+CMakeFiles/BookClub.dir/RegularUser.cpp.obj: CMakeFiles/BookClub.dir/includes_CXX.rsp
+CMakeFiles/BookClub.dir/RegularUser.cpp.obj: D:/ME/project/BookClub/RegularUser.cpp
+CMakeFiles/BookClub.dir/RegularUser.cpp.obj: CMakeFiles/BookClub.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/BookClub.dir/RegularUser.cpp.obj"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BookClub.dir/RegularUser.cpp.obj -MF CMakeFiles\BookClub.dir\RegularUser.cpp.obj.d -o CMakeFiles\BookClub.dir\RegularUser.cpp.obj -c D:\ME\project\BookClub\RegularUser.cpp
+
+CMakeFiles/BookClub.dir/RegularUser.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/RegularUser.cpp.i"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\RegularUser.cpp > CMakeFiles\BookClub.dir\RegularUser.cpp.i
+
+CMakeFiles/BookClub.dir/RegularUser.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/RegularUser.cpp.s"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\ME\project\BookClub\RegularUser.cpp -o CMakeFiles\BookClub.dir\RegularUser.cpp.s
+
+CMakeFiles/BookClub.dir/Publisher.cpp.obj: CMakeFiles/BookClub.dir/flags.make
+CMakeFiles/BookClub.dir/Publisher.cpp.obj: CMakeFiles/BookClub.dir/includes_CXX.rsp
+CMakeFiles/BookClub.dir/Publisher.cpp.obj: D:/ME/project/BookClub/Publisher.cpp
+CMakeFiles/BookClub.dir/Publisher.cpp.obj: CMakeFiles/BookClub.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/BookClub.dir/Publisher.cpp.obj"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BookClub.dir/Publisher.cpp.obj -MF CMakeFiles\BookClub.dir\Publisher.cpp.obj.d -o CMakeFiles\BookClub.dir\Publisher.cpp.obj -c D:\ME\project\BookClub\Publisher.cpp
+
+CMakeFiles/BookClub.dir/Publisher.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/Publisher.cpp.i"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\Publisher.cpp > CMakeFiles\BookClub.dir\Publisher.cpp.i
+
+CMakeFiles/BookClub.dir/Publisher.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/Publisher.cpp.s"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\ME\project\BookClub\Publisher.cpp -o CMakeFiles\BookClub.dir\Publisher.cpp.s
+
+CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj: CMakeFiles/BookClub.dir/flags.make
+CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj: CMakeFiles/BookClub.dir/includes_CXX.rsp
+CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj: D:/ME/project/BookClub/TimedDiscount.cpp
+CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj: CMakeFiles/BookClub.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj -MF CMakeFiles\BookClub.dir\TimedDiscount.cpp.obj.d -o CMakeFiles\BookClub.dir\TimedDiscount.cpp.obj -c D:\ME\project\BookClub\TimedDiscount.cpp
+
+CMakeFiles/BookClub.dir/TimedDiscount.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/TimedDiscount.cpp.i"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\TimedDiscount.cpp > CMakeFiles\BookClub.dir\TimedDiscount.cpp.i
+
+CMakeFiles/BookClub.dir/TimedDiscount.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/TimedDiscount.cpp.s"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\ME\project\BookClub\TimedDiscount.cpp -o CMakeFiles\BookClub.dir\TimedDiscount.cpp.s
+
+CMakeFiles/BookClub.dir/AnalyticsData.cpp.obj: CMakeFiles/BookClub.dir/flags.make
+CMakeFiles/BookClub.dir/AnalyticsData.cpp.obj: CMakeFiles/BookClub.dir/includes_CXX.rsp
+CMakeFiles/BookClub.dir/AnalyticsData.cpp.obj: D:/ME/project/BookClub/AnalyticsData.cpp
+CMakeFiles/BookClub.dir/AnalyticsData.cpp.obj: CMakeFiles/BookClub.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/BookClub.dir/AnalyticsData.cpp.obj"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BookClub.dir/AnalyticsData.cpp.obj -MF CMakeFiles\BookClub.dir\AnalyticsData.cpp.obj.d -o CMakeFiles\BookClub.dir\AnalyticsData.cpp.obj -c D:\ME\project\BookClub\AnalyticsData.cpp
+
+CMakeFiles/BookClub.dir/AnalyticsData.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/AnalyticsData.cpp.i"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\AnalyticsData.cpp > CMakeFiles\BookClub.dir\AnalyticsData.cpp.i
+
+CMakeFiles/BookClub.dir/AnalyticsData.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/AnalyticsData.cpp.s"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\ME\project\BookClub\AnalyticsData.cpp -o CMakeFiles\BookClub.dir\AnalyticsData.cpp.s
+
+CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj: CMakeFiles/BookClub.dir/flags.make
+CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj: CMakeFiles/BookClub.dir/includes_CXX.rsp
+CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj: D:/ME/project/BookClub/SecurityUtils.cpp
+CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj: CMakeFiles/BookClub.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj -MF CMakeFiles\BookClub.dir\SecurityUtils.cpp.obj.d -o CMakeFiles\BookClub.dir\SecurityUtils.cpp.obj -c D:\ME\project\BookClub\SecurityUtils.cpp
+
+CMakeFiles/BookClub.dir/SecurityUtils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/SecurityUtils.cpp.i"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\SecurityUtils.cpp > CMakeFiles\BookClub.dir\SecurityUtils.cpp.i
+
+CMakeFiles/BookClub.dir/SecurityUtils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/SecurityUtils.cpp.s"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\ME\project\BookClub\SecurityUtils.cpp -o CMakeFiles\BookClub.dir\SecurityUtils.cpp.s
+
+CMakeFiles/BookClub.dir/Transaction.cpp.obj: CMakeFiles/BookClub.dir/flags.make
+CMakeFiles/BookClub.dir/Transaction.cpp.obj: CMakeFiles/BookClub.dir/includes_CXX.rsp
+CMakeFiles/BookClub.dir/Transaction.cpp.obj: D:/ME/project/BookClub/Transaction.cpp
+CMakeFiles/BookClub.dir/Transaction.cpp.obj: CMakeFiles/BookClub.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/BookClub.dir/Transaction.cpp.obj"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BookClub.dir/Transaction.cpp.obj -MF CMakeFiles\BookClub.dir\Transaction.cpp.obj.d -o CMakeFiles\BookClub.dir\Transaction.cpp.obj -c D:\ME\project\BookClub\Transaction.cpp
+
+CMakeFiles/BookClub.dir/Transaction.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/Transaction.cpp.i"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\Transaction.cpp > CMakeFiles\BookClub.dir\Transaction.cpp.i
+
+CMakeFiles/BookClub.dir/Transaction.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/Transaction.cpp.s"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\ME\project\BookClub\Transaction.cpp -o CMakeFiles\BookClub.dir\Transaction.cpp.s
+
+CMakeFiles/BookClub.dir/ReadingSession.cpp.obj: CMakeFiles/BookClub.dir/flags.make
+CMakeFiles/BookClub.dir/ReadingSession.cpp.obj: CMakeFiles/BookClub.dir/includes_CXX.rsp
+CMakeFiles/BookClub.dir/ReadingSession.cpp.obj: D:/ME/project/BookClub/ReadingSession.cpp
+CMakeFiles/BookClub.dir/ReadingSession.cpp.obj: CMakeFiles/BookClub.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/BookClub.dir/ReadingSession.cpp.obj"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BookClub.dir/ReadingSession.cpp.obj -MF CMakeFiles\BookClub.dir\ReadingSession.cpp.obj.d -o CMakeFiles\BookClub.dir\ReadingSession.cpp.obj -c D:\ME\project\BookClub\ReadingSession.cpp
+
+CMakeFiles/BookClub.dir/ReadingSession.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BookClub.dir/ReadingSession.cpp.i"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\ME\project\BookClub\ReadingSession.cpp > CMakeFiles\BookClub.dir\ReadingSession.cpp.i
+
+CMakeFiles/BookClub.dir/ReadingSession.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BookClub.dir/ReadingSession.cpp.s"
+	D:\ME\Tools\mingw1120_64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\ME\project\BookClub\ReadingSession.cpp -o CMakeFiles\BookClub.dir\ReadingSession.cpp.s
+
 # Object files for target BookClub
 BookClub_OBJECTS = \
 "CMakeFiles/BookClub.dir/BookClub_autogen/mocs_compilation.cpp.obj" \
@@ -245,7 +380,16 @@ BookClub_OBJECTS = \
 "CMakeFiles/BookClub.dir/Genre.cpp.obj" \
 "CMakeFiles/BookClub.dir/Bookshelf.cpp.obj" \
 "CMakeFiles/BookClub.dir/AppNotification.cpp.obj" \
-"CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj"
+"CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj" \
+"CMakeFiles/BookClub.dir/User.cpp.obj" \
+"CMakeFiles/BookClub.dir/Admin.cpp.obj" \
+"CMakeFiles/BookClub.dir/RegularUser.cpp.obj" \
+"CMakeFiles/BookClub.dir/Publisher.cpp.obj" \
+"CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj" \
+"CMakeFiles/BookClub.dir/AnalyticsData.cpp.obj" \
+"CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj" \
+"CMakeFiles/BookClub.dir/Transaction.cpp.obj" \
+"CMakeFiles/BookClub.dir/ReadingSession.cpp.obj"
 
 # External object files for target BookClub
 BookClub_EXTERNAL_OBJECTS =
@@ -261,6 +405,15 @@ BookClub.exe: CMakeFiles/BookClub.dir/Genre.cpp.obj
 BookClub.exe: CMakeFiles/BookClub.dir/Bookshelf.cpp.obj
 BookClub.exe: CMakeFiles/BookClub.dir/AppNotification.cpp.obj
 BookClub.exe: CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj
+BookClub.exe: CMakeFiles/BookClub.dir/User.cpp.obj
+BookClub.exe: CMakeFiles/BookClub.dir/Admin.cpp.obj
+BookClub.exe: CMakeFiles/BookClub.dir/RegularUser.cpp.obj
+BookClub.exe: CMakeFiles/BookClub.dir/Publisher.cpp.obj
+BookClub.exe: CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj
+BookClub.exe: CMakeFiles/BookClub.dir/AnalyticsData.cpp.obj
+BookClub.exe: CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj
+BookClub.exe: CMakeFiles/BookClub.dir/Transaction.cpp.obj
+BookClub.exe: CMakeFiles/BookClub.dir/ReadingSession.cpp.obj
 BookClub.exe: CMakeFiles/BookClub.dir/build.make
 BookClub.exe: D:/ME/6.5.3/mingw_64/lib/libQt6Widgets.a
 BookClub.exe: D:/ME/6.5.3/mingw_64/lib/libQt6Gui.a
@@ -269,7 +422,7 @@ BookClub.exe: D:/ME/6.5.3/mingw_64/lib/libQt6EntryPoint.a
 BookClub.exe: CMakeFiles/BookClub.dir/linkLibs.rsp
 BookClub.exe: CMakeFiles/BookClub.dir/objects1.rsp
 BookClub.exe: CMakeFiles/BookClub.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable BookClub.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Linking CXX executable BookClub.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\BookClub.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

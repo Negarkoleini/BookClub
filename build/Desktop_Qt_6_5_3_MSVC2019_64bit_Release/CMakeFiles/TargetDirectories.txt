@@ -1,0 +1,8 @@
+D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Release/CMakeFiles/BookClub.dir
+D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Release/CMakeFiles/edit_cache.dir
+D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Release/CMakeFiles/rebuild_cache.dir
+D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Release/CMakeFiles/list_install_components.dir
+D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Release/CMakeFiles/install.dir
+D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Release/CMakeFiles/install/local.dir
+D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Release/CMakeFiles/BookClub_autogen_timestamp_deps.dir
+D:/ME/project/BookClub/build/Desktop_Qt_6_5_3_MSVC2019_64bit_Release/CMakeFiles/BookClub_autogen.dir
