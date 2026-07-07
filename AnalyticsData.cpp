@@ -1,8 +1,8 @@
 #include "AnalyticsData.h"
 
-AnalyticsDate::AnalyticsDate(int publisherId):publisherId(publisherId),totalRevenue(0.0){}
+AnalyticsData::AnalyticsData(int publisherId):publisherId(publisherId),totalRevenue(0.0){}
 
-void AnalyticsDate::registerSale(int bookId, double price, const std::string &date){
+void AnalyticsData::registerSale(int bookId, double price, const std::string &date){
     if(price<0.0){
         return;
     }
@@ -10,28 +10,28 @@ void AnalyticsDate::registerSale(int bookId, double price, const std::string &da
     bookSalesVolume[bookId]++;
     dailyRevenueMap[date]+=price;
 }
-void AnalyticsDate::registerComment(int bookId){
+void AnalyticsData::registerComment(int bookId){
     commentCountPerBook[bookId]++;
 }
-void AnalyticsDate::registerLibraryAdd(int bookId){
+void AnalyticsData::registerLibraryAdd(int bookId){
     libraryAddCountPerBook[bookId]++;
 }
 
-double AnalyticsDate::getTotalRevenue() const{
+double AnalyticsData::getTotalRevenue() const{
     return totalRevenue;
 }
-int AnalyticsDate::getPublisherId() const{
+int AnalyticsData::getPublisherId() const{
     return publisherId;
 }
-std::map<int, int> AnalyticsDate::getBookSalesVolume() const{
+std::map<int, int> AnalyticsData::getBookSalesVolume() const{
     return bookSalesVolume;
 }
-std::map<std::string, double> AnalyticsDate::getDailyRevenueMap() const{
+std::map<std::string, double> AnalyticsData::getDailyRevenueMap() const{
     return dailyRevenueMap;
 }
-std::map<int, int> AnalyticsDate::getCommentCountPerBook() const{
+std::map<int, int> AnalyticsData::getCommentCountPerBook() const{
     return commentCountPerBook;
 }
-std::map<int, int> AnalyticsDate::getLibraryAddCountPerBook() const{
+std::map<int, int> AnalyticsData::getLibraryAddCountPerBook() const{
     return libraryAddCountPerBook;
 }
