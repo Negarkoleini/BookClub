@@ -29,8 +29,8 @@ bool Publisher::updateBookStatus(int bookId, bool active){
 bool Publisher::softDeleteBook(int bookId){
     for(auto &book:publishedBooks){
         if(book.getId()==bookId){
-            book.setDeleted(true);
-            book.setActive(false);
+            book.setIsDeleted(true);
+            book.setIsActive(false);
             return true;
         }
     }
@@ -46,34 +46,26 @@ void Publisher::createDiscount(const TimedDiscount &discount){
     activeDiscounts.push_back(discount);
     }
 }
-std::vector<TimedDiscount> Publisher::getActiveDiscounts(){
+std::vector<TimedDiscount> Publisher::getActiveDiscounts()const{
     return activeDiscounts;
 }
 void Publisher::applyDiscountsToOwnBooks(const std::string &currentSystemTime) {
-    for (Book &book : publishedBooks) {
-        bool discountFound = false;
-
-        for (const TimedDiscount &discount : activeDiscounts) {
-            if (discount.getTargetBookId() == book.getId() &&
-                discount.isActiveNow(currentSystemTime)) {
-
-                double newPrice = discount.getDiscountedPrice(book.getBasePrice());
-                book.FinalPrice(newPrice);
-                discountFound = true;
-                break;
+        for (Book &book : publishedBooks) {
+            for (const TimedDiscount &discount : activeDiscounts) {
+                if (discount.getTargetBookId() == book.getId()) {
+                    book.removeDiscount(discount.getDiscountId());
+                    if (discount.isActiveNow(currentSystemTime)) {
+                        book.addDiscount(discount);
+                    }
+                }
             }
         }
-
-        if (!discountFound) {
-            book.clearDiscount();
-        }
     }
-}
+
 
 AnalyticsData Publisher::getAnalytics() const{
     return publisherAnalytics;
 }
 void Publisher::updateAnalytics(const AnalyticsData &newData){
-    publisherAnalytics=newDate
-        ;
+    publisherAnalytics=newData;
 }
