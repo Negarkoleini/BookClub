@@ -5,7 +5,9 @@
 
 using namespace std;
 
-int nextId = 1;
+int Book:: nextId = 1;
+
+void Book::seedNextId(int startId) { if (startId >= nextId) nextId = startId; }
 
 Book::Book(std::string title, std::string author, int publisherId, Genre genre,
            std::string description, double basePrice, std::string coverImagePath,

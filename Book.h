@@ -36,6 +36,7 @@ private:
 
 
 public:
+    static void seedNextId(int startId);
     Book();
     Book(std::string title, std::string author, int publisherId, Genre genre,
          std::string description, double basePrice, std::string coverImagePath,

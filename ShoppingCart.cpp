@@ -35,8 +35,6 @@ int ShoppingCart::getItemCount() const {
     return static_cast<int>(items.size());
 }
 
-// ShoppingCart.cpp
-
 // ۱. قیمت کل بدون هیچ تخفیفی (قیمت پایه کتاب‌ها)
 double ShoppingCart::calculateTotal() const {
     double total = 0.0;

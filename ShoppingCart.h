@@ -3,8 +3,7 @@
 #include "CartItem.h"
 #include <vector>
 #include <string>
-
-class Bookshelf;
+#include"Bookshelf.h"
 
 class ShoppingCart {
 private:

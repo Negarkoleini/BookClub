@@ -36,7 +36,6 @@ qt_add_executable(BookClub
     Publisher.h
     Publisher.cpp
     TimedDiscount.cpp
-    TimedDiscount.cpp
     AnalyticsData.h
     AnalyticsData.cpp
     SecurityUtils.h
@@ -45,11 +44,7 @@ qt_add_executable(BookClub
     Transaction.cpp
     ReadingSession.h
     ReadingSession.cpp
-    CartItem.cpp
-    CartItem.cpp
-    ShoppingCart.h
-    ShoppingCart.h
-    AppNotification.h
+    Comment.cpp
 )
 
 
