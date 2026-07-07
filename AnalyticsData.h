@@ -3,7 +3,7 @@
 #include<string>
 #include<map>
 
-class AnalyticsDate{
+class AnalyticsData{
 private:
     int publisherId;
     double totalRevenue;
@@ -12,7 +12,7 @@ private:
     std::map<int, int> commentCountPerBook;
     std::map<int, int> libraryAddCountPerBook;
 public:
-    AnalyticsDate(int publisherId=0);
+    AnalyticsData(int publisherId=0);
 
     void registerSale(int bookId, double price, const std::string &date);
     void registerComment(int bookId);
