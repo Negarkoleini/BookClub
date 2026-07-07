@@ -45,6 +45,7 @@ qt_add_executable(BookClub
     Transaction.cpp
     ReadingSession.h
     ReadingSession.cpp
+    Comment.cpp
 )
 
 

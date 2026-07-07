@@ -356,6 +356,7 @@ D:/ME/project/BookClub/ReadingSession.cpp
 D:/ME/project/BookClub/Genre.h
 D:/ME/project/BookClub/SecurityUtils.h
 D:/ME/project/BookClub/NetworkMessage.h
+D:/ME/project/BookClub/Comment.cpp
 D:/ME/project/BookClub/Publisher.h
 D:/ME/project/BookClub/Rating.h
 D:/ME/project/BookClub/main.cpp

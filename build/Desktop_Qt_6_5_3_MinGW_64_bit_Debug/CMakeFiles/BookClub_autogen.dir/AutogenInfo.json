@@ -466,6 +466,7 @@
 		[ "D:/ME/project/BookClub/Book.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/Bookshelf.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/CartItem.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/Comment.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/Genre.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/NetworkMessage.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/Publisher.cpp", "MU", null ],

@@ -367,6 +367,30 @@ CartItem.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/CartItem.cpp.s
 .PHONY : CartItem.cpp.s
 
+Comment.obj: Comment.cpp.obj
+.PHONY : Comment.obj
+
+# target to build an object file
+Comment.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/Comment.cpp.obj
+.PHONY : Comment.cpp.obj
+
+Comment.i: Comment.cpp.i
+.PHONY : Comment.i
+
+# target to preprocess a source file
+Comment.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/Comment.cpp.i
+.PHONY : Comment.cpp.i
+
+Comment.s: Comment.cpp.s
+.PHONY : Comment.s
+
+# target to generate assembly for a file
+Comment.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/Comment.cpp.s
+.PHONY : Comment.cpp.s
+
 Genre.obj: Genre.cpp.obj
 .PHONY : Genre.obj
 
@@ -715,6 +739,9 @@ help:
 	@echo ... CartItem.obj
 	@echo ... CartItem.i
 	@echo ... CartItem.s
+	@echo ... Comment.obj
+	@echo ... Comment.i
+	@echo ... Comment.s
 	@echo ... Genre.obj
 	@echo ... Genre.i
 	@echo ... Genre.s
