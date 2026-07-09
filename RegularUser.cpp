@@ -61,12 +61,12 @@ void RegularUser::createShelf(const std::string &shelfName){
 
 }
 void RegularUser::deleteShelf(int shelfId){
-    auto it = std::remove_if(personalShelves.begin(), personalShelves.end(),//in tabe amade onsor ra be enteha montaghel mikonad
+    auto it = std::remove_if(personalShelves.begin(), personalShelves.end(),//این تابع عنصر را به انتها منتقل میکند
                              [shelfId](const Bookshelf &shelf) {
                                  return shelf.getShelfId() == shelfId;
                              });
     if (it != personalShelves.end()) {
-        personalShelves.erase(it, personalShelves.end());//az it ta enteha ra hazf mikonad
+        personalShelves.erase(it, personalShelves.end());//از ایت تا انتها را حذف میکند
     }
 }
 std::vector<Bookshelf>& RegularUser::getShelves(){

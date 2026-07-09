@@ -16,6 +16,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "E:/BookClub/Bookshelf.cpp" "CMakeFiles/BookClub.dir/Bookshelf.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Bookshelf.cpp.obj.d"
   "E:/BookClub/CartItem.cpp" "CMakeFiles/BookClub.dir/CartItem.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/CartItem.cpp.obj.d"
   "E:/BookClub/Comment.cpp" "CMakeFiles/BookClub.dir/Comment.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Comment.cpp.obj.d"
+  "E:/BookClub/DatabaseManager.cpp" "CMakeFiles/BookClub.dir/DatabaseManager.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/DatabaseManager.cpp.obj.d"
   "E:/BookClub/Genre.cpp" "CMakeFiles/BookClub.dir/Genre.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Genre.cpp.obj.d"
   "E:/BookClub/NetworkMessage.cpp" "CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj.d"
   "E:/BookClub/Publisher.cpp" "CMakeFiles/BookClub.dir/Publisher.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Publisher.cpp.obj.d"

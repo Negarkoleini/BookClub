@@ -23,6 +23,15 @@ double TimedDiscount::getDiscountValue() const{
 int TimedDiscount::getDiscountId() const{
     return DiscountId;
 }
+std::string TimedDiscount::getStartDateTime() const
+{
+    return startDateTime;
+}
+
+std::string TimedDiscount::getEndDateTime() const
+{
+    return endDateTime;
+}
 bool TimedDiscount::isActiveNow(const std::string &currentSystemTime) const{
     return currentSystemTime>=startDateTime && currentSystemTime<=endDateTime;
 }
