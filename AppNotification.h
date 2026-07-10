@@ -23,6 +23,8 @@ private:
 public:
 
     AppNotification(int id, NotificationType type, std::string message, int targetUserId);
+    static AppNotification fromStorage(int id,NotificationType type,const std::string &message,
+                                       int targetUserId,bool isRead,const std::string &timestamp);
 
     void markAsRead();
     bool getIsRead() const;

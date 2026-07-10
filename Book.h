@@ -62,6 +62,7 @@ public:
     void addRating(const Rating &rating);
     bool updateUserRating(int userId, int newScore);
     void addcomment(int userId , Comment newComment);
+    void setId(int newId);
     std::vector<Rating> getRatings() const ;
     vector<Comment> getComments() const;
 

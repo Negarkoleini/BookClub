@@ -45,6 +45,7 @@ qt_add_executable(BookClub
     ReadingSession.h
     ReadingSession.cpp
     Comment.cpp
+    servercore.h servercore.cpp
 )
 
 
