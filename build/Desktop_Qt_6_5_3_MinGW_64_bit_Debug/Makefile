@@ -391,6 +391,30 @@ Comment.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/Comment.cpp.s
 .PHONY : Comment.cpp.s
 
+DatabaseManager.obj: DatabaseManager.cpp.obj
+.PHONY : DatabaseManager.obj
+
+# target to build an object file
+DatabaseManager.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/DatabaseManager.cpp.obj
+.PHONY : DatabaseManager.cpp.obj
+
+DatabaseManager.i: DatabaseManager.cpp.i
+.PHONY : DatabaseManager.i
+
+# target to preprocess a source file
+DatabaseManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/DatabaseManager.cpp.i
+.PHONY : DatabaseManager.cpp.i
+
+DatabaseManager.s: DatabaseManager.cpp.s
+.PHONY : DatabaseManager.s
+
+# target to generate assembly for a file
+DatabaseManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/DatabaseManager.cpp.s
+.PHONY : DatabaseManager.cpp.s
+
 Genre.obj: Genre.cpp.obj
 .PHONY : Genre.obj
 
@@ -766,6 +790,9 @@ help:
 	@echo ... Comment.obj
 	@echo ... Comment.i
 	@echo ... Comment.s
+	@echo ... DatabaseManager.obj
+	@echo ... DatabaseManager.i
+	@echo ... DatabaseManager.s
 	@echo ... Genre.obj
 	@echo ... Genre.i
 	@echo ... Genre.s

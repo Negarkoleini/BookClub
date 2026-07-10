@@ -1,8 +1,12 @@
 cmake_minimum_required(VERSION 3.19)
 project(BookClub LANGUAGES CXX)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets LinguistTools)
-
+find_package(Qt6 6.5 REQUIRED COMPONENTS
+    Core
+    Widgets
+    Sql
+    LinguistTools
+)
 qt_standard_project_setup()
 
 qt_add_executable(BookClub
@@ -45,7 +49,13 @@ qt_add_executable(BookClub
     ReadingSession.h
     ReadingSession.cpp
     Comment.cpp
+<<<<<<< HEAD
     servercore.h servercore.cpp
+=======
+    DatabaseManager.h
+    DatabaseManager.cpp
+    TimedDiscount.h
+>>>>>>> be5946358e54794652add34144db604c32314225
 )
 
 
@@ -53,6 +63,7 @@ target_link_libraries(BookClub
     PRIVATE
         Qt::Core
         Qt::Widgets
+        Qt::Sql
 )
 
 install(TARGETS BookClub
