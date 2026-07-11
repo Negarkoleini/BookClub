@@ -49,6 +49,9 @@ qt_add_executable(BookClub
     ReadingSession.h
     ReadingSession.cpp
     Comment.cpp
+<<<<<<< HEAD
+    servercore.h servercore.cpp
+=======
     DatabaseManager.h
     DatabaseManager.cpp
     TimedDiscount.h

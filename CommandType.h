@@ -19,6 +19,8 @@ enum class CommandType
 
     GetBooks,
     GetBookDetails,
+    ResponseOk,
+    ResponseError,
 
     Unknown
 };

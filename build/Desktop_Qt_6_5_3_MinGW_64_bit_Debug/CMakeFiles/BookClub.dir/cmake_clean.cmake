@@ -48,6 +48,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/BookClub.dir/main.cpp.obj.d"
   "CMakeFiles/BookClub.dir/mainwindow.cpp.obj"
   "CMakeFiles/BookClub.dir/mainwindow.cpp.obj.d"
+  "CMakeFiles/BookClub.dir/servercore.cpp.obj"
+  "CMakeFiles/BookClub.dir/servercore.cpp.obj.d"
   "BookClub_autogen"
   "CMakeFiles/BookClub_autogen.dir/AutogenUsed.txt"
   "CMakeFiles/BookClub_autogen.dir/ParseCache.txt"

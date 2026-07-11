@@ -45,6 +45,14 @@ void Book::setBasePrice(double newPrice) { if (newPrice >= 0) basePrice = newPri
 void Book::setCoverImagePath(const std::string &path) { coverImagePath = path; }
 void Book::setPdfFileName(const std::string &fileName) { pdfFileName = fileName; }
 
+void Book::setId(int newId)
+{
+    id = newId;
+
+    if (nextId <= newId)
+        nextId = newId + 1;
+}
+
 void Book::addRating(const Rating &rating) {
     userRatings.push_back(rating);
     updateAverageRating();
@@ -88,14 +96,13 @@ int Book::getRatingCount() const {
 
 bool Book::removeDiscount(int discountId)
 {
-    auto it = std::remove_if(discounts.begin(), discounts.end(),
-                             [discountId](const TimedDiscount& d)
+    auto it = std::remove_if(discounts.begin(), discounts.end(),[discountId](const TimedDiscount& d)
                              {
                                  return d.getDiscountId() == discountId;
                              });
 
     if (it == discounts.end())
-        return false;   // تخفیفی با این شناسه پیدا نشد
+        return false;
 
     discounts.erase(it, discounts.end());
     return true;

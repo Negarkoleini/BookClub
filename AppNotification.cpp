@@ -52,3 +52,23 @@ AppNotification AppNotification::createNewReviewNotification(int id, int publish
     return AppNotification(id, NotificationType::NewReview, msg, publisherUserId);
 }
 
+AppNotification AppNotification::fromStorage(
+    int id,
+    NotificationType type,
+    const std::string &message,
+    int targetUserId,
+    bool isRead,
+    const std::string &timestamp)
+{
+    AppNotification notification;
+
+    notification.id = id;
+    notification.type = type;
+    notification.message = message;
+    notification.targetUserId = targetUserId;
+    notification.isRead = isRead;
+    notification.timestamp = timestamp;
+
+    return notification;
+}
+
