@@ -559,6 +559,30 @@ RegularUser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/RegularUser.cpp.s
 .PHONY : RegularUser.cpp.s
 
+RequestProcessor.obj: RequestProcessor.cpp.obj
+.PHONY : RequestProcessor.obj
+
+# target to build an object file
+RequestProcessor.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/RequestProcessor.cpp.obj
+.PHONY : RequestProcessor.cpp.obj
+
+RequestProcessor.i: RequestProcessor.cpp.i
+.PHONY : RequestProcessor.i
+
+# target to preprocess a source file
+RequestProcessor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/RequestProcessor.cpp.i
+.PHONY : RequestProcessor.cpp.i
+
+RequestProcessor.s: RequestProcessor.cpp.s
+.PHONY : RequestProcessor.s
+
+# target to generate assembly for a file
+RequestProcessor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/RequestProcessor.cpp.s
+.PHONY : RequestProcessor.cpp.s
+
 SecurityUtils.obj: SecurityUtils.cpp.obj
 .PHONY : SecurityUtils.obj
 
@@ -787,6 +811,9 @@ help:
 	@echo ... RegularUser.obj
 	@echo ... RegularUser.i
 	@echo ... RegularUser.s
+	@echo ... RequestProcessor.obj
+	@echo ... RequestProcessor.i
+	@echo ... RequestProcessor.s
 	@echo ... SecurityUtils.obj
 	@echo ... SecurityUtils.i
 	@echo ... SecurityUtils.s

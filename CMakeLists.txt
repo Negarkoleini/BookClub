@@ -52,6 +52,9 @@ qt_add_executable(BookClub
     DatabaseManager.h
     DatabaseManager.cpp
     TimedDiscount.h
+    RequestProcessor.h
+    RequestProcessor.cpp
+    JsonPayLoad.h
 )
 
 

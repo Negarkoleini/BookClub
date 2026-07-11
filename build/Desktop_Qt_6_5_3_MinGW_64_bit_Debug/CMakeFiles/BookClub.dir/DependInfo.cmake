@@ -23,6 +23,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "E:/BookClub/Rating.cpp" "CMakeFiles/BookClub.dir/Rating.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Rating.cpp.obj.d"
   "E:/BookClub/ReadingSession.cpp" "CMakeFiles/BookClub.dir/ReadingSession.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/ReadingSession.cpp.obj.d"
   "E:/BookClub/RegularUser.cpp" "CMakeFiles/BookClub.dir/RegularUser.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/RegularUser.cpp.obj.d"
+  "E:/BookClub/RequestProcessor.cpp" "CMakeFiles/BookClub.dir/RequestProcessor.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/RequestProcessor.cpp.obj.d"
   "E:/BookClub/SecurityUtils.cpp" "CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj.d"
   "E:/BookClub/ShoppingCart.cpp" "CMakeFiles/BookClub.dir/ShoppingCart.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/ShoppingCart.cpp.obj.d"
   "E:/BookClub/TimedDiscount.cpp" "CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj.d"

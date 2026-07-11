@@ -350,6 +350,12 @@
 		],
 		[ "E:/BookClub/Genre.h", "MU", "EWIEGA46WW/moc_Genre.cpp", null ],
 		[
+			"E:/BookClub/JsonPayLoad.h",
+			"MU",
+			"EWIEGA46WW/moc_JsonPayLoad.cpp",
+			null
+		],
+		[
 			"E:/BookClub/NetworkMessage.h",
 			"MU",
 			"EWIEGA46WW/moc_NetworkMessage.cpp",
@@ -367,6 +373,12 @@
 			"E:/BookClub/RegularUser.h",
 			"MU",
 			"EWIEGA46WW/moc_RegularUser.cpp",
+			null
+		],
+		[
+			"E:/BookClub/RequestProcessor.h",
+			"MU",
+			"EWIEGA46WW/moc_RequestProcessor.cpp",
 			null
 		],
 		[
@@ -487,6 +499,7 @@
 		[ "E:/BookClub/Rating.cpp", "MU", null ],
 		[ "E:/BookClub/ReadingSession.cpp", "MU", null ],
 		[ "E:/BookClub/RegularUser.cpp", "MU", null ],
+		[ "E:/BookClub/RequestProcessor.cpp", "MU", null ],
 		[ "E:/BookClub/SecurityUtils.cpp", "MU", null ],
 		[ "E:/BookClub/ShoppingCart.cpp", "MU", null ],
 		[ "E:/BookClub/TimedDiscount.cpp", "MU", null ],
