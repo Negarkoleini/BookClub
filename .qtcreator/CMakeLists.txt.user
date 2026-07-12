@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<<<<<<< HEAD
-<!-- Written by QtCreator 20.0.0, 2026-07-08T00:49:12. -->
-=======
-<!-- Written by QtCreator 20.0.0, 2026-07-09T18:20:40. -->
->>>>>>> be5946358e54794652add34144db604c32314225
+<!-- Written by QtCreator 20.0.0, 2026-07-12T03:15:10. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
-  <value type="QByteArray">{d9fb60a9-5c1f-43bf-b24a-0a25105cf5cf}</value>
+  <value type="QByteArray">{4e3c07a8-5976-4d75-9479-c0706971ce20}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -184,7 +180,6 @@
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ApplicationManagerPlugin.Deploy.Configuration</value>
     </valuemap>
     <value type="qlonglong" key="ProjectExplorer.Target.DeployConfigurationCount">2</value>
-<<<<<<< HEAD
     <valuemap type="QVariantMap" key="ProjectExplorer.Target.PluginSettings">
      <value type="bool" key="AndroidBuildTargetDirSupport">false</value>
      <valuelist type="QVariantList" key="ApplicationmanagerPackageTargets"/>
@@ -539,8 +534,6 @@
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ApplicationManagerPlugin.Deploy.Configuration</value>
     </valuemap>
     <value type="qlonglong" key="ProjectExplorer.Target.DeployConfigurationCount">2</value>
-=======
->>>>>>> be5946358e54794652add34144db604c32314225
     <valuemap type="QVariantMap" key="ProjectExplorer.Target.PluginSettings">
      <value type="bool" key="AndroidBuildTargetDirSupport">false</value>
      <valuelist type="QVariantList" key="ApplicationmanagerPackageTargets"/>
@@ -644,7 +637,7 @@
  </data>
  <data>
   <variable>ProjectExplorer.Project.TargetCount</variable>
-  <value type="qlonglong">1</value>
+  <value type="qlonglong">2</value>
  </data>
  <data>
   <variable>Version</variable>

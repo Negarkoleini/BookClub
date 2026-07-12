@@ -21,6 +21,18 @@ enum class CommandType
     GetBookDetails,
     ResponseOk,
     ResponseError,
+    ForgotPasswordRequest,
+    ResetPassword,
+    ChangePassword,
+    ApproveComment,
+    GetPendingComments,
+    ApplyDiscount,
+    GetPublisherAnalytics,
+
+    GetAllUsers,
+    BanUser,
+    UnbanUser,
+    DisableUserTemporarily,
 
     Unknown
 };

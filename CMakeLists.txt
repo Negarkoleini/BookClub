@@ -49,13 +49,11 @@ qt_add_executable(BookClub
     ReadingSession.h
     ReadingSession.cpp
     Comment.cpp
-<<<<<<< HEAD
-    servercore.h servercore.cpp
-=======
+    ServerCore.h ServerCore.cpp
     DatabaseManager.h
     DatabaseManager.cpp
     TimedDiscount.h
->>>>>>> be5946358e54794652add34144db604c32314225
+    ClientHandlerThread.h ClientHandlerThread.cpp
 )
 
 
