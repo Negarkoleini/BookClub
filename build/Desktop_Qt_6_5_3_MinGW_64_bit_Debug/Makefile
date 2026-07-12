@@ -47,19 +47,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = D:\ME\Tools\CMake_64\bin\cmake.exe
+CMAKE_COMMAND = C:\Qt\Tools\CMake_64\bin\cmake.exe
 
 # The command to remove a file.
-RM = D:\ME\Tools\CMake_64\bin\cmake.exe -E rm -f
+RM = C:\Qt\Tools\CMake_64\bin\cmake.exe -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\ME\project\BookClub
+CMAKE_SOURCE_DIR = E:\BookClub
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug
+CMAKE_BINARY_DIR = E:\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -67,7 +67,7 @@ CMAKE_BINARY_DIR = D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_De
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
-	D:\ME\Tools\CMake_64\bin\cmake-gui.exe -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	C:\Qt\Tools\CMake_64\bin\cmake-gui.exe -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -77,7 +77,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
-	D:\ME\Tools\CMake_64\bin\cmake.exe --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	C:\Qt\Tools\CMake_64\bin\cmake.exe --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -96,44 +96,44 @@ list_install_components/fast: list_install_components
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	D:\ME\Tools\CMake_64\bin\cmake.exe -P cmake_install.cmake
+	C:\Qt\Tools\CMake_64\bin\cmake.exe -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	D:\ME\Tools\CMake_64\bin\cmake.exe -P cmake_install.cmake
+	C:\Qt\Tools\CMake_64\bin\cmake.exe -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	D:\ME\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	C:\Qt\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	D:\ME\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	C:\Qt\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	D:\ME\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	C:\Qt\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	D:\ME\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	C:\Qt\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles E:\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -583,6 +583,30 @@ RegularUser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/RegularUser.cpp.s
 .PHONY : RegularUser.cpp.s
 
+RequestProcessor.obj: RequestProcessor.cpp.obj
+.PHONY : RequestProcessor.obj
+
+# target to build an object file
+RequestProcessor.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/RequestProcessor.cpp.obj
+.PHONY : RequestProcessor.cpp.obj
+
+RequestProcessor.i: RequestProcessor.cpp.i
+.PHONY : RequestProcessor.i
+
+# target to preprocess a source file
+RequestProcessor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/RequestProcessor.cpp.i
+.PHONY : RequestProcessor.cpp.i
+
+RequestProcessor.s: RequestProcessor.cpp.s
+.PHONY : RequestProcessor.s
+
+# target to generate assembly for a file
+RequestProcessor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/RequestProcessor.cpp.s
+.PHONY : RequestProcessor.cpp.s
+
 SecurityUtils.obj: SecurityUtils.cpp.obj
 .PHONY : SecurityUtils.obj
 
@@ -606,6 +630,30 @@ SecurityUtils.s: SecurityUtils.cpp.s
 SecurityUtils.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/SecurityUtils.cpp.s
 .PHONY : SecurityUtils.cpp.s
+
+ServerLogManager.obj: ServerLogManager.cpp.obj
+.PHONY : ServerLogManager.obj
+
+# target to build an object file
+ServerLogManager.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/ServerLogManager.cpp.obj
+.PHONY : ServerLogManager.cpp.obj
+
+ServerLogManager.i: ServerLogManager.cpp.i
+.PHONY : ServerLogManager.i
+
+# target to preprocess a source file
+ServerLogManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/ServerLogManager.cpp.i
+.PHONY : ServerLogManager.cpp.i
+
+ServerLogManager.s: ServerLogManager.cpp.s
+.PHONY : ServerLogManager.s
+
+# target to generate assembly for a file
+ServerLogManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/ServerLogManager.cpp.s
+.PHONY : ServerLogManager.cpp.s
 
 ShoppingCart.obj: ShoppingCart.cpp.obj
 .PHONY : ShoppingCart.obj
@@ -838,9 +886,15 @@ help:
 	@echo ... RegularUser.obj
 	@echo ... RegularUser.i
 	@echo ... RegularUser.s
+	@echo ... RequestProcessor.obj
+	@echo ... RequestProcessor.i
+	@echo ... RequestProcessor.s
 	@echo ... SecurityUtils.obj
 	@echo ... SecurityUtils.i
 	@echo ... SecurityUtils.s
+	@echo ... ServerLogManager.obj
+	@echo ... ServerLogManager.i
+	@echo ... ServerLogManager.s
 	@echo ... ShoppingCart.obj
 	@echo ... ShoppingCart.i
 	@echo ... ShoppingCart.s
