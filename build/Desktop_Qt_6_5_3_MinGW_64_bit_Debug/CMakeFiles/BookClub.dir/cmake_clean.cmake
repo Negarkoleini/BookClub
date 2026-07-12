@@ -36,6 +36,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/BookClub.dir/RequestProcessor.cpp.obj.d"
   "CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj"
   "CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj.d"
+  "CMakeFiles/BookClub.dir/ServerLogManager.cpp.obj"
+  "CMakeFiles/BookClub.dir/ServerLogManager.cpp.obj.d"
   "CMakeFiles/BookClub.dir/ShoppingCart.cpp.obj"
   "CMakeFiles/BookClub.dir/ShoppingCart.cpp.obj.d"
   "CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj"
