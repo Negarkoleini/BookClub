@@ -5,6 +5,7 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS
     Core
     Widgets
     Sql
+    Network
     LinguistTools
 )
 qt_standard_project_setup()
@@ -61,6 +62,8 @@ qt_add_executable(BookClub
     ServerLogManager.h
     ServerLogManager.cpp
     servercore.h
+    ServerDashboardWindow.h
+    ServerDashboardWindow.cpp
 )
 
 
@@ -69,6 +72,7 @@ target_link_libraries(BookClub
         Qt::Core
         Qt::Widgets
         Qt::Sql
+        Qt::Network
 )
 
 install(TARGETS BookClub
