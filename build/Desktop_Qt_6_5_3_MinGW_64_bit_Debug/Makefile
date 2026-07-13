@@ -367,6 +367,30 @@ CartItem.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/CartItem.cpp.s
 .PHONY : CartItem.cpp.s
 
+ClientHandlerThread.obj: ClientHandlerThread.cpp.obj
+.PHONY : ClientHandlerThread.obj
+
+# target to build an object file
+ClientHandlerThread.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/ClientHandlerThread.cpp.obj
+.PHONY : ClientHandlerThread.cpp.obj
+
+ClientHandlerThread.i: ClientHandlerThread.cpp.i
+.PHONY : ClientHandlerThread.i
+
+# target to preprocess a source file
+ClientHandlerThread.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/ClientHandlerThread.cpp.i
+.PHONY : ClientHandlerThread.cpp.i
+
+ClientHandlerThread.s: ClientHandlerThread.cpp.s
+.PHONY : ClientHandlerThread.s
+
+# target to generate assembly for a file
+ClientHandlerThread.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/ClientHandlerThread.cpp.s
+.PHONY : ClientHandlerThread.cpp.s
+
 Comment.obj: Comment.cpp.obj
 .PHONY : Comment.obj
 
@@ -835,6 +859,9 @@ help:
 	@echo ... CartItem.obj
 	@echo ... CartItem.i
 	@echo ... CartItem.s
+	@echo ... ClientHandlerThread.obj
+	@echo ... ClientHandlerThread.i
+	@echo ... ClientHandlerThread.s
 	@echo ... Comment.obj
 	@echo ... Comment.i
 	@echo ... Comment.s

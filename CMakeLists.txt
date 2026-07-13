@@ -50,18 +50,18 @@ qt_add_executable(BookClub
     ReadingSession.h
     ReadingSession.cpp
     Comment.cpp
+    ServerCore.h
+    ServerCore.cpp
     DatabaseManager.h
     DatabaseManager.cpp
     TimedDiscount.h
+    ClientHandlerThread.h
+    ClientHandlerThread.cpp
     RequestProcessor.h
     RequestProcessor.cpp
     JsonPayLoad.h
-    servercore.h
-    servercore.h
-    servercore.cpp
     ServerLogManager.h
     ServerLogManager.cpp
-    servercore.h
     ServerDashboardWindow.h
     ServerDashboardWindow.cpp
 )
