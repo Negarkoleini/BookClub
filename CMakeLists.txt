@@ -5,6 +5,7 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS
     Core
     Widgets
     Sql
+    Network
     LinguistTools
 )
 qt_standard_project_setup()
@@ -54,20 +55,23 @@ qt_add_executable(BookClub
     DatabaseManager.cpp
     TimedDiscount.h
     ClientHandlerThread.h ClientHandlerThread.cpp
+    ServerCore.h
+    ServerCore.cpp
     DatabaseManager.h
     DatabaseManager.cpp
     TimedDiscount.h
+    ClientHandlerThread.h
+    ClientHandlerThread.cpp
     RequestProcessor.h
     RequestProcessor.cpp
     JsonPayLoad.h
-    servercore.h
-    servercore.h
-    servercore.cpp
     ServerLogManager.h
     ServerLogManager.cpp
     servercore.h
     ClientSocketWorker.h
     ClientSocketWorker.cpp
+    ServerDashboardWindow.h
+    ServerDashboardWindow.cpp
 )
 
 
@@ -76,6 +80,7 @@ target_link_libraries(BookClub
         Qt::Core
         Qt::Widgets
         Qt::Sql
+        Qt::Network
 )
 
 install(TARGETS BookClub
