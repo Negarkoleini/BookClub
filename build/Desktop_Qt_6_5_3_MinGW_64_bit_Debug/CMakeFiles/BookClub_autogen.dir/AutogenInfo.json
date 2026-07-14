@@ -409,6 +409,12 @@
 			null
 		],
 		[
+			"D:/ME/project/BookClub/NotificationBroadcaster.h",
+			"MU",
+			"EWIEGA46WW/moc_NotificationBroadcaster.cpp",
+			null
+		],
+		[
 			"D:/ME/project/BookClub/Publisher.h",
 			"MU",
 			"EWIEGA46WW/moc_Publisher.cpp",
@@ -585,12 +591,14 @@
 		[ "D:/ME/project/BookClub/DatabaseManager.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/Genre.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/NetworkMessage.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/NotificationBroadcaster.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/Publisher.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/Rating.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/ReadingSession.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/RegularUser.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/RequestProcessor.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/SecurityUtils.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/ServerCore.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/ServerDashboardWindow.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/ServerLogManager.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/SessionManager.cpp", "MU", null ],
@@ -599,8 +607,7 @@
 		[ "D:/ME/project/BookClub/Transaction.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/User.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/main.cpp", "MU", null ],
-		[ "D:/ME/project/BookClub/mainwindow.cpp", "MU", null ],
-		[ "D:/ME/project/BookClub/servercore.cpp", "MU", null ]
+		[ "D:/ME/project/BookClub/mainwindow.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

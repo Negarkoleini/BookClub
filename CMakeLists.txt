@@ -73,6 +73,7 @@ qt_add_executable(BookClub
     ServerDashboardWindow.h
     ServerDashboardWindow.cpp
     SessionManager.h SessionManager.cpp
+    NotificationBroadcaster.h NotificationBroadcaster.cpp
 )
 
 

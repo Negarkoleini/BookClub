@@ -21,12 +21,14 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/ME/project/BookClub/DatabaseManager.cpp" "CMakeFiles/BookClub.dir/DatabaseManager.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/DatabaseManager.cpp.obj.d"
   "D:/ME/project/BookClub/Genre.cpp" "CMakeFiles/BookClub.dir/Genre.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Genre.cpp.obj.d"
   "D:/ME/project/BookClub/NetworkMessage.cpp" "CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj.d"
+  "D:/ME/project/BookClub/NotificationBroadcaster.cpp" "CMakeFiles/BookClub.dir/NotificationBroadcaster.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/NotificationBroadcaster.cpp.obj.d"
   "D:/ME/project/BookClub/Publisher.cpp" "CMakeFiles/BookClub.dir/Publisher.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Publisher.cpp.obj.d"
   "D:/ME/project/BookClub/Rating.cpp" "CMakeFiles/BookClub.dir/Rating.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Rating.cpp.obj.d"
   "D:/ME/project/BookClub/ReadingSession.cpp" "CMakeFiles/BookClub.dir/ReadingSession.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/ReadingSession.cpp.obj.d"
   "D:/ME/project/BookClub/RegularUser.cpp" "CMakeFiles/BookClub.dir/RegularUser.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/RegularUser.cpp.obj.d"
   "D:/ME/project/BookClub/RequestProcessor.cpp" "CMakeFiles/BookClub.dir/RequestProcessor.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/RequestProcessor.cpp.obj.d"
   "D:/ME/project/BookClub/SecurityUtils.cpp" "CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj.d"
+  "D:/ME/project/BookClub/ServerCore.cpp" "CMakeFiles/BookClub.dir/ServerCore.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/ServerCore.cpp.obj.d"
   "D:/ME/project/BookClub/ServerDashboardWindow.cpp" "CMakeFiles/BookClub.dir/ServerDashboardWindow.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/ServerDashboardWindow.cpp.obj.d"
   "D:/ME/project/BookClub/ServerLogManager.cpp" "CMakeFiles/BookClub.dir/ServerLogManager.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/ServerLogManager.cpp.obj.d"
   "D:/ME/project/BookClub/SessionManager.cpp" "CMakeFiles/BookClub.dir/SessionManager.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/SessionManager.cpp.obj.d"
@@ -36,7 +38,6 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/ME/project/BookClub/User.cpp" "CMakeFiles/BookClub.dir/User.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/User.cpp.obj.d"
   "D:/ME/project/BookClub/main.cpp" "CMakeFiles/BookClub.dir/main.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/main.cpp.obj.d"
   "D:/ME/project/BookClub/mainwindow.cpp" "CMakeFiles/BookClub.dir/mainwindow.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/mainwindow.cpp.obj.d"
-  "D:/ME/project/BookClub/servercore.cpp" "CMakeFiles/BookClub.dir/servercore.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/servercore.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

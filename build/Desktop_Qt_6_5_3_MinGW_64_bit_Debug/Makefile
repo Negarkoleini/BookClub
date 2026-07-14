@@ -511,6 +511,30 @@ NetworkMessage.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/NetworkMessage.cpp.s
 .PHONY : NetworkMessage.cpp.s
 
+NotificationBroadcaster.obj: NotificationBroadcaster.cpp.obj
+.PHONY : NotificationBroadcaster.obj
+
+# target to build an object file
+NotificationBroadcaster.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/NotificationBroadcaster.cpp.obj
+.PHONY : NotificationBroadcaster.cpp.obj
+
+NotificationBroadcaster.i: NotificationBroadcaster.cpp.i
+.PHONY : NotificationBroadcaster.i
+
+# target to preprocess a source file
+NotificationBroadcaster.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/NotificationBroadcaster.cpp.i
+.PHONY : NotificationBroadcaster.cpp.i
+
+NotificationBroadcaster.s: NotificationBroadcaster.cpp.s
+.PHONY : NotificationBroadcaster.s
+
+# target to generate assembly for a file
+NotificationBroadcaster.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/NotificationBroadcaster.cpp.s
+.PHONY : NotificationBroadcaster.cpp.s
+
 Publisher.obj: Publisher.cpp.obj
 .PHONY : Publisher.obj
 
@@ -654,6 +678,30 @@ SecurityUtils.s: SecurityUtils.cpp.s
 SecurityUtils.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/SecurityUtils.cpp.s
 .PHONY : SecurityUtils.cpp.s
+
+ServerCore.obj: ServerCore.cpp.obj
+.PHONY : ServerCore.obj
+
+# target to build an object file
+ServerCore.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/ServerCore.cpp.obj
+.PHONY : ServerCore.cpp.obj
+
+ServerCore.i: ServerCore.cpp.i
+.PHONY : ServerCore.i
+
+# target to preprocess a source file
+ServerCore.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/ServerCore.cpp.i
+.PHONY : ServerCore.cpp.i
+
+ServerCore.s: ServerCore.cpp.s
+.PHONY : ServerCore.s
+
+# target to generate assembly for a file
+ServerCore.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/ServerCore.cpp.s
+.PHONY : ServerCore.cpp.s
 
 ServerDashboardWindow.obj: ServerDashboardWindow.cpp.obj
 .PHONY : ServerDashboardWindow.obj
@@ -871,30 +919,6 @@ mainwindow.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/mainwindow.cpp.s
 .PHONY : mainwindow.cpp.s
 
-servercore.obj: servercore.cpp.obj
-.PHONY : servercore.obj
-
-# target to build an object file
-servercore.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/servercore.cpp.obj
-.PHONY : servercore.cpp.obj
-
-servercore.i: servercore.cpp.i
-.PHONY : servercore.i
-
-# target to preprocess a source file
-servercore.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/servercore.cpp.i
-.PHONY : servercore.cpp.i
-
-servercore.s: servercore.cpp.s
-.PHONY : servercore.s
-
-# target to generate assembly for a file
-servercore.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/servercore.cpp.s
-.PHONY : servercore.cpp.s
-
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -949,6 +973,9 @@ help:
 	@echo ... NetworkMessage.obj
 	@echo ... NetworkMessage.i
 	@echo ... NetworkMessage.s
+	@echo ... NotificationBroadcaster.obj
+	@echo ... NotificationBroadcaster.i
+	@echo ... NotificationBroadcaster.s
 	@echo ... Publisher.obj
 	@echo ... Publisher.i
 	@echo ... Publisher.s
@@ -967,6 +994,9 @@ help:
 	@echo ... SecurityUtils.obj
 	@echo ... SecurityUtils.i
 	@echo ... SecurityUtils.s
+	@echo ... ServerCore.obj
+	@echo ... ServerCore.i
+	@echo ... ServerCore.s
 	@echo ... ServerDashboardWindow.obj
 	@echo ... ServerDashboardWindow.i
 	@echo ... ServerDashboardWindow.s
@@ -994,9 +1024,6 @@ help:
 	@echo ... mainwindow.obj
 	@echo ... mainwindow.i
 	@echo ... mainwindow.s
-	@echo ... servercore.obj
-	@echo ... servercore.i
-	@echo ... servercore.s
 .PHONY : help
 
 
