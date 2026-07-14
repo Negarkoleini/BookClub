@@ -94,7 +94,7 @@ class DatabaseManager{
         bool removeDiscount(int discountId);
         QVector<TimedDiscount> getActiveDiscountsForBook(int bookId, const std::string &currentSystemTime) const;
         //اعلان ها//
-        bool saveNotification(const AppNotification &notif);
+        int saveNotification(const AppNotification &notif);
         QVector<AppNotification> getNotificationsForUser(int userId) const;
         bool markNotificationRead(int notificationId);
 

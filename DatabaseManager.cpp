@@ -698,7 +698,7 @@ QVector<TimedDiscount> DatabaseManager::getActiveDiscountsForBook(int bookId, co
     return result;
 }
 // اعلان
-bool DatabaseManager::saveNotification(const AppNotification &notif) {
+int DatabaseManager::saveNotification(const AppNotification &notif) {
     QMutexLocker locker(&dbMutex);
     QSqlQuery q(db);
     q.prepare(R"(INSERT INTO notifications (type, message, isRead, timestamp, targetUserId)
@@ -708,7 +708,10 @@ bool DatabaseManager::saveNotification(const AppNotification &notif) {
     q.addBindValue(notif.getIsRead() ? 1 : 0);
     q.addBindValue(QString::fromStdString(notif.getTimestamp()));
     q.addBindValue(notif.getTargetUserId());
-    return q.exec();
+    if (q.exec()) {
+        return q.lastInsertId().toInt();
+    }
+    return -1;
 }
 QVector<AppNotification> DatabaseManager::getNotificationsForUser(int userId) const {
     QMutexLocker locker(&dbMutex);
