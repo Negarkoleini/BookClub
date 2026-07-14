@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<<<<<<< HEAD
-<!-- Written by QtCreator 20.0.0, 2026-07-12T03:15:10. -->
-=======
-<!-- Written by QtCreator 20.0.0, 2026-07-11T21:38:56. -->
->>>>>>> 0826dd778433aba3e3304382ed05b865f68da5a3
+<!-- Written by QtCreator 20.0.0, 2026-07-15T00:19:46. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -286,7 +282,6 @@
   </valuemap>
  </data>
  <data>
-<<<<<<< HEAD
   <variable>ProjectExplorer.Project.Target.1</variable>
   <valuemap type="QVariantMap">
    <value type="QString" key="DeviceType">Desktop</value>
@@ -641,8 +636,6 @@
   </valuemap>
  </data>
  <data>
-=======
->>>>>>> 0826dd778433aba3e3304382ed05b865f68da5a3
   <variable>ProjectExplorer.Project.TargetCount</variable>
   <value type="qlonglong">2</value>
  </data>

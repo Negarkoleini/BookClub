@@ -10,15 +10,13 @@ NotificationBroadcaster::NotificationBroadcaster(QObject *parent) : QObject(pare
 
 void NotificationBroadcaster::sendToUser(const AppNotification &notif) {
     // همیشه اول در دیتابیس ذخیره می‌شود (تا وقتی کاربر بعداً لاگین کرد هم ببیندش)
-    DatabaseManager::getInstance().saveNotification(notif);
+    int dbId = DatabaseManager::getInstance().saveNotification(notif);
 
     ClientSocketWorker* worker = SessionManager::getInstance().getWorkerForUser(notif.getTargetUserId());
-    if (worker == nullptr) {
-        return; // کاربر آفلاین است
-    }
+    if (worker == nullptr) return;
 
     QJsonObject json;
-    json["id"] = notif.getId();
+    json["id"] = dbId; // <--- قرار دادن آی‌دی واقعی دیتابیس در پکت شبکه
     json["type"] = static_cast<int>(notif.getType());
     json["message"] = QString::fromStdString(notif.getMessage());
     json["timestamp"] = QString::fromStdString(notif.getTimestamp());
