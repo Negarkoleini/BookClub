@@ -1,4 +1,13 @@
 BookClub_autogen/timestamp: \
+	D:/ME/6.5.3/mingw_64/include/QtCore/QByteArray \
+	D:/ME/6.5.3/mingw_64/include/QtCore/QFile \
+	D:/ME/6.5.3/mingw_64/include/QtCore/QJsonObject \
+	D:/ME/6.5.3/mingw_64/include/QtCore/QMutex \
+	D:/ME/6.5.3/mingw_64/include/QtCore/QObject \
+	D:/ME/6.5.3/mingw_64/include/QtCore/QString \
+	D:/ME/6.5.3/mingw_64/include/QtCore/QTextStream \
+	D:/ME/6.5.3/mingw_64/include/QtCore/QThread \
+	D:/ME/6.5.3/mingw_64/include/QtCore/QTimer \
 	D:/ME/6.5.3/mingw_64/include/QtCore/q20memory.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/q20type_traits.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qalgorithms.h \
@@ -10,11 +19,15 @@ BookClub_autogen/timestamp: \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qatomic.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qatomic_cxx11.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qbasicatomic.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qbasictimer.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qbindingstorage.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qbytearray.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qbytearrayalgorithms.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qbytearraylist.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qbytearrayview.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qcalendar.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qcborcommon.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qcborvalue.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qchar.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qcompare.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qcompare_impl.h \
@@ -27,8 +40,13 @@ BookClub_autogen/timestamp: \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qcontiguouscache.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qdarwinhelpers.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qdatastream.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qdatetime.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qdeadlinetimer.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qdebug.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qelapsedtimer.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qexceptionhandling.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qfile.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qfiledevice.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qflags.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qfloat16.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qforeach.h \
@@ -38,11 +56,15 @@ BookClub_autogen/timestamp: \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qglobalstatic.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qhash.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qhashfunctions.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qiodevice.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qiodevicebase.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qiterable.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qiterator.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qjsonobject.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qjsonvalue.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qline.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qlist.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qlocale.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qlogging.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qmalloc.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qmap.h \
@@ -51,6 +73,7 @@ BookClub_autogen/timestamp: \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qmetacontainer.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qmetatype.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qminmax.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qmutex.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qnamespace.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qnumeric.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qobject.h \
@@ -63,6 +86,7 @@ BookClub_autogen/timestamp: \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qprocessordetection.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qrect.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qrefcount.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qregularexpression.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qscopedpointer.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qscopeguard.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qset.h \
@@ -92,17 +116,22 @@ BookClub_autogen/timestamp: \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qtdeprecationmarkers.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qtenvironmentvariables.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qtextstream.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qthread.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qtimer.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qtmetamacros.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qtnoop.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qtpreprocessorsupport.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qtresource.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qtsan_impl.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qttranslation.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qttypetraits.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qtversion.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qtversionchecks.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qtypeinfo.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qtypes.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/qurl.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qutf8stringview.h \
+	D:/ME/6.5.3/mingw_64/include/QtCore/quuid.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qvariant.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qvarlengtharray.h \
 	D:/ME/6.5.3/mingw_64/include/QtCore/qversiontagging.h \
@@ -120,22 +149,47 @@ BookClub_autogen/timestamp: \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qkeysequence.h \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qpaintdevice.h \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qpalette.h \
+	D:/ME/6.5.3/mingw_64/include/QtGui/qpen.h \
+	D:/ME/6.5.3/mingw_64/include/QtGui/qpicture.h \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qpixelformat.h \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qpixmap.h \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qpolygon.h \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qregion.h \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qrgb.h \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qrgba64.h \
+	D:/ME/6.5.3/mingw_64/include/QtGui/qtextcursor.h \
+	D:/ME/6.5.3/mingw_64/include/QtGui/qtextdocument.h \
+	D:/ME/6.5.3/mingw_64/include/QtGui/qtextformat.h \
+	D:/ME/6.5.3/mingw_64/include/QtGui/qtextoption.h \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qtgui-config.h \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qtguiexports.h \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qtguiglobal.h \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qtransform.h \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qwindowdefs.h \
 	D:/ME/6.5.3/mingw_64/include/QtGui/qwindowdefs_win.h \
+	D:/ME/6.5.3/mingw_64/include/QtNetwork/QTcpServer \
+	D:/ME/6.5.3/mingw_64/include/QtNetwork/QTcpSocket \
+	D:/ME/6.5.3/mingw_64/include/QtNetwork/qabstractsocket.h \
+	D:/ME/6.5.3/mingw_64/include/QtNetwork/qhostaddress.h \
+	D:/ME/6.5.3/mingw_64/include/QtNetwork/qtcpserver.h \
+	D:/ME/6.5.3/mingw_64/include/QtNetwork/qtcpsocket.h \
+	D:/ME/6.5.3/mingw_64/include/QtNetwork/qtnetwork-config.h \
+	D:/ME/6.5.3/mingw_64/include/QtNetwork/qtnetworkexports.h \
+	D:/ME/6.5.3/mingw_64/include/QtNetwork/qtnetworkglobal.h \
+	D:/ME/6.5.3/mingw_64/include/QtWidgets/QLabel \
 	D:/ME/6.5.3/mingw_64/include/QtWidgets/QMainWindow \
+	D:/ME/6.5.3/mingw_64/include/QtWidgets/QPushButton \
+	D:/ME/6.5.3/mingw_64/include/QtWidgets/QTextEdit \
+	D:/ME/6.5.3/mingw_64/include/QtWidgets/QWidget \
+	D:/ME/6.5.3/mingw_64/include/QtWidgets/qabstractbutton.h \
+	D:/ME/6.5.3/mingw_64/include/QtWidgets/qabstractscrollarea.h \
+	D:/ME/6.5.3/mingw_64/include/QtWidgets/qframe.h \
+	D:/ME/6.5.3/mingw_64/include/QtWidgets/qlabel.h \
 	D:/ME/6.5.3/mingw_64/include/QtWidgets/qmainwindow.h \
+	D:/ME/6.5.3/mingw_64/include/QtWidgets/qpushbutton.h \
 	D:/ME/6.5.3/mingw_64/include/QtWidgets/qsizepolicy.h \
 	D:/ME/6.5.3/mingw_64/include/QtWidgets/qtabwidget.h \
+	D:/ME/6.5.3/mingw_64/include/QtWidgets/qtextedit.h \
 	D:/ME/6.5.3/mingw_64/include/QtWidgets/qtwidgets-config.h \
 	D:/ME/6.5.3/mingw_64/include/QtWidgets/qtwidgetsexports.h \
 	D:/ME/6.5.3/mingw_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -255,6 +309,52 @@ BookClub_autogen/timestamp: \
 	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6LinguistTools/Qt6LinguistToolsTargets-relwithdebinfo.cmake \
 	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6LinguistTools/Qt6LinguistToolsTargets.cmake \
 	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6LinguistTools/Qt6LinguistToolsVersionlessTargets.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6NetworkAdditionalTargetInfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6NetworkConfig.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6NetworkConfigVersion.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6NetworkConfigVersionImpl.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6NetworkDependencies.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6NetworkPlugins.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6NetworkTargets-relwithdebinfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6NetworkTargets.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6NetworkVersionlessTargets.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QNLMNIPluginAdditionalTargetInfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QNLMNIPluginConfig.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QNLMNIPluginTargets-relwithdebinfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QNLMNIPluginTargets.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QSchannelBackendPluginAdditionalTargetInfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QSchannelBackendPluginConfig.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QSchannelBackendPluginTargets-relwithdebinfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QSchannelBackendPluginTargets.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QTlsBackendCertOnlyPluginAdditionalTargetInfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QTlsBackendCertOnlyPluginConfig.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QTlsBackendCertOnlyPluginTargets-relwithdebinfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QTlsBackendCertOnlyPluginTargets.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginAdditionalTargetInfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginConfig.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginTargets-relwithdebinfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginTargets.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6QODBCDriverPluginAdditionalTargetInfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6QODBCDriverPluginConfig.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6QODBCDriverPluginTargets-relwithdebinfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6QODBCDriverPluginTargets.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6QPSQLDriverPluginAdditionalTargetInfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6QPSQLDriverPluginConfig.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6QPSQLDriverPluginTargets-relwithdebinfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6QPSQLDriverPluginTargets.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginAdditionalTargetInfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginConfig.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginTargets-relwithdebinfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6QSQLiteDriverPluginTargets.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6SqlAdditionalTargetInfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6SqlConfig.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6SqlConfigVersion.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6SqlConfigVersionImpl.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6SqlDependencies.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6SqlPlugins.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6SqlTargets-relwithdebinfo.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6SqlTargets.cmake \
+	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Sql/Qt6SqlVersionlessTargets.cmake \
 	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Widgets/Qt6QWindowsVistaStylePluginAdditionalTargetInfo.cmake \
 	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Widgets/Qt6QWindowsVistaStylePluginConfig.cmake \
 	D:/ME/6.5.3/mingw_64/lib/cmake/Qt6Widgets/Qt6QWindowsVistaStylePluginTargets-relwithdebinfo.cmake \
@@ -330,11 +430,15 @@ BookClub_autogen/timestamp: \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/allocated_ptr.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/allocator.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/atomic_base.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/atomic_futex.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/atomic_lockfree_defines.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/basic_ios.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/basic_ios.tcc \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/basic_string.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/basic_string.tcc \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/char_traits.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/charconv.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/codecvt.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/concept_check.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/cpp_type_traits.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/cxxabi_forced.h \
@@ -344,6 +448,10 @@ BookClub_autogen/timestamp: \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/exception.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/exception_defines.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/exception_ptr.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/fs_dir.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/fs_fwd.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/fs_ops.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/fs_path.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/functexcept.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/functional_hash.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/hash_bytes.h \
@@ -351,27 +459,38 @@ BookClub_autogen/timestamp: \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/hashtable_policy.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/invoke.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/ios_base.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/istream.tcc \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/list.tcc \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_classes.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_classes.tcc \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_conv.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_facets.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_facets.tcc \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_facets_nonio.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_facets_nonio.tcc \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/localefwd.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/memoryfwd.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/move.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/nested_exception.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/node_handle.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/ostream.tcc \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/ostream_insert.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/parse_numbers.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/postypes.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/predefined_ops.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/ptr_traits.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/quoted_string.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/range_access.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/refwrap.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/shared_ptr.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/shared_ptr_atomic.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/shared_ptr_base.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/specfun.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/sstream.tcc \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_abs.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_function.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_mutex.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_thread.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_algo.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_algobase.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_bvector.h \
@@ -398,6 +517,7 @@ BookClub_autogen/timestamp: \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/string_view.tcc \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stringfwd.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/uniform_int_dist.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/unique_lock.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/unique_ptr.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/unordered_map.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/uses_allocator.h \
@@ -407,6 +527,8 @@ BookClub_autogen/timestamp: \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/chrono \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/clocale \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cmath \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/codecvt \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/condition_variable \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstddef \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstdint \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstdio \
@@ -414,6 +536,7 @@ BookClub_autogen/timestamp: \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstring \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ctime \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cwchar \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cwctype \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/debug/assertions.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/debug/debug.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/exception \
@@ -425,22 +548,31 @@ BookClub_autogen/timestamp: \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ext/numeric_traits.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ext/string_conversions.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ext/type_traits.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/filesystem \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/functional \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/future \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/initializer_list \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iomanip \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ios \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iosfwd \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/istream \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iterator \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/limits \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/list \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/locale \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/map \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/memory \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/mutex \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/new \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/numeric \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/optional \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ostream \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/pstl/execution_defs.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/pstl/glue_algorithm_defs.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/pstl/glue_memory_defs.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/pstl/glue_numeric_defs.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ratio \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/sstream \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/stdexcept \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/stdlib.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/streambuf \
@@ -471,10 +603,14 @@ BookClub_autogen/timestamp: \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++locale.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/cpu_defines.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/ctype_base.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/ctype_inline.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/error_constants.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/gthr-default.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/gthr.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/messages_members.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \
+	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/time_members.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/stdarg.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/stdbool.h \
 	D:/ME/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/stddef.h \
@@ -514,6 +650,7 @@ BookClub_autogen/timestamp: \
 	D:/ME/Tools/mingw1120_64/x86_64-w64-mingw32/include/time.h \
 	D:/ME/Tools/mingw1120_64/x86_64-w64-mingw32/include/vadefs.h \
 	D:/ME/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h \
+	D:/ME/Tools/mingw1120_64/x86_64-w64-mingw32/include/wctype.h \
 	D:/ME/project/BookClub/Admin.cpp \
 	D:/ME/project/BookClub/Admin.h \
 	D:/ME/project/BookClub/AnalyticsData.cpp \
@@ -527,13 +664,22 @@ BookClub_autogen/timestamp: \
 	D:/ME/project/BookClub/CMakeLists.txt \
 	D:/ME/project/BookClub/CartItem.cpp \
 	D:/ME/project/BookClub/CartItem.h \
+	D:/ME/project/BookClub/ClientHandlerThread.cpp \
+	D:/ME/project/BookClub/ClientHandlerThread.h \
+	D:/ME/project/BookClub/ClientSocketWorker.cpp \
+	D:/ME/project/BookClub/ClientSocketWorker.h \
 	D:/ME/project/BookClub/CommandType.h \
 	D:/ME/project/BookClub/Comment.cpp \
 	D:/ME/project/BookClub/Comment.h \
+	D:/ME/project/BookClub/DatabaseManager.cpp \
+	D:/ME/project/BookClub/DatabaseManager.h \
 	D:/ME/project/BookClub/Genre.cpp \
 	D:/ME/project/BookClub/Genre.h \
+	D:/ME/project/BookClub/JsonPayLoad.h \
 	D:/ME/project/BookClub/NetworkMessage.cpp \
 	D:/ME/project/BookClub/NetworkMessage.h \
+	D:/ME/project/BookClub/NotificationBroadcaster.cpp \
+	D:/ME/project/BookClub/NotificationBroadcaster.h \
 	D:/ME/project/BookClub/Publisher.cpp \
 	D:/ME/project/BookClub/Publisher.h \
 	D:/ME/project/BookClub/Rating.cpp \
@@ -542,8 +688,18 @@ BookClub_autogen/timestamp: \
 	D:/ME/project/BookClub/ReadingSession.h \
 	D:/ME/project/BookClub/RegularUser.cpp \
 	D:/ME/project/BookClub/RegularUser.h \
+	D:/ME/project/BookClub/RequestProcessor.cpp \
+	D:/ME/project/BookClub/RequestProcessor.h \
 	D:/ME/project/BookClub/SecurityUtils.cpp \
 	D:/ME/project/BookClub/SecurityUtils.h \
+	D:/ME/project/BookClub/ServerCore.cpp \
+	D:/ME/project/BookClub/ServerCore.h \
+	D:/ME/project/BookClub/ServerDashboardWindow.cpp \
+	D:/ME/project/BookClub/ServerDashboardWindow.h \
+	D:/ME/project/BookClub/ServerLogManager.cpp \
+	D:/ME/project/BookClub/ServerLogManager.h \
+	D:/ME/project/BookClub/SessionManager.cpp \
+	D:/ME/project/BookClub/SessionManager.h \
 	D:/ME/project/BookClub/ShoppingCart.cpp \
 	D:/ME/project/BookClub/ShoppingCart.h \
 	D:/ME/project/BookClub/TimedDiscount.cpp \

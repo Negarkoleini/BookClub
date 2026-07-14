@@ -6,6 +6,7 @@
 #include "CommandType.h"
 #include "ClientSocketWorker.h"
 #include "NotificationBroadcaster.h"
+#include <QJsonObject>
 
 
 class RequestProcessor : public QObject {

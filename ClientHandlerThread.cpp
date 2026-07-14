@@ -26,3 +26,4 @@ void ClientHandlerThread::run() {
 
 void ClientHandlerThread::onWorkerDisconnected(ClientSocketWorker* /*worker*/) {
     quit(); // به exec() میگوید event loop
+}

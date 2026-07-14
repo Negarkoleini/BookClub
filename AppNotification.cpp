@@ -60,12 +60,8 @@ AppNotification AppNotification::fromStorage(
     bool isRead,
     const std::string &timestamp)
 {
-    AppNotification notification;
+    AppNotification notification(id , type ,message ,targetUserId );
 
-    notification.id = id;
-    notification.type = type;
-    notification.message = message;
-    notification.targetUserId = targetUserId;
     notification.isRead = isRead;
     notification.timestamp = timestamp;
 
