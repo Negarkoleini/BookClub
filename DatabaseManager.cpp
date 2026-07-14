@@ -370,6 +370,15 @@ bool DatabaseManager::setBookActive(int bookId, bool active) {
     q.addBindValue(bookId);
     return q.exec() && q.numRowsAffected() > 0;
 }
+
+bool DatabaseManager::softDeleteBook(int bookId) {
+    QMutexLocker locker(&dbMutex);
+    QSqlQuery q(db);
+    q.prepare("UPDATE books SET isDeleted = 1, isActive = 0 WHERE id = ?;");
+    q.addBindValue(bookId);
+    return q.exec() && q.numRowsAffected() > 0;
+}
+
 static Book rowToBook(QSqlQuery &q) {
     Book b(
         q.value("title").toString().toStdString(),
