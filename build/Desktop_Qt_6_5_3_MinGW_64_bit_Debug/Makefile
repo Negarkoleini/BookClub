@@ -703,6 +703,30 @@ ServerLogManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/ServerLogManager.cpp.s
 .PHONY : ServerLogManager.cpp.s
 
+SessionManager.obj: SessionManager.cpp.obj
+.PHONY : SessionManager.obj
+
+# target to build an object file
+SessionManager.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/SessionManager.cpp.obj
+.PHONY : SessionManager.cpp.obj
+
+SessionManager.i: SessionManager.cpp.i
+.PHONY : SessionManager.i
+
+# target to preprocess a source file
+SessionManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/SessionManager.cpp.i
+.PHONY : SessionManager.cpp.i
+
+SessionManager.s: SessionManager.cpp.s
+.PHONY : SessionManager.s
+
+# target to generate assembly for a file
+SessionManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/SessionManager.cpp.s
+.PHONY : SessionManager.cpp.s
+
 ShoppingCart.obj: ShoppingCart.cpp.obj
 .PHONY : ShoppingCart.obj
 
@@ -949,6 +973,9 @@ help:
 	@echo ... ServerLogManager.obj
 	@echo ... ServerLogManager.i
 	@echo ... ServerLogManager.s
+	@echo ... SessionManager.obj
+	@echo ... SessionManager.i
+	@echo ... SessionManager.s
 	@echo ... ShoppingCart.obj
 	@echo ... ShoppingCart.i
 	@echo ... ShoppingCart.s

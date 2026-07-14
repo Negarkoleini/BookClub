@@ -72,6 +72,7 @@ qt_add_executable(BookClub
     ClientSocketWorker.cpp
     ServerDashboardWindow.h
     ServerDashboardWindow.cpp
+    SessionManager.h SessionManager.cpp
 )
 
 

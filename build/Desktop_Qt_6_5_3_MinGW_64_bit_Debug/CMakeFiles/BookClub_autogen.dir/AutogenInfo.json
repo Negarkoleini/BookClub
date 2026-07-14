@@ -463,6 +463,12 @@
 			null
 		],
 		[
+			"D:/ME/project/BookClub/SessionManager.h",
+			"MU",
+			"EWIEGA46WW/moc_SessionManager.cpp",
+			null
+		],
+		[
 			"D:/ME/project/BookClub/ShoppingCart.h",
 			"MU",
 			"EWIEGA46WW/moc_ShoppingCart.cpp",
@@ -587,6 +593,7 @@
 		[ "D:/ME/project/BookClub/SecurityUtils.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/ServerDashboardWindow.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/ServerLogManager.cpp", "MU", null ],
+		[ "D:/ME/project/BookClub/SessionManager.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/ShoppingCart.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/TimedDiscount.cpp", "MU", null ],
 		[ "D:/ME/project/BookClub/Transaction.cpp", "MU", null ],

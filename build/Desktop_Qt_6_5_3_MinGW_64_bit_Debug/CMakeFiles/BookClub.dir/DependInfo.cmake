@@ -29,6 +29,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/ME/project/BookClub/SecurityUtils.cpp" "CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/SecurityUtils.cpp.obj.d"
   "D:/ME/project/BookClub/ServerDashboardWindow.cpp" "CMakeFiles/BookClub.dir/ServerDashboardWindow.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/ServerDashboardWindow.cpp.obj.d"
   "D:/ME/project/BookClub/ServerLogManager.cpp" "CMakeFiles/BookClub.dir/ServerLogManager.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/ServerLogManager.cpp.obj.d"
+  "D:/ME/project/BookClub/SessionManager.cpp" "CMakeFiles/BookClub.dir/SessionManager.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/SessionManager.cpp.obj.d"
   "D:/ME/project/BookClub/ShoppingCart.cpp" "CMakeFiles/BookClub.dir/ShoppingCart.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/ShoppingCart.cpp.obj.d"
   "D:/ME/project/BookClub/TimedDiscount.cpp" "CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj.d"
   "D:/ME/project/BookClub/Transaction.cpp" "CMakeFiles/BookClub.dir/Transaction.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Transaction.cpp.obj.d"

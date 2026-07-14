@@ -44,6 +44,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/BookClub.dir/ServerDashboardWindow.cpp.obj.d"
   "CMakeFiles/BookClub.dir/ServerLogManager.cpp.obj"
   "CMakeFiles/BookClub.dir/ServerLogManager.cpp.obj.d"
+  "CMakeFiles/BookClub.dir/SessionManager.cpp.obj"
+  "CMakeFiles/BookClub.dir/SessionManager.cpp.obj.d"
   "CMakeFiles/BookClub.dir/ShoppingCart.cpp.obj"
   "CMakeFiles/BookClub.dir/ShoppingCart.cpp.obj.d"
   "CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj"
