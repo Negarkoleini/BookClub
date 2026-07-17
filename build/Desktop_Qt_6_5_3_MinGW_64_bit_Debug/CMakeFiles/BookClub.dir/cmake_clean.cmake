@@ -18,6 +18,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/BookClub.dir/CartItem.cpp.obj.d"
   "CMakeFiles/BookClub.dir/ClientHandlerThread.cpp.obj"
   "CMakeFiles/BookClub.dir/ClientHandlerThread.cpp.obj.d"
+  "CMakeFiles/BookClub.dir/ClientNetworkManager.cpp.obj"
+  "CMakeFiles/BookClub.dir/ClientNetworkManager.cpp.obj.d"
   "CMakeFiles/BookClub.dir/ClientSocketWorker.cpp.obj"
   "CMakeFiles/BookClub.dir/ClientSocketWorker.cpp.obj.d"
   "CMakeFiles/BookClub.dir/Comment.cpp.obj"
