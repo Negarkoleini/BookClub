@@ -479,6 +479,12 @@
 		],
 		[ "E:/BookClub/User.h", "MU", "EWIEGA46WW/moc_User.cpp", null ],
 		[
+			"E:/BookClub/UserPanelWindow.h",
+			"MU",
+			"EWIEGA46WW/moc_UserPanelWindow.cpp",
+			null
+		],
+		[
 			"E:/BookClub/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
@@ -586,6 +592,7 @@
 		[ "E:/BookClub/TimedDiscount.cpp", "MU", null ],
 		[ "E:/BookClub/Transaction.cpp", "MU", null ],
 		[ "E:/BookClub/User.cpp", "MU", null ],
+		[ "E:/BookClub/UserPanelWindow.cpp", "MU", null ],
 		[ "E:/BookClub/main.cpp", "MU", null ],
 		[ "E:/BookClub/mainwindow.cpp", "MU", null ]
 	],

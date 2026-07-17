@@ -36,6 +36,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "E:/BookClub/TimedDiscount.cpp" "CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/TimedDiscount.cpp.obj.d"
   "E:/BookClub/Transaction.cpp" "CMakeFiles/BookClub.dir/Transaction.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Transaction.cpp.obj.d"
   "E:/BookClub/User.cpp" "CMakeFiles/BookClub.dir/User.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/User.cpp.obj.d"
+  "E:/BookClub/UserPanelWindow.cpp" "CMakeFiles/BookClub.dir/UserPanelWindow.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/UserPanelWindow.cpp.obj.d"
   "E:/BookClub/main.cpp" "CMakeFiles/BookClub.dir/main.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/main.cpp.obj.d"
   "E:/BookClub/mainwindow.cpp" "CMakeFiles/BookClub.dir/mainwindow.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/mainwindow.cpp.obj.d"
   )

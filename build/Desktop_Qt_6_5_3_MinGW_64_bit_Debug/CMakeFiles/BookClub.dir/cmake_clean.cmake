@@ -58,6 +58,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/BookClub.dir/Transaction.cpp.obj.d"
   "CMakeFiles/BookClub.dir/User.cpp.obj"
   "CMakeFiles/BookClub.dir/User.cpp.obj.d"
+  "CMakeFiles/BookClub.dir/UserPanelWindow.cpp.obj"
+  "CMakeFiles/BookClub.dir/UserPanelWindow.cpp.obj.d"
   "CMakeFiles/BookClub.dir/main.cpp.obj"
   "CMakeFiles/BookClub.dir/main.cpp.obj.d"
   "CMakeFiles/BookClub.dir/mainwindow.cpp.obj"
