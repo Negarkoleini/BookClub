@@ -463,6 +463,30 @@ Comment.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/Comment.cpp.s
 .PHONY : Comment.cpp.s
 
+DashboardController.obj: DashboardController.cpp.obj
+.PHONY : DashboardController.obj
+
+# target to build an object file
+DashboardController.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/DashboardController.cpp.obj
+.PHONY : DashboardController.cpp.obj
+
+DashboardController.i: DashboardController.cpp.i
+.PHONY : DashboardController.i
+
+# target to preprocess a source file
+DashboardController.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/DashboardController.cpp.i
+.PHONY : DashboardController.cpp.i
+
+DashboardController.s: DashboardController.cpp.s
+.PHONY : DashboardController.s
+
+# target to generate assembly for a file
+DashboardController.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/DashboardController.cpp.s
+.PHONY : DashboardController.cpp.s
+
 DatabaseManager.obj: DatabaseManager.cpp.obj
 .PHONY : DatabaseManager.obj
 
@@ -895,6 +919,30 @@ User.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/User.cpp.s
 .PHONY : User.cpp.s
 
+UserPanelWindow.obj: UserPanelWindow.cpp.obj
+.PHONY : UserPanelWindow.obj
+
+# target to build an object file
+UserPanelWindow.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/UserPanelWindow.cpp.obj
+.PHONY : UserPanelWindow.cpp.obj
+
+UserPanelWindow.i: UserPanelWindow.cpp.i
+.PHONY : UserPanelWindow.i
+
+# target to preprocess a source file
+UserPanelWindow.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/UserPanelWindow.cpp.i
+.PHONY : UserPanelWindow.cpp.i
+
+UserPanelWindow.s: UserPanelWindow.cpp.s
+.PHONY : UserPanelWindow.s
+
+# target to generate assembly for a file
+UserPanelWindow.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/UserPanelWindow.cpp.s
+.PHONY : UserPanelWindow.cpp.s
+
 main.obj: main.cpp.obj
 .PHONY : main.obj
 
@@ -991,6 +1039,9 @@ help:
 	@echo ... Comment.obj
 	@echo ... Comment.i
 	@echo ... Comment.s
+	@echo ... DashboardController.obj
+	@echo ... DashboardController.i
+	@echo ... DashboardController.s
 	@echo ... DatabaseManager.obj
 	@echo ... DatabaseManager.i
 	@echo ... DatabaseManager.s
@@ -1045,6 +1096,9 @@ help:
 	@echo ... User.obj
 	@echo ... User.i
 	@echo ... User.s
+	@echo ... UserPanelWindow.obj
+	@echo ... UserPanelWindow.i
+	@echo ... UserPanelWindow.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
