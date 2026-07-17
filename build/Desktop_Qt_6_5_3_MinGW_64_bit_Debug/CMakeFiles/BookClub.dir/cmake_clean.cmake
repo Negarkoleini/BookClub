@@ -22,6 +22,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/BookClub.dir/ClientSocketWorker.cpp.obj.d"
   "CMakeFiles/BookClub.dir/Comment.cpp.obj"
   "CMakeFiles/BookClub.dir/Comment.cpp.obj.d"
+  "CMakeFiles/BookClub.dir/DashboardController.cpp.obj"
+  "CMakeFiles/BookClub.dir/DashboardController.cpp.obj.d"
   "CMakeFiles/BookClub.dir/DatabaseManager.cpp.obj"
   "CMakeFiles/BookClub.dir/DatabaseManager.cpp.obj.d"
   "CMakeFiles/BookClub.dir/Genre.cpp.obj"

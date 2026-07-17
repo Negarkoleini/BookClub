@@ -18,6 +18,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "E:/BookClub/ClientHandlerThread.cpp" "CMakeFiles/BookClub.dir/ClientHandlerThread.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/ClientHandlerThread.cpp.obj.d"
   "E:/BookClub/ClientSocketWorker.cpp" "CMakeFiles/BookClub.dir/ClientSocketWorker.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/ClientSocketWorker.cpp.obj.d"
   "E:/BookClub/Comment.cpp" "CMakeFiles/BookClub.dir/Comment.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Comment.cpp.obj.d"
+  "E:/BookClub/DashboardController.cpp" "CMakeFiles/BookClub.dir/DashboardController.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/DashboardController.cpp.obj.d"
   "E:/BookClub/DatabaseManager.cpp" "CMakeFiles/BookClub.dir/DatabaseManager.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/DatabaseManager.cpp.obj.d"
   "E:/BookClub/Genre.cpp" "CMakeFiles/BookClub.dir/Genre.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Genre.cpp.obj.d"
   "E:/BookClub/NetworkMessage.cpp" "CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj.d"

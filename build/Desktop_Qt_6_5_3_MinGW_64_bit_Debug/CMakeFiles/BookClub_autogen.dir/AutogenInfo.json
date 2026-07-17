@@ -385,6 +385,12 @@
 		],
 		[ "E:/BookClub/Comment.h", "MU", "EWIEGA46WW/moc_Comment.cpp", null ],
 		[
+			"E:/BookClub/DashboardController.h",
+			"MU",
+			"EWIEGA46WW/moc_DashboardController.cpp",
+			null
+		],
+		[
 			"E:/BookClub/DatabaseManager.h",
 			"MU",
 			"EWIEGA46WW/moc_DatabaseManager.cpp",
@@ -574,6 +580,7 @@
 		[ "E:/BookClub/ClientHandlerThread.cpp", "MU", null ],
 		[ "E:/BookClub/ClientSocketWorker.cpp", "MU", null ],
 		[ "E:/BookClub/Comment.cpp", "MU", null ],
+		[ "E:/BookClub/DashboardController.cpp", "MU", null ],
 		[ "E:/BookClub/DatabaseManager.cpp", "MU", null ],
 		[ "E:/BookClub/Genre.cpp", "MU", null ],
 		[ "E:/BookClub/NetworkMessage.cpp", "MU", null ],
