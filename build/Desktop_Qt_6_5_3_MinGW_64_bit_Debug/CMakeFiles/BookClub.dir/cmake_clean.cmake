@@ -12,6 +12,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/BookClub.dir/Book.cpp.obj.d"
   "CMakeFiles/BookClub.dir/BookClub_autogen/mocs_compilation.cpp.obj"
   "CMakeFiles/BookClub.dir/BookClub_autogen/mocs_compilation.cpp.obj.d"
+  "CMakeFiles/BookClub.dir/BookSearchEngine.cpp.obj"
+  "CMakeFiles/BookClub.dir/BookSearchEngine.cpp.obj.d"
   "CMakeFiles/BookClub.dir/Bookshelf.cpp.obj"
   "CMakeFiles/BookClub.dir/Bookshelf.cpp.obj.d"
   "CMakeFiles/BookClub.dir/CartItem.cpp.obj"
