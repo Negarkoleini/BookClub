@@ -47,19 +47,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = D:\ME\Tools\CMake_64\bin\cmake.exe
+CMAKE_COMMAND = C:\Qt\Tools\CMake_64\bin\cmake.exe
 
 # The command to remove a file.
-RM = D:\ME\Tools\CMake_64\bin\cmake.exe -E rm -f
+RM = C:\Qt\Tools\CMake_64\bin\cmake.exe -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\ME\project\BookClub
+CMAKE_SOURCE_DIR = E:\BookClub
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug
+CMAKE_BINARY_DIR = E:\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -67,7 +67,7 @@ CMAKE_BINARY_DIR = D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_De
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
-	D:\ME\Tools\CMake_64\bin\cmake-gui.exe -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	C:\Qt\Tools\CMake_64\bin\cmake-gui.exe -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -77,7 +77,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
-	D:\ME\Tools\CMake_64\bin\cmake.exe --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	C:\Qt\Tools\CMake_64\bin\cmake.exe --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -96,44 +96,44 @@ list_install_components/fast: list_install_components
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	D:\ME\Tools\CMake_64\bin\cmake.exe -P cmake_install.cmake
+	C:\Qt\Tools\CMake_64\bin\cmake.exe -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	D:\ME\Tools\CMake_64\bin\cmake.exe -P cmake_install.cmake
+	C:\Qt\Tools\CMake_64\bin\cmake.exe -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	D:\ME\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	C:\Qt\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	D:\ME\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	C:\Qt\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	D:\ME\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	C:\Qt\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	D:\ME\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	C:\Qt\Tools\CMake_64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles E:\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\ME\project\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\BookClub\build\Desktop_Qt_6_5_3_MinGW_64_bit_Debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -318,6 +318,30 @@ BookClub_autogen/mocs_compilation.s: BookClub_autogen/mocs_compilation.cpp.s
 BookClub_autogen/mocs_compilation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/BookClub_autogen/mocs_compilation.cpp.s
 .PHONY : BookClub_autogen/mocs_compilation.cpp.s
+
+BookSearchEngine.obj: BookSearchEngine.cpp.obj
+.PHONY : BookSearchEngine.obj
+
+# target to build an object file
+BookSearchEngine.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/BookSearchEngine.cpp.obj
+.PHONY : BookSearchEngine.cpp.obj
+
+BookSearchEngine.i: BookSearchEngine.cpp.i
+.PHONY : BookSearchEngine.i
+
+# target to preprocess a source file
+BookSearchEngine.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/BookSearchEngine.cpp.i
+.PHONY : BookSearchEngine.cpp.i
+
+BookSearchEngine.s: BookSearchEngine.cpp.s
+.PHONY : BookSearchEngine.s
+
+# target to generate assembly for a file
+BookSearchEngine.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/BookSearchEngine.cpp.s
+.PHONY : BookSearchEngine.cpp.s
 
 Bookshelf.obj: Bookshelf.cpp.obj
 .PHONY : Bookshelf.obj
@@ -1045,6 +1069,9 @@ help:
 	@echo ... BookClub_autogen/mocs_compilation.obj
 	@echo ... BookClub_autogen/mocs_compilation.i
 	@echo ... BookClub_autogen/mocs_compilation.s
+	@echo ... BookSearchEngine.obj
+	@echo ... BookSearchEngine.i
+	@echo ... BookSearchEngine.s
 	@echo ... Bookshelf.obj
 	@echo ... Bookshelf.i
 	@echo ... Bookshelf.s

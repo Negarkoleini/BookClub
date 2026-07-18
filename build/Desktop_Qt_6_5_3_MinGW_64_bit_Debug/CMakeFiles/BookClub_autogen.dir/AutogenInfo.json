@@ -363,12 +363,24 @@
 			null
 		],
 		[ "E:/BookClub/Book.h", "MU", "EWIEGA46WW/moc_Book.cpp", null ],
+		[
+			"E:/BookClub/BookSearchEngine.h",
+			"MU",
+			"EWIEGA46WW/moc_BookSearchEngine.cpp",
+			null
+		],
 		[ "E:/BookClub/Bookshelf.h", "MU", "EWIEGA46WW/moc_Bookshelf.cpp", null ],
 		[ "E:/BookClub/CartItem.h", "MU", "EWIEGA46WW/moc_CartItem.cpp", null ],
 		[
 			"E:/BookClub/ClientHandlerThread.h",
 			"MU",
 			"EWIEGA46WW/moc_ClientHandlerThread.cpp",
+			null
+		],
+		[
+			"E:/BookClub/ClientNetworkManager.h",
+			"MU",
+			"EWIEGA46WW/moc_ClientNetworkManager.cpp",
 			null
 		],
 		[
@@ -581,9 +593,11 @@
 		[ "E:/BookClub/AnalyticsData.cpp", "MU", null ],
 		[ "E:/BookClub/AppNotification.cpp", "MU", null ],
 		[ "E:/BookClub/Book.cpp", "MU", null ],
+		[ "E:/BookClub/BookSearchEngine.cpp", "MU", null ],
 		[ "E:/BookClub/Bookshelf.cpp", "MU", null ],
 		[ "E:/BookClub/CartItem.cpp", "MU", null ],
 		[ "E:/BookClub/ClientHandlerThread.cpp", "MU", null ],
+		[ "E:/BookClub/ClientNetworkManager.cpp", "MU", null ],
 		[ "E:/BookClub/ClientSocketWorker.cpp", "MU", null ],
 		[ "E:/BookClub/Comment.cpp", "MU", null ],
 		[ "E:/BookClub/DashboardController.cpp", "MU", null ],

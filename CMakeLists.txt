@@ -81,6 +81,8 @@ qt_add_executable(BookClub
     DashboardController.cpp
     PdfReaderWidget.h
     PdfReaderWidget.cpp
+    BookSearchEngine.h
+    BookSearchEngine.cpp
 )
 
 
