@@ -23,6 +23,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "E:/BookClub/Genre.cpp" "CMakeFiles/BookClub.dir/Genre.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Genre.cpp.obj.d"
   "E:/BookClub/NetworkMessage.cpp" "CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj.d"
   "E:/BookClub/NotificationBroadcaster.cpp" "CMakeFiles/BookClub.dir/NotificationBroadcaster.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/NotificationBroadcaster.cpp.obj.d"
+  "E:/BookClub/PdfReaderWidget.cpp" "CMakeFiles/BookClub.dir/PdfReaderWidget.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/PdfReaderWidget.cpp.obj.d"
   "E:/BookClub/Publisher.cpp" "CMakeFiles/BookClub.dir/Publisher.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Publisher.cpp.obj.d"
   "E:/BookClub/Rating.cpp" "CMakeFiles/BookClub.dir/Rating.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/Rating.cpp.obj.d"
   "E:/BookClub/ReadingSession.cpp" "CMakeFiles/BookClub.dir/ReadingSession.cpp.obj" "gcc" "CMakeFiles/BookClub.dir/ReadingSession.cpp.obj.d"

@@ -559,6 +559,30 @@ NotificationBroadcaster.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/NotificationBroadcaster.cpp.s
 .PHONY : NotificationBroadcaster.cpp.s
 
+PdfReaderWidget.obj: PdfReaderWidget.cpp.obj
+.PHONY : PdfReaderWidget.obj
+
+# target to build an object file
+PdfReaderWidget.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/PdfReaderWidget.cpp.obj
+.PHONY : PdfReaderWidget.cpp.obj
+
+PdfReaderWidget.i: PdfReaderWidget.cpp.i
+.PHONY : PdfReaderWidget.i
+
+# target to preprocess a source file
+PdfReaderWidget.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/PdfReaderWidget.cpp.i
+.PHONY : PdfReaderWidget.cpp.i
+
+PdfReaderWidget.s: PdfReaderWidget.cpp.s
+.PHONY : PdfReaderWidget.s
+
+# target to generate assembly for a file
+PdfReaderWidget.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/PdfReaderWidget.cpp.s
+.PHONY : PdfReaderWidget.cpp.s
+
 Publisher.obj: Publisher.cpp.obj
 .PHONY : Publisher.obj
 
@@ -1027,6 +1051,9 @@ help:
 	@echo ... NotificationBroadcaster.obj
 	@echo ... NotificationBroadcaster.i
 	@echo ... NotificationBroadcaster.s
+	@echo ... PdfReaderWidget.obj
+	@echo ... PdfReaderWidget.i
+	@echo ... PdfReaderWidget.s
 	@echo ... Publisher.obj
 	@echo ... Publisher.i
 	@echo ... Publisher.s
