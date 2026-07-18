@@ -415,30 +415,6 @@ ClientHandlerThread.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/ClientHandlerThread.cpp.s
 .PHONY : ClientHandlerThread.cpp.s
 
-ClientNetworkManager.obj: ClientNetworkManager.cpp.obj
-.PHONY : ClientNetworkManager.obj
-
-# target to build an object file
-ClientNetworkManager.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/ClientNetworkManager.cpp.obj
-.PHONY : ClientNetworkManager.cpp.obj
-
-ClientNetworkManager.i: ClientNetworkManager.cpp.i
-.PHONY : ClientNetworkManager.i
-
-# target to preprocess a source file
-ClientNetworkManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/ClientNetworkManager.cpp.i
-.PHONY : ClientNetworkManager.cpp.i
-
-ClientNetworkManager.s: ClientNetworkManager.cpp.s
-.PHONY : ClientNetworkManager.s
-
-# target to generate assembly for a file
-ClientNetworkManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/ClientNetworkManager.cpp.s
-.PHONY : ClientNetworkManager.cpp.s
-
 ClientSocketWorker.obj: ClientSocketWorker.cpp.obj
 .PHONY : ClientSocketWorker.obj
 
@@ -558,6 +534,30 @@ Genre.s: Genre.cpp.s
 Genre.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/Genre.cpp.s
 .PHONY : Genre.cpp.s
+
+LoginWindow.obj: LoginWindow.cpp.obj
+.PHONY : LoginWindow.obj
+
+# target to build an object file
+LoginWindow.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/LoginWindow.cpp.obj
+.PHONY : LoginWindow.cpp.obj
+
+LoginWindow.i: LoginWindow.cpp.i
+.PHONY : LoginWindow.i
+
+# target to preprocess a source file
+LoginWindow.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/LoginWindow.cpp.i
+.PHONY : LoginWindow.cpp.i
+
+LoginWindow.s: LoginWindow.cpp.s
+.PHONY : LoginWindow.s
+
+# target to generate assembly for a file
+LoginWindow.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/LoginWindow.cpp.s
+.PHONY : LoginWindow.cpp.s
 
 NetworkMessage.obj: NetworkMessage.cpp.obj
 .PHONY : NetworkMessage.obj
@@ -991,6 +991,30 @@ UserPanelWindow.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/UserPanelWindow.cpp.s
 .PHONY : UserPanelWindow.cpp.s
 
+clientnetworkmanager.obj: clientnetworkmanager.cpp.obj
+.PHONY : clientnetworkmanager.obj
+
+# target to build an object file
+clientnetworkmanager.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/clientnetworkmanager.cpp.obj
+.PHONY : clientnetworkmanager.cpp.obj
+
+clientnetworkmanager.i: clientnetworkmanager.cpp.i
+.PHONY : clientnetworkmanager.i
+
+# target to preprocess a source file
+clientnetworkmanager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/clientnetworkmanager.cpp.i
+.PHONY : clientnetworkmanager.cpp.i
+
+clientnetworkmanager.s: clientnetworkmanager.cpp.s
+.PHONY : clientnetworkmanager.s
+
+# target to generate assembly for a file
+clientnetworkmanager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\BookClub.dir\build.make CMakeFiles/BookClub.dir/clientnetworkmanager.cpp.s
+.PHONY : clientnetworkmanager.cpp.s
+
 main.obj: main.cpp.obj
 .PHONY : main.obj
 
@@ -1081,9 +1105,6 @@ help:
 	@echo ... ClientHandlerThread.obj
 	@echo ... ClientHandlerThread.i
 	@echo ... ClientHandlerThread.s
-	@echo ... ClientNetworkManager.obj
-	@echo ... ClientNetworkManager.i
-	@echo ... ClientNetworkManager.s
 	@echo ... ClientSocketWorker.obj
 	@echo ... ClientSocketWorker.i
 	@echo ... ClientSocketWorker.s
@@ -1099,6 +1120,9 @@ help:
 	@echo ... Genre.obj
 	@echo ... Genre.i
 	@echo ... Genre.s
+	@echo ... LoginWindow.obj
+	@echo ... LoginWindow.i
+	@echo ... LoginWindow.s
 	@echo ... NetworkMessage.obj
 	@echo ... NetworkMessage.i
 	@echo ... NetworkMessage.s
@@ -1153,6 +1177,9 @@ help:
 	@echo ... UserPanelWindow.obj
 	@echo ... UserPanelWindow.i
 	@echo ... UserPanelWindow.s
+	@echo ... clientnetworkmanager.obj
+	@echo ... clientnetworkmanager.i
+	@echo ... clientnetworkmanager.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
