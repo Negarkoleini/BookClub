@@ -79,6 +79,7 @@ qt_add_executable(BookClub
     UserPanelWindow.cpp
     DashboardController.h
     DashboardController.cpp
+    LoginWindow.h LoginWindow.cpp
 )
 
 
