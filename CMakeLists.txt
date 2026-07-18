@@ -82,6 +82,7 @@ qt_add_executable(BookClub
     LoginWindow.h LoginWindow.cpp
     PdfReaderWidget.h
     PdfReaderWidget.cpp
+    PublisherPanelWindow.h PublisherPanelWindow.cpp
 )
 
 
