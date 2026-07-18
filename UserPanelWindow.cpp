@@ -352,8 +352,6 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
         break;
     }
     case CommandType::GetLibrary: {
-        // این پاسخ فقط شناسه‌ی کتاب‌ها رو می‌ده؛ برای نمایشِ عنوان/نویسنده باید
-        // با availableBooksCache (که از GetBooks پر شده) match بدیم.
         myLibraryCache.clear();
         listWidgetMyLibrary->clear();
         for (const auto &v : payload.value("purchasedBookIds").toArray()) {

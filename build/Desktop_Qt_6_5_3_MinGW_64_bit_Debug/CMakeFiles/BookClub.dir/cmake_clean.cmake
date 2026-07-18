@@ -34,6 +34,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/BookClub.dir/NetworkMessage.cpp.obj.d"
   "CMakeFiles/BookClub.dir/NotificationBroadcaster.cpp.obj"
   "CMakeFiles/BookClub.dir/NotificationBroadcaster.cpp.obj.d"
+  "CMakeFiles/BookClub.dir/PdfReaderWidget.cpp.obj"
+  "CMakeFiles/BookClub.dir/PdfReaderWidget.cpp.obj.d"
   "CMakeFiles/BookClub.dir/Publisher.cpp.obj"
   "CMakeFiles/BookClub.dir/Publisher.cpp.obj.d"
   "CMakeFiles/BookClub.dir/Rating.cpp.obj"

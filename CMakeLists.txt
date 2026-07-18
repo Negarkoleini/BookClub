@@ -80,6 +80,8 @@ qt_add_executable(BookClub
     DashboardController.h
     DashboardController.cpp
     LoginWindow.h LoginWindow.cpp
+    PdfReaderWidget.h
+    PdfReaderWidget.cpp
 )
 
 
