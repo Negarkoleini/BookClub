@@ -85,6 +85,8 @@ qt_add_executable(BookClub
     PublisherPanelWindow.h PublisherPanelWindow.cpp
     BookSearchEngine.h
     BookSearchEngine.cpp
+    AdminPanelWindow.h
+    AdminPanelWindow.cpp
 )
 
 
