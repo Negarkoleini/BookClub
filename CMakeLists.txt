@@ -85,6 +85,7 @@ qt_add_executable(BookClub
     PublisherPanelWindow.h PublisherPanelWindow.cpp
     BookSearchEngine.h
     BookSearchEngine.cpp
+    DiscountManagerWidget.h DiscountManagerWidget.cpp
     AdminPanelWindow.h
     AdminPanelWindow.cpp
     NotificationCenterWidget.h

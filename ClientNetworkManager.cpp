@@ -22,7 +22,7 @@ bool ClientNetworkManager::establishConnection(const QString &ip, quint16 port) 
         return true;
     }
     socket->connectToHost(ip, port);
-    return socket->waitForConnected(5000); // برای سادگیِ فاز اول، اتصال را همزمان (blocking) منتظر می‌مانیم
+    return socket->waitForConnected(5000);
 }
 
 void ClientNetworkManager::disconnectFromServer() {
