@@ -6,7 +6,7 @@
 #include <QString>
 #include <QMap>
 
-
+class BookSearchEngine{
 public:
     BookSearchEngine() = default;
 

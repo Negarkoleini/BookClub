@@ -92,8 +92,16 @@ void PdfReaderWidget::zoomIn() {
 
 void PdfReaderWidget::zoomOut() {
     pdfView->setZoomFactor(pdfView->zoomFactor() / 1.2);
+}
 
-    lblPageInfo->setText(QString("صفحه %1 از %2").arg(oneBased).arg(document->pageCount()));
+void PdfReaderWidget::onCurrentPageChanged(int newPageZeroBased)
+{
+    int oneBased = newPageZeroBased + 1;
+
+    lblPageInfo->setText(
+        QString("صفحه %1 از %2")
+            .arg(oneBased)
+            .arg(document->pageCount()));
 
     spinGotoPage->blockSignals(true);
     spinGotoPage->setValue(oneBased);

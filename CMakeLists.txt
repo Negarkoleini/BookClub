@@ -7,6 +7,8 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS
     Sql
     Network
     LinguistTools
+    PdfWidgets
+    Pdf
 )
 qt_standard_project_setup()
 
@@ -99,6 +101,8 @@ target_link_libraries(BookClub
         Qt::Widgets
         Qt::Sql
         Qt::Network
+        Qt::Pdf
+        Qt::PdfWidgets
 )
 
 install(TARGETS BookClub

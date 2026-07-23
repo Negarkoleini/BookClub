@@ -17,6 +17,9 @@ enum class CommandType
 
     Notification,
 
+    GetProfile,
+    GetLibrary,
+    GetNotifications,
     GetBooks,
     GetBookDetails,
     ResponseOk,
