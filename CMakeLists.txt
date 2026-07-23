@@ -91,6 +91,7 @@ qt_add_executable(BookClub
     AnalyticsChartWidget.h AnalyticsChartWidget.cpp
     NotificationCenterWidget.h
     NotificationCenterWidget.cpp
+    InAppNotificationWidget.h InAppNotificationWidget.cpp
 )
 
 
