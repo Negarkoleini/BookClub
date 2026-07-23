@@ -88,6 +88,7 @@ qt_add_executable(BookClub
     DiscountManagerWidget.h DiscountManagerWidget.cpp
     AdminPanelWindow.h
     AdminPanelWindow.cpp
+    AnalyticsChartWidget.h AnalyticsChartWidget.cpp
 )
 
 
