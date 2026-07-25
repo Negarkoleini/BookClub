@@ -228,7 +228,7 @@ void UserPanelWindow::onRemoveFromCartClicked() {
 }
 
 void UserPanelWindow::onCheckoutClicked() {
-    if (myCart.getItems().isEmpty()) {
+    if (myCart.getItems().empty()) {
         QMessageBox::information(this, "سبد خالی", "سبدِ خریدِ شما خالی است.");
         return;
     }

@@ -67,6 +67,10 @@ void PdfReaderWidget::openFile(const QString &filePath, int bookId, int startPag
     spinGotoPage->blockSignals(false);
 }
 
+void PdfReaderWidget::jumpToPage(int pageNumber) {
+    triggerGotoPage(pageNumber);
+}
+
 void PdfReaderWidget::triggerNextPage() {
     int current = pdfView->pageNavigator()->currentPage();
     if (current + 1 < document->pageCount()) {
