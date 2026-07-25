@@ -232,9 +232,6 @@ void UserPanelWindow::onCheckoutClicked() {
         QMessageBox::information(this, "سبد خالی", "سبدِ خریدِ شما خالی است.");
         return;
     }
-    // چون سرور دستورِ Checkout جداگانه ندارد (طبق طراحیِ فعلی)، به‌ازای هر آیتمِ سبد
-    // یک BuyBook جداگانه می‌فرستیم. اگر هرکدام خطا بدهد (مثلاً موجودی کافی نیست)،
-    // در پاسخِ BuyBook با ok=false مطلع می‌شویم (نگاه کن به onNetworkReply).
     for (const auto &item : myCart.getItems()) {
         QJsonObject req;
         req["bookId"] = item.getBook().getId();

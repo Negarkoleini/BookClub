@@ -94,6 +94,7 @@ qt_add_executable(BookClub
     NotificationCenterWidget.h
     NotificationCenterWidget.cpp
     InAppNotificationWidget.h InAppNotificationWidget.cpp
+    ClientUtils.h
 )
 
 
