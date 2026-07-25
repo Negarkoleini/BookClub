@@ -731,6 +731,7 @@ QVector<TimedDiscount> DatabaseManager::getActiveDiscountsForBook(int bookId, co
         while (q.next()) {
             TimedDiscount d(
                 q.value("targetBookId").toInt(),
+                static_cast<DiscountType>(q.value("discountType").toInt()),
                 q.value("discountValue").toDouble(),
                 q.value("startDateTime").toString().toStdString(),
                 q.value("endDateTime").toString().toStdString()
