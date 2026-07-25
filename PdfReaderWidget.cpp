@@ -67,6 +67,10 @@ void PdfReaderWidget::openFile(const QString &filePath, int bookId, int startPag
     spinGotoPage->blockSignals(false);
 }
 
+void PdfReaderWidget::jumpToPage(int pageNumber) {
+    triggerGotoPage(pageNumber);
+}
+
 void PdfReaderWidget::triggerNextPage() {
     int current = pdfView->pageNavigator()->currentPage();
     if (current + 1 < document->pageCount()) {
@@ -92,8 +96,16 @@ void PdfReaderWidget::zoomIn() {
 
 void PdfReaderWidget::zoomOut() {
     pdfView->setZoomFactor(pdfView->zoomFactor() / 1.2);
+}
 
-    lblPageInfo->setText(QString("صفحه %1 از %2").arg(oneBased).arg(document->pageCount()));
+void PdfReaderWidget::onCurrentPageChanged(int newPageZeroBased)
+{
+    int oneBased = newPageZeroBased + 1;
+
+    lblPageInfo->setText(
+        QString("صفحه %1 از %2")
+            .arg(oneBased)
+            .arg(document->pageCount()));
 
     spinGotoPage->blockSignals(true);
     spinGotoPage->setValue(oneBased);

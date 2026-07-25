@@ -7,6 +7,8 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS
     Sql
     Network
     LinguistTools
+    PdfWidgets
+    Pdf
 )
 qt_standard_project_setup()
 
@@ -92,6 +94,7 @@ qt_add_executable(BookClub
     NotificationCenterWidget.h
     NotificationCenterWidget.cpp
     InAppNotificationWidget.h InAppNotificationWidget.cpp
+    ClientUtils.h
 )
 
 
@@ -101,6 +104,8 @@ target_link_libraries(BookClub
         Qt::Widgets
         Qt::Sql
         Qt::Network
+        Qt::Pdf
+        Qt::PdfWidgets
 )
 
 install(TARGETS BookClub

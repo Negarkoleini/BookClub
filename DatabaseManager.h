@@ -55,6 +55,11 @@ class DatabaseManager{
         bool getSecurityQuestion(const std::string &username, std::string &question, std::string &answerHashOut) const;
         bool deleteUserAccount(int userId);
         QVector<UserSummary> getAllUsers() const;
+
+        bool logLoginEvent(int userId, const std::string &timestamp);
+        QVector<std::string> getLoginHistory(int userId, int limitCount = 20) const;
+
+
               //بارگذاری کامل ابجکت//
         std::unique_ptr<RegularUser> loadRegularUser(int userId) const;
         std::unique_ptr<Publisher> loadPublisher(int userId) const;
@@ -66,16 +71,23 @@ class DatabaseManager{
         QVector<Book> getAllActiveBooks() const;
         bool getBookById(int bookId, Book &out) const;
         QVector<Book> getBooksByPublisher(int publisherId) const;
+
+        QVector<Book> getAllBooksAdmin() const;
+
                  //امتیاز و نظرات//
         bool upsertRating(int bookId, int userId, int score);
         double getAverageRating(int bookId) const;
         int addComment(const Comment &comment);
         QVector<Comment> getCommentsForBook(int bookId) const;
         QVector<Comment> getPendingComments() const;
+
+        QVector<Comment> getAllComments(int filterBookId = -1, int filterUserId = -1) const;
+
         bool setCommentApproved(int commentId, bool approved);
         bool deleteComment(int commentId);
                //خرید و تراکنش//
         bool logTransaction(const Transaction &tx);
+         bool getBookSalesInfo(int bookId, int &salesCount, double &revenue) const; // برای داشبورد آمار ناشر
         bool addBookToLibrary(int userId, int bookId);
         bool isBookInLibrary(int userId, int bookId) const;
         QVector<int> getPurchasedBookIds(int userId) const;
@@ -93,6 +105,16 @@ class DatabaseManager{
         int addDiscount(const TimedDiscount &discount);
         bool removeDiscount(int discountId);
         QVector<TimedDiscount> getActiveDiscountsForBook(int bookId, const std::string &currentSystemTime) const;
+
+        QVector<TimedDiscount> getPendingDiscounts() const;
+        bool getDiscountById(int discountId, TimedDiscount &out) const;
+        bool setDiscountApproved(int discountId, bool approved); // approved=false یعنی رد/حذف
+        // ---------------- محدودیت‌های سیستمی  ----------------
+        int getIntSetting(const std::string &key, int defaultValue) const;
+        bool setIntSetting(const std::string &key, int value);
+        int getPurchaseCountToday(int userId) const;
+        int getCommentCountToday(int userId) const;
+
         //اعلان ها//
         int saveNotification(const AppNotification &notif);
         QVector<AppNotification> getNotificationsForUser(int userId) const;

@@ -32,6 +32,7 @@ public:
     ~PdfReaderWidget() override = default;
 
     void openFile(const QString &filePath, int bookId, int startPage = 1);
+    void jumpToPage(int pageNumber);
 
 private slots:
     void triggerNextPage();
