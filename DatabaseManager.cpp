@@ -4,6 +4,7 @@
 #include <QVariant>
 #include <QMutexLocker>
 #include <QDebug>
+#include <QDate>
 
 DatabaseManager& DatabaseManager::getInstance() {
     static DatabaseManager instance;
@@ -105,11 +106,19 @@ bool DatabaseManager::createSchema() {
             type INTEGER, message TEXT, isRead INTEGER DEFAULT 0,
             timestamp TEXT, targetUserId INTEGER
         );)",
+        R"(CREATE TABLE IF NOT EXISTS login_history (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            userId INTEGER, timestamp TEXT
+        );)",
+        R"(CREATE TABLE IF NOT EXISTS settings (
+            key TEXT PRIMARY KEY,
+            value TEXT
+        );)",
     };
 
     for (const char* stmt : statements) {
         if (!q.exec(stmt)) {
-            qWarning() << "error cear table" << q.lastError().text();
+            qWarning() << "error creat table" << q.lastError().text();
             return false;
         }
     }
@@ -426,6 +435,15 @@ QVector<Book> DatabaseManager::getBooksByPublisher(int publisherId) const {
     }
     return result;
 }
+QVector<Book> DatabaseManager::getAllBooksAdmin() const {
+    QMutexLocker locker(&dbMutex);
+    QVector<Book> result;
+    QSqlQuery q(db);
+    if (q.exec("SELECT * FROM books;")) {
+        while (q.next()) result.push_back(rowToBook(q));
+    }
+    return result;
+}
 // امتیاز و نظر
 bool DatabaseManager::upsertRating(int bookId, int userId, int score) {
     QMutexLocker locker(&dbMutex);
@@ -508,6 +526,19 @@ QVector<Comment> DatabaseManager::getPendingComments() const {
     }
     return result;
 }
+QVector<Comment> DatabaseManager::getAllComments(int filterBookId, int filterUserId) const {
+    QMutexLocker locker(&dbMutex);
+    QVector<Comment> result;
+    QString sql = "SELECT * FROM comments WHERE isDeleted = 0";
+    if (filterBookId >= 0) sql += " AND bookId = " + QString::number(filterBookId);
+    if (filterUserId >= 0) sql += " AND userId = " + QString::number(filterUserId);
+    sql += " ORDER BY commentId DESC;";
+    QSqlQuery q(db);
+    if (q.exec(sql)) {
+        while (q.next()) result.push_back(rowToComment(q));
+    }
+    return result;
+}
 bool DatabaseManager::setCommentApproved(int commentId, bool approved) {
     QMutexLocker locker(&dbMutex);
     QSqlQuery q(db);
@@ -539,6 +570,20 @@ bool DatabaseManager::logTransaction(const Transaction &tx) {
         qWarning() << "logTransaction error:" << q.lastError().text();
         return false;
     }
+    return true;
+}
+bool DatabaseManager::getBookSalesInfo(int bookId, int &salesCount, double &revenue) const {
+    QMutexLocker locker(&dbMutex);
+    QSqlQuery q(db);
+    q.prepare("SELECT COUNT(*), COALESCE(SUM(finalAmountPaid), 0) FROM transactions WHERE purchasedBookId = ?;");
+    q.addBindValue(bookId);
+    if (!q.exec() || !q.next()) {
+        salesCount = 0;
+        revenue = 0.0;
+        return false;
+    }
+    salesCount = q.value(0).toInt();
+    revenue = q.value(1).toDouble();
     return true;
 }
 bool DatabaseManager::addBookToLibrary(int userId, int bookId) {
@@ -697,6 +742,96 @@ QVector<TimedDiscount> DatabaseManager::getActiveDiscountsForBook(int bookId, co
     }
     return result;
 }
+QVector<TimedDiscount> DatabaseManager::getPendingDiscounts() const {
+    QMutexLocker locker(&dbMutex);
+    QVector<TimedDiscount> result;
+    QSqlQuery q(db);
+    if (q.exec("SELECT * FROM discounts WHERE isApproved = 0;")) {
+        while (q.next()) {
+            TimedDiscount d(
+                q.value("targetBookId").toInt(),
+                static_cast<DiscountType>(q.value("discountType").toInt()),
+                q.value("discountValue").toDouble(),
+                q.value("startDateTime").toString().toStdString(),
+                q.value("endDateTime").toString().toStdString()
+                );
+            result.push_back(d);
+        }
+    }
+    return result;
+}
+bool DatabaseManager::getDiscountById(int discountId, TimedDiscount &out) const {
+    QMutexLocker locker(&dbMutex);
+    QSqlQuery q(db);
+    q.prepare("SELECT * FROM discounts WHERE discountId = ?;");
+    q.addBindValue(discountId);
+    if (!q.exec() || !q.next()) return false;
+
+    out = TimedDiscount(
+        q.value("targetBookId").toInt(),
+        static_cast<DiscountType>(q.value("discountType").toInt()),
+        q.value("discountValue").toDouble(),
+        q.value("startDateTime").toString().toStdString(),
+        q.value("endDateTime").toString().toStdString()
+        );
+    return true;
+}
+
+bool DatabaseManager::setDiscountApproved(int discountId, bool approved) {
+    QMutexLocker locker(&dbMutex);
+    if (!approved) {
+        QSqlQuery q(db);
+        q.prepare("DELETE FROM discounts WHERE discountId=?;");
+        q.addBindValue(discountId);
+        return q.exec() && q.numRowsAffected() > 0;
+    }
+    QSqlQuery q(db);
+    q.prepare("UPDATE discounts SET isApproved = 1 WHERE discountId=?;");
+    q.addBindValue(discountId);
+    return q.exec() && q.numRowsAffected() > 0;
+}
+
+// محدودیت‌های سیستمی (تنظیمات ادمین)
+int DatabaseManager::getIntSetting(const std::string &key, int defaultValue) const {
+    QMutexLocker locker(&dbMutex);
+    QSqlQuery q(db);
+    q.prepare("SELECT value FROM settings WHERE key = ?;");
+    q.addBindValue(QString::fromStdString(key));
+    if (q.exec() && q.next()) {
+        return q.value(0).toInt();
+    }
+    return defaultValue;
+}
+bool DatabaseManager::setIntSetting(const std::string &key, int value) {
+    QMutexLocker locker(&dbMutex);
+    QSqlQuery q(db);
+    q.prepare(R"(INSERT INTO settings (key, value) VALUES (?, ?)
+                 ON CONFLICT(key) DO UPDATE SET value = excluded.value;)");
+    q.addBindValue(QString::fromStdString(key));
+    q.addBindValue(QString::number(value));
+    return q.exec();
+}
+
+int DatabaseManager::getPurchaseCountToday(int userId) const {
+    QMutexLocker locker(&dbMutex);
+    QSqlQuery q(db);
+    q.prepare("SELECT COUNT(*) FROM transactions WHERE buyerUserId = ? AND transactionTime LIKE ? || '%';");
+    q.addBindValue(userId);
+    q.addBindValue(QDate::currentDate().toString("yyyy-MM-dd"));
+    if (q.exec() && q.next()) return q.value(0).toInt();
+    return 0;
+}
+
+int DatabaseManager::getCommentCountToday(int userId) const {
+    QMutexLocker locker(&dbMutex);
+    QSqlQuery q(db);
+    q.prepare("SELECT COUNT(*) FROM comments WHERE userId = ? AND timestamp LIKE ? || '%';");
+    q.addBindValue(userId);
+    q.addBindValue(QDate::currentDate().toString("yyyy-MM-dd"));
+    if (q.exec() && q.next()) return q.value(0).toInt();
+    return 0;
+}
+
 // اعلان
 int DatabaseManager::saveNotification(const AppNotification &notif) {
     QMutexLocker locker(&dbMutex);
@@ -741,4 +876,26 @@ bool DatabaseManager::markNotificationRead(int notificationId) {
     q.prepare("UPDATE notifications SET isRead = 1 WHERE id = ?;");
     q.addBindValue(notificationId);
     return q.exec() && q.numRowsAffected() > 0;
+}
+//تاریخچه ورود
+bool DatabaseManager::logLoginEvent(int userId, const std::string &timestamp) {
+    QMutexLocker locker(&dbMutex);
+    QSqlQuery q(db);
+    q.prepare("INSERT INTO login_history (userId, timestamp) VALUES (?, ?);");
+    q.addBindValue(userId);
+    q.addBindValue(QString::fromStdString(timestamp));
+    return q.exec();
+}
+
+QVector<std::string> DatabaseManager::getLoginHistory(int userId, int limitCount) const {
+    QMutexLocker locker(&dbMutex);
+    QVector<std::string> result;
+    QSqlQuery q(db);
+    q.prepare("SELECT timestamp FROM login_history WHERE userId = ? ORDER BY id DESC LIMIT ?;");
+    q.addBindValue(userId);
+    q.addBindValue(limitCount);
+    if (q.exec()) {
+        while (q.next()) result.push_back(q.value(0).toString().toStdString());
+    }
+    return result;
 }

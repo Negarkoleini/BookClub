@@ -1,7 +1,7 @@
 #include "TimedDiscount.h"
 
 int TimedDiscount::NextDiscountId = 1;
-TimedDiscount::TimedDiscount(int targetBookId, double discountValue, std::string startDateTime, std::string endDateTime):
+TimedDiscount::TimedDiscount(int targetBookId, DiscountType discountType, double discountValue, std::string startDateTime, std::string endDateTime):
 targetBookId(targetBookId),
 discountValue(discountValue),
 startDateTime(startDateTime),
