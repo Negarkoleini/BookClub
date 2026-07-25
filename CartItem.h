@@ -2,7 +2,6 @@
 #include "Book.h"
 #include "TimedDiscount.h"
 
-// یک قلم (کتاب + تعداد) در سبد خرید
 class CartItem {
 private:
     Book book;

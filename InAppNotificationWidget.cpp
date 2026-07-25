@@ -3,7 +3,7 @@
 #include <QTimer>
 
 InAppNotificationWidget::InAppNotificationWidget(QWidget *parent) : QWidget(parent) {
-    setWindowFlags(Qt::ToolTip); // بدون فریم، همیشه روی بقیه‌ی ویجت‌ها
+    setWindowFlags(Qt::ToolTip);
     setAttribute(Qt::WA_ShowWithoutActivating);
     setStyleSheet("background-color: #323232; border-radius: 8px;");
 
@@ -21,7 +21,6 @@ void InAppNotificationWidget::popToastMessage(const QString &message) {
     adjustSize();
 
     if (parentWidget()) {
-        // گوشه‌ی پایین-راستِ پنجره‌ی والد
         QPoint parentBottomRight = parentWidget()->mapToGlobal(
             QPoint(parentWidget()->width(), parentWidget()->height()));
         move(parentBottomRight.x() - width() - 20, parentBottomRight.y() - height() - 20);
@@ -30,7 +29,7 @@ void InAppNotificationWidget::popToastMessage(const QString &message) {
     show();
     raise();
 
-    // بعد از ۴ ثانیه شروع به محوشدن کن
+    // بعد از ۴ ثانیه شروع به محوشد
     QTimer::singleShot(4000, this, [this]() {
         slideAnimation = new QPropertyAnimation(this, "windowOpacity");
         slideAnimation->setDuration(600);

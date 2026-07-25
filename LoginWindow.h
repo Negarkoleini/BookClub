@@ -8,22 +8,18 @@
 #include <QJsonObject>
 #include "CommandType.h"
 
-// -----------------------------------------------------------------------
-// LoginWindow: فرم ورود / ثبت‌نام / فراموشی رمز عبور.
-// خودش هیچ منطق شبکه‌ای ندارد؛ فقط CommandType می‌سازد و از طریق
-// ClientNetworkManager می‌فرستد، و صبر می‌کند تا serverReplyReceived برسد.
-// -----------------------------------------------------------------------
+
 class LoginWindow : public QWidget {
     Q_OBJECT
 private:
-    // ---- تب ورود ----
+    // تب ورود
     QLineEdit* txtLoginUsername;
     QLineEdit* txtLoginPassword;
     QPushButton* btnLogin;
     QPushButton* btnForgotPassword;
     QLabel* lblLoginStatus;
 
-    // ---- تب ثبت‌نام ----
+    //  تب ثبت نام
     QLineEdit* txtRegUsername;
     QLineEdit* txtRegPassword;
     QLineEdit* txtRegEmail;

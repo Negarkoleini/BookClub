@@ -7,8 +7,7 @@ enum class Genre {
     Poetry, Children
 };
 
-// ابزارهای کمکی برای تبدیل ژانر به رشته و برعکس
-// (برای ذخیره‌سازی در فایل/دیتابیس و نمایش در UI لازم است)
+
 class GenreUtils {
 public:
     GenreUtils() = delete;
