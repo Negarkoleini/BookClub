@@ -3,12 +3,14 @@ project(BookClub LANGUAGES CXX)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS
     Core
+    Gui
     Widgets
     Sql
     Network
     LinguistTools
     PdfWidgets
     Pdf
+    Charts
 )
 qt_standard_project_setup()
 
@@ -121,18 +123,14 @@ qt_generate_deploy_app_script(
 )
 install(SCRIPT ${deploy_script})
 
-find_package(Qt6 REQUIRED COMPONENTS
-    Core
-    Gui
-    Widgets
-    Pdf
-    PdfWidgets
-)
-
-target_link_libraries(BookClub PRIVATE
-    Qt6::Core
-    Qt6::Gui
-    Qt6::Widgets
-    Qt6::Pdf
-    Qt6::PdfWidgets
+target_link_libraries(BookClub
+    PRIVATE
+        Qt::Core
+        Qt::Gui
+        Qt::Widgets
+        Qt::Sql
+        Qt::Network
+        Qt::Pdf
+        Qt::PdfWidgets
+        Qt::Charts
 )
