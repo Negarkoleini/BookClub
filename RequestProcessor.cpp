@@ -62,9 +62,14 @@ void RequestProcessor::handleRequest(CommandType commandType, const QByteArray &
     case CommandType::ResetPassword:             processResetPassword(commandType, payload, sender); break;
     case CommandType::ChangePassword:            processChangePassword(commandType, payload, sender); break;
     case CommandType::GetProfile:                processGetProfile(commandType, payload, sender); break;
+    case CommandType::UpdateProfile:              processUpdateProfile(commandType, payload, sender); break;
+    case CommandType::SetFavoriteGenres:          processSetFavoriteGenres(commandType, payload, sender); break;
 
     case CommandType::GetBooks:                  processGetBooks(commandType, payload, sender); break;
     case CommandType::GetBookDetails:            processGetBookDetails(commandType, payload, sender); break;
+    case CommandType::GetSuggestedBooks:          processGetSuggestedBooks(commandType, payload, sender); break;
+    case CommandType::GetPopularBooks:            processGetPopularBooks(commandType, payload, sender); break;
+    case CommandType::GetBestsellingBooks:        processGetBestsellingBooks(commandType, payload, sender); break;
     case CommandType::AddBook:                   processAddBook(commandType, payload, sender); break;
     case CommandType::EditBook:                  processEditBook(commandType, payload, sender); break;
     case CommandType::DeleteBook:                processDeleteBook(commandType, payload, sender); break;
@@ -86,6 +91,7 @@ void RequestProcessor::handleRequest(CommandType commandType, const QByteArray &
     case CommandType::GetPendingComments:        processGetPendingComments(commandType, payload, sender); break;
     case CommandType::RejectComment:             processRejectComment(commandType, payload, sender); break;
     case CommandType::DeleteComment:             processDeleteComment(commandType, payload, sender); break;
+    case CommandType::EditComment:                processEditComment(commandType, payload, sender); break;
     case CommandType::GetAllComments:            processGetAllComments(commandType, payload, sender); break;
 
     case CommandType::GetNotifications:          processGetNotifications(commandType, payload, sender); break;
@@ -288,25 +294,95 @@ void RequestProcessor::processGetProfile(CommandType cmd, const QByteArray & /*d
     }
     sendOk(sender, cmd, resp);
 }
+void RequestProcessor::processUpdateProfile(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender) {
+    int userId = sender->getAssociatedUserId();
+    if (userId == -1) { sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید."); return; }
 
+    QJsonObject req = JsonPayload::fromBytes(data);
+    if (req.contains("email")) {
+        std::string encryptedEmail = SecurityUtils::twoWayEncrypt(req["email"].toString().toStdString());
+        if (!DatabaseManager::getInstance().updateEmail(userId, encryptedEmail)) {
+            sendError(sender, cmd, "خطا در بروزرسانیِ ایمیل.");
+            return;
+        }
+    }
+    sendOk(sender, cmd);
+}
+
+void RequestProcessor::processSetFavoriteGenres(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender) {
+    int userId = sender->getAssociatedUserId();
+    if (userId == -1) { sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید."); return; }
+
+    QJsonObject req = JsonPayload::fromBytes(data);
+    QJsonArray arr = req["genres"].toArray();
+    if (arr.size() < 1 || arr.size() > 3) {
+        sendError(sender, cmd, "باید بین ۱ تا ۳ ژانر انتخاب کنید.");
+        return;
+    }
+    std::vector<Genre> genres;
+    for (const auto &v : arr) genres.push_back(static_cast<Genre>(v.toInt()));
+
+    if (!DatabaseManager::getInstance().updateFavoriteGenres(userId, genres)) {
+        sendError(sender, cmd, "خطا در ذخیره‌ی ژانرها.");
+        return;
+    }
+    sendOk(sender, cmd);
+}
 // =========================================================================
 // کتاب‌ها
 // =========================================================================
+static QJsonObject bookToJsonObject(const Book &b, const std::string &now) {
+    QJsonObject bo;
+    bo["id"] = b.getId();
+    bo["title"] = QString::fromStdString(b.getTitle());
+    bo["author"] = QString::fromStdString(b.getAuthor());
+    bo["genre"] = static_cast<int>(b.getGenre());
+    bo["basePrice"] = b.getBasePrice();
+    bo["finalPrice"] = b.getFinalPrice(now);
+    bo["coverImagePath"] = QString::fromStdString(b.getCoverImagePath());
+    bo["averageRating"] = b.getAverageRating();
+    bo["isFree"] = b.isFree();
+    return bo;
+}
+
 void RequestProcessor::processGetBooks(CommandType cmd, const QByteArray & /*data*/, ClientSocketWorker* sender) {
     QVector<Book> books = DatabaseManager::getInstance().getAllActiveBooks();
     QJsonArray arr;
     for (const auto &b : books) {
-        QJsonObject bo;
-        bo["id"] = b.getId();
-        bo["title"] = QString::fromStdString(b.getTitle());
-        bo["author"] = QString::fromStdString(b.getAuthor());
-        bo["genre"] = static_cast<int>(b.getGenre());
-        bo["basePrice"] = b.getBasePrice();
-        bo["finalPrice"] = b.getFinalPrice(currentTimestamp());
-        bo["coverImagePath"] = QString::fromStdString(b.getCoverImagePath());
-        bo["averageRating"] = b.getAverageRating();
-        bo["isFree"] = b.isFree();
-        arr.append(bo);
+        arr.append(bookToJsonObject(b, currentTimestamp()));
+    }
+    QJsonObject resp;
+    resp["books"] = arr;
+    sendOk(sender, cmd, resp);
+}
+
+void RequestProcessor::processGetSuggestedBooks(CommandType cmd, const QByteArray & /*data*/, ClientSocketWorker* sender) {
+    int userId = sender->getAssociatedUserId();
+    if (userId == -1) { sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید."); return; }
+
+    QJsonArray arr;
+    for (const auto &b : DatabaseManager::getInstance().getSuggestedBooksForUser(userId)) {
+        arr.append(bookToJsonObject(b, currentTimestamp()));
+    }
+    QJsonObject resp;
+    resp["books"] = arr;
+    sendOk(sender, cmd, resp);
+}
+
+void RequestProcessor::processGetPopularBooks(CommandType cmd, const QByteArray & /*data*/, ClientSocketWorker* sender) {
+    QJsonArray arr;
+    for (const auto &b : DatabaseManager::getInstance().getPopularBooks(20)) {
+        arr.append(bookToJsonObject(b, currentTimestamp()));
+    }
+    QJsonObject resp;
+    resp["books"] = arr;
+    sendOk(sender, cmd, resp);
+}
+
+void RequestProcessor::processGetBestsellingBooks(CommandType cmd, const QByteArray & /*data*/, ClientSocketWorker* sender) {
+    QJsonArray arr;
+    for (const auto &b : DatabaseManager::getInstance().getBestsellingBooks(20)) {
+        arr.append(bookToJsonObject(b, currentTimestamp()));
     }
     QJsonObject resp;
     resp["books"] = arr;
@@ -326,6 +402,7 @@ void RequestProcessor::processGetBookDetails(CommandType cmd, const QByteArray &
     for (const auto &c : DatabaseManager::getInstance().getCommentsForBook(bookId)) {
         QJsonObject co;
         co["commentId"] = c.getCommentId();
+        co["userId"] = c.getUserId();
         co["username"] = QString::fromStdString(c.getSenderUsername());
         co["text"] = QString::fromStdString(c.getTextContent());
         co["timestamp"] = QString::fromStdString(c.getTimestamp());
@@ -423,6 +500,7 @@ void RequestProcessor::processDeleteBook(CommandType cmd, const QByteArray &data
     DatabaseManager::getInstance().softDeleteBook(bookId);
     sendOk(sender, cmd);
 }
+
 
 // =========================================================================
 // خرید
@@ -973,7 +1051,31 @@ void RequestProcessor::processDeleteComment(CommandType cmd, const QByteArray &d
     DatabaseManager::getInstance().deleteComment(req["commentId"].toInt());
     sendOk(sender, cmd);
 }
+void RequestProcessor::processEditComment(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender) {
+    if (sender->getAssociatedUserId() == -1) {
+        sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید.");
+        return;
+    }
+    QJsonObject req = JsonPayload::fromBytes(data);
+    int commentId = req["commentId"].toInt();
+    std::string newText = req["text"].toString().toStdString();
 
+    // فقط خودِ نویسنده می‌تواند نظرش را ویرایش کند (نه حتی ادمین -- ادمین فقط حذف/تأیید می‌کند)
+    int ownerId = DatabaseManager::getInstance().getCommentOwnerId(commentId);
+    if (ownerId != sender->getAssociatedUserId()) {
+        sendError(sender, cmd, "شما فقط می‌توانید نظرِ خودتان را ویرایش کنید.");
+        return;
+    }
+    if (newText.empty()) {
+        sendError(sender, cmd, "متنِ نظر نمی‌تواند خالی باشد.");
+        return;
+    }
+    if (!DatabaseManager::getInstance().editCommentText(commentId, newText, currentTimestamp())) {
+        sendError(sender, cmd, "خطا در ویرایشِ نظر.");
+        return;
+    }
+    sendOk(sender, cmd);
+}
 void RequestProcessor::processGetAllComments(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender) {
     if (!isRequesterAdmin(sender)) {
         sendError(sender, cmd, "فقط مدیرِ سیستم به این بخش دسترسی دارد.");

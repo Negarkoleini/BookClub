@@ -28,10 +28,15 @@ private:
     void processResetPassword(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processChangePassword(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processGetProfile(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
+    void processUpdateProfile(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
+    void processSetFavoriteGenres(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
 
     // ---- کتاب‌ها ----
     void processGetBooks(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processGetBookDetails(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
+    void processGetSuggestedBooks(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
+    void processGetPopularBooks(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
+    void processGetBestsellingBooks(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processAddBook(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processEditBook(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processDeleteBook(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
@@ -56,6 +61,7 @@ private:
     void processGetPendingComments(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processRejectComment(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processDeleteComment(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
+    void processEditComment(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender); // فقط برای صاحبِ نظر
     void processGetAllComments(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
 
     // ---- اعلان‌ها ----

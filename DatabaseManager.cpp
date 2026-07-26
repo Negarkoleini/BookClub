@@ -265,6 +265,40 @@ bool DatabaseManager::updateWalletBalance(int userId, double newBalance) {
     q.addBindValue(userId);
     return q.exec() && q.numRowsAffected() > 0;
 }
+bool DatabaseManager::updateEmail(int userId, const std::string &newEncryptedEmail) {
+    QMutexLocker locker(&dbMutex);
+    QSqlQuery q(db);
+    q.prepare("UPDATE users SET email = ? WHERE id = ?;");
+    q.addBindValue(QString::fromStdString(newEncryptedEmail));
+    q.addBindValue(userId);
+    return q.exec() && q.numRowsAffected() > 0;
+}
+std::vector<Genre> DatabaseManager::getFavoriteGenres(int userId) const {
+    QMutexLocker locker(&dbMutex);
+    std::vector<Genre> result;
+    QSqlQuery q(db);
+    q.prepare("SELECT favoriteGenres FROM users WHERE id = ?;");
+    q.addBindValue(userId);
+    if (q.exec() && q.next()) {
+        QString raw = q.value(0).toString(); // فرمت ذخیره: "0,2,5" (اعدادِ enum با کاما جدا شده)
+        for (const QString &part : raw.split(',', Qt::SkipEmptyParts)) {
+            bool ok = false;
+            int val = part.toInt(&ok);
+            if (ok) result.push_back(static_cast<Genre>(val));
+        }
+    }
+    return result;
+}
+bool DatabaseManager::updateFavoriteGenres(int userId, const std::vector<Genre> &genres) {
+    QMutexLocker locker(&dbMutex);
+    QStringList parts;
+    for (Genre g : genres) parts << QString::number(static_cast<int>(g));
+    QSqlQuery q(db);
+    q.prepare("UPDATE users SET favoriteGenres = ? WHERE id = ?;");
+    q.addBindValue(parts.join(','));
+    q.addBindValue(userId);
+    return q.exec() && q.numRowsAffected() > 0;
+}
 bool DatabaseManager::getSecurityQuestion(const std::string &username, std::string &question, std::string &answerHashOut) const {
     QMutexLocker locker(&dbMutex);
     QSqlQuery q(db);
@@ -444,6 +478,57 @@ QVector<Book> DatabaseManager::getAllBooksAdmin() const {
     }
     return result;
 }
+QVector<Book> DatabaseManager::getSuggestedBooksForUser(int userId) const {
+    // چون خواندنِ ژانرهای موردعلاقه خودش قفلِ دیگری می‌گیرد، این متد را قبل از
+    // قفل‌کردنِ dbMutex صدا می‌زنیم (getFavoriteGenres خودش مسئولِ قفلِ خودش است)
+    std::vector<Genre> favorites = getFavoriteGenres(userId);
+    QVector<Book> result;
+    if (favorites.empty()) return result; // کاربر هنوز ژانر انتخاب نکرده -> پیشنهادی نداریم
+
+    QMutexLocker locker(&dbMutex);
+    QStringList placeholders;
+    for (size_t i = 0; i < favorites.size(); ++i) placeholders << "?";
+    QSqlQuery q(db);
+    q.prepare(QString("SELECT * FROM books WHERE isActive=1 AND isDeleted=0 AND genre IN (%1) "
+                      "ORDER BY averageRating DESC LIMIT 30;").arg(placeholders.join(',')));
+    for (Genre g : favorites) q.addBindValue(static_cast<int>(g));
+    if (q.exec()) {
+        while (q.next()) result.push_back(rowToBook(q));
+    }
+    return result;
+}
+
+QVector<Book> DatabaseManager::getPopularBooks(int limitCount) const {
+    QMutexLocker locker(&dbMutex);
+    QVector<Book> result;
+    QSqlQuery q(db);
+    q.prepare("SELECT * FROM books WHERE isActive=1 AND isDeleted=0 "
+              "ORDER BY averageRating DESC LIMIT ?;");
+    q.addBindValue(limitCount);
+    if (q.exec()) {
+        while (q.next()) result.push_back(rowToBook(q));
+    }
+    return result;
+}
+
+QVector<Book> DatabaseManager::getBestsellingBooks(int limitCount) const {
+    QMutexLocker locker(&dbMutex);
+    QVector<Book> result;
+    QSqlQuery q(db);
+    // تعدادِ فروشِ هر کتاب را از جدولِ transactions می‌شماریم و کتاب‌های پرفروش‌تر را اول می‌آوریم
+    q.prepare(R"(SELECT b.*, COUNT(t.transactionId) AS salesCount
+                 FROM books b LEFT JOIN transactions t ON t.purchasedBookId = b.id
+                 WHERE b.isActive=1 AND b.isDeleted=0
+                 GROUP BY b.id
+                 ORDER BY salesCount DESC
+                 LIMIT ?;)");
+    q.addBindValue(limitCount);
+    if (q.exec()) {
+        while (q.next()) result.push_back(rowToBook(q));
+    }
+    return result;
+}
+
 // امتیاز و نظر
 bool DatabaseManager::upsertRating(int bookId, int userId, int score) {
     QMutexLocker locker(&dbMutex);
@@ -553,6 +638,24 @@ bool DatabaseManager::deleteComment(int commentId) {
     q.prepare("UPDATE comments SET isDeleted = 1 WHERE commentId = ?;");
     q.addBindValue(commentId);
     return q.exec() && q.numRowsAffected() > 0;
+}
+bool DatabaseManager::editCommentText(int commentId, const std::string &newText, const std::string &editTimestamp) {
+    QMutexLocker locker(&dbMutex);
+    QSqlQuery q(db);
+    q.prepare("UPDATE comments SET textContent = ?, timestamp = ?, isEdited = 1 WHERE commentId = ?;");
+    q.addBindValue(QString::fromStdString(newText));
+    q.addBindValue(QString::fromStdString(editTimestamp));
+    q.addBindValue(commentId);
+    return q.exec() && q.numRowsAffected() > 0;
+}
+
+int DatabaseManager::getCommentOwnerId(int commentId) const {
+    QMutexLocker locker(&dbMutex);
+    QSqlQuery q(db);
+    q.prepare("SELECT userId FROM comments WHERE commentId = ?;");
+    q.addBindValue(commentId);
+    if (!q.exec() || !q.next()) return -1;
+    return q.value(0).toInt();
 }
 // خرید _ تراکنش _کتابخانه
 bool DatabaseManager::logTransaction(const Transaction &tx) {

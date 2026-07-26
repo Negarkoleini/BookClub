@@ -52,6 +52,11 @@ class DatabaseManager{
         bool updateUserRole(int userId, const std::string &newRole);
         bool updatePasswordHash(int userId, const std::string &newPasswordHash);
         bool updateWalletBalance(int userId, double newBalance);
+        bool updateEmail(int userId, const std::string &newEncryptedEmail); // برای UpdateProfile
+
+                  //ژانر//
+        std::vector<Genre> getFavoriteGenres(int userId) const;
+        bool updateFavoriteGenres(int userId, const std::vector<Genre> &genres);
         bool getSecurityQuestion(const std::string &username, std::string &question, std::string &answerHashOut) const;
         bool deleteUserAccount(int userId);
         QVector<UserSummary> getAllUsers() const;
@@ -80,11 +85,17 @@ class DatabaseManager{
         int addComment(const Comment &comment);
         QVector<Comment> getCommentsForBook(int bookId) const;
         QVector<Comment> getPendingComments() const;
-
         QVector<Comment> getAllComments(int filterBookId = -1, int filterUserId = -1) const;
-
         bool setCommentApproved(int commentId, bool approved);
         bool deleteComment(int commentId);
+        bool editCommentText(int commentId, const std::string &newText, const std::string &editTimestamp);
+        int getCommentOwnerId(int commentId) const; // برای چک‌کردنِ اینکه درخواست‌دهنده صاحبِ نظره یا نه
+
+        // ---- کتاب‌های پیشنهادی/محبوب/پرفروش  ----
+        QVector<Book> getSuggestedBooksForUser(int userId) const; // بر اساسِ favoriteGenres
+        QVector<Book> getPopularBooks(int limitCount = 20) const; // بر اساسِ averageRating
+        QVector<Book> getBestsellingBooks(int limitCount = 20) const; // بر اساسِ تعدادِ فروش (از جدولِ transactions)
+
                //خرید و تراکنش//
         bool logTransaction(const Transaction &tx);
          bool getBookSalesInfo(int bookId, int &salesCount, double &revenue) const; // برای داشبورد آمار ناشر
