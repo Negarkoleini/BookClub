@@ -16,7 +16,6 @@ qt_standard_project_setup()
 
 qt_add_executable(BookClub
     WIN32 MACOSX_BUNDLE
-    main.cpp
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
@@ -59,8 +58,6 @@ qt_add_executable(BookClub
     DatabaseManager.cpp
     TimedDiscount.h
     ClientHandlerThread.h ClientHandlerThread.cpp
-    ServerCore.h
-    ServerCore.cpp
     DatabaseManager.h
     DatabaseManager.cpp
     TimedDiscount.h
@@ -71,7 +68,6 @@ qt_add_executable(BookClub
     JsonPayLoad.h
     ServerLogManager.h
     ServerLogManager.cpp
-    servercore.h
     ClientSocketWorker.h
     ClientSocketWorker.cpp
     ServerDashboardWindow.h
@@ -97,6 +93,9 @@ qt_add_executable(BookClub
     NotificationCenterWidget.cpp
     InAppNotificationWidget.h InAppNotificationWidget.cpp
     ClientUtils.h
+    MainServer.cpp
+    MainClient.cpp
+    main.cpp
 )
 
 
