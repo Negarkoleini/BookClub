@@ -1,13 +1,17 @@
 #include <QApplication>
+#include <QMessageBox>
 
-void startServer();
+bool startServer();
 void startClient();
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    startServer();
+    if (!startServer()) {
+        QMessageBox::critical(nullptr, "خطا", "سرور راه‌اندازی نشد؛ برنامه بسته می‌شود.");
+        return 1;
+    }
 
     startClient();
 
