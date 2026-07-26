@@ -80,6 +80,7 @@ void ClientSocketWorker::handleDisconnect() {
     if (associatedUserId != -1) {
         SessionManager::getInstance().removeSession(this);
     }
-    emit logRequired(QString("اتصال قطع شد (userId=%1)").arg(associatedUserId));
+    emit logRequired(QString("اتصال قطع شد (userId=%1)")
+                         .arg(associatedUserId.load()));
     emit workerDisconnected(this);
 }

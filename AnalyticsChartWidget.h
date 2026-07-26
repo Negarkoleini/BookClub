@@ -3,13 +3,6 @@
 #include <QJsonObject>
 #include <QtCharts/QChartView>
 
-// -----------------------------------------------------------------------
-// AnalyticsChartWidget: نمودارهای آمار فروش/عملکردِ ناشر با Qt Charts
-// (بخش امتیازی ۴). ورودی‌اش مستقیماً همان QJsonObject ای است که
-// RequestProcessor::processGetPublisherAnalytics برمی‌گرداند؛ چون کلاینت
-// دیگر یک AnalyticsData کاملِ سمتِ سرور نمی‌سازد (آن کلاس سمتِ سرور برای
-// نگهداریِ آمار در Publisher استفاده می‌شود، نه برای انتقالِ شبکه‌ای).
-// -----------------------------------------------------------------------
 class AnalyticsChartWidget : public QWidget {
     Q_OBJECT
 private:

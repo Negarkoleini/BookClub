@@ -3,18 +3,19 @@ project(BookClub LANGUAGES CXX)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS
     Core
+    Gui
     Widgets
     Sql
     Network
     LinguistTools
     PdfWidgets
     Pdf
+    Charts
 )
 qt_standard_project_setup()
 
 qt_add_executable(BookClub
     WIN32 MACOSX_BUNDLE
-    main.cpp
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
@@ -57,8 +58,6 @@ qt_add_executable(BookClub
     DatabaseManager.cpp
     TimedDiscount.h
     ClientHandlerThread.h ClientHandlerThread.cpp
-    ServerCore.h
-    ServerCore.cpp
     DatabaseManager.h
     DatabaseManager.cpp
     TimedDiscount.h
@@ -69,7 +68,6 @@ qt_add_executable(BookClub
     JsonPayLoad.h
     ServerLogManager.h
     ServerLogManager.cpp
-    servercore.h
     ClientSocketWorker.h
     ClientSocketWorker.cpp
     ServerDashboardWindow.h
@@ -95,6 +93,9 @@ qt_add_executable(BookClub
     NotificationCenterWidget.cpp
     InAppNotificationWidget.h InAppNotificationWidget.cpp
     ClientUtils.h
+    MainServer.cpp
+    MainClient.cpp
+    main.cpp
 )
 
 
@@ -120,3 +121,15 @@ qt_generate_deploy_app_script(
     NO_UNSUPPORTED_PLATFORM_ERROR
 )
 install(SCRIPT ${deploy_script})
+
+target_link_libraries(BookClub
+    PRIVATE
+        Qt::Core
+        Qt::Gui
+        Qt::Widgets
+        Qt::Sql
+        Qt::Network
+        Qt::Pdf
+        Qt::PdfWidgets
+        Qt::Charts
+)

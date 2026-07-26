@@ -7,11 +7,7 @@
 #include <QVector>
 #include "Book.h"
 
-// -----------------------------------------------------------------------
-// DiscountManagerWidget: فرمِ گرافیکیِ اعمالِ تخفیفِ زمان‌دار روی یکی از
-// کتاب‌های خودِ ناشر. اطلاعاتِ فرم را به QJsonObject تبدیل و با
-// CommandType::ApplyDiscount به سرور می‌فرستد.
-// -----------------------------------------------------------------------
+
 class DiscountManagerWidget : public QWidget {
     Q_OBJECT
 private:
@@ -22,7 +18,7 @@ private:
     QDateTimeEdit* dateTimeEnd;
     QPushButton* btnSubmitDiscount;
 
-    QVector<Book> myBooks; // برای پرکردنِ comboBooks؛ از بیرون (PublisherPanelWindow) ست می‌شود
+    QVector<Book> myBooks;
 
 public:
     explicit DiscountManagerWidget(QWidget *parent = nullptr);
