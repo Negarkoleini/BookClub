@@ -139,7 +139,7 @@ void UserPanelWindow::requestProfile() {
 void UserPanelWindow::refreshCatalogListWidget(const QVector<Book> &books) {
     listWidgetCatalog->clear();
     for (const auto &b : books) {
-        QString text = QString("%1 — %2  |  %3 تومان  |  ★ %4")
+        QString text = QString("%1 — %2  |  %3 تومان  | ★ %4")
                            .arg(QString::fromStdString(b.getTitle()))
                            .arg(QString::fromStdString(b.getAuthor()))
                            .arg(b.getBasePrice())
@@ -401,9 +401,9 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
         break;
     }
     case CommandType::GetPageLocation: {
-            if (pdfReader && payload.contains("pageNum")) {
-                int page = payload.value("pageNum").toInt();
-                pdfReader->jumpToPage(page);
+        if (pdfReader && payload.contains("pageNum")) {
+            int page = payload.value("pageNum").toInt();
+            pdfReader->jumpToPage(page);
         }
         break;
     }

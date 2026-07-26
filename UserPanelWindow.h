@@ -87,3 +87,6 @@ private slots:
 };
 
 #endif // USERPANELWINDOW_H
+
+
+
