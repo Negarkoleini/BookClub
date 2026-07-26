@@ -166,7 +166,7 @@ QWidget* AdminPanelWindow::buildDiscountsTab() {
     auto* layout = new QVBoxLayout(tab);
 
     auto* info = new QLabel("تخفیف‌هایی که ناشران ثبت کرده‌اند و هنوز تأیید نشده‌اند "
-                            "(طبقِ سند، تخفیف تا وقتی تأیید نشود روی قیمتِ نهایی اثر نمی‌گذارد):");
+                            "(، تخفیف تا وقتی تأیید نشود روی قیمتِ نهایی اثر نمی‌گذارد):");
     info->setWordWrap(true);
     layout->addWidget(info);
 
@@ -194,7 +194,7 @@ QWidget* AdminPanelWindow::buildSettingsTab() {
     auto* tab = new QWidget();
     auto* form = new QFormLayout(tab);
 
-    auto* info = new QLabel("محدودیتِ تعدادِ خرید/نظرِ هر کاربر در طولِ یک روز (بخشِ ۴-۱-و سند):");
+    auto* info = new QLabel("محدودیتِ تعدادِ خرید و نظرِ هر کاربر در طولِ یک روز :");
     info->setWordWrap(true);
     form->addRow(info);
 
