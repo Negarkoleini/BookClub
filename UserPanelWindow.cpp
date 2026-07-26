@@ -46,6 +46,15 @@ void UserPanelWindow::buildUi() {
     comboGenreFilter->addItem("غیرداستانی", static_cast<int>(Genre::NonFiction));
     comboGenreFilter->addItem("علمی‌تخیلی", static_cast<int>(Genre::SciFi));
     comboGenreFilter->addItem("فانتزی", static_cast<int>(Genre::Fantasy));
+    comboGenreFilter->addItem("درسی", static_cast<int>(Genre::darsi));
+    comboGenreFilter->addItem("معمایی", static_cast<int>(Genre::Mystery));
+    comboGenreFilter->addItem("عاشقانه", static_cast<int>(Genre::Romance));
+    comboGenreFilter->addItem("زندگینامه", static_cast<int>(Genre::Biography));
+    comboGenreFilter->addItem("خوددرمانی", static_cast<int>(Genre::SelfHelp));
+    comboGenreFilter->addItem("فلسفی", static_cast<int>(Genre::Philosophy));
+    comboGenreFilter->addItem("شعر", static_cast<int>(Genre::Poetry));
+    comboGenreFilter->addItem("کودک", static_cast<int>(Genre::Children));
+    comboGenreFilter->addItem("تاریخی", static_cast<int>(Genre::History));
     btnOpenNotifications = new QPushButton("🔔 اعلان‌ها");
 
     topBar->addWidget(lblBalance);

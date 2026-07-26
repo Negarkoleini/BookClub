@@ -58,6 +58,14 @@ void PublisherPanelWindow::buildUi() {
     comboNewBookGenre->addItem("غیرداستانی", static_cast<int>(Genre::NonFiction));
     comboNewBookGenre->addItem("علمی‌تخیلی", static_cast<int>(Genre::SciFi));
     comboNewBookGenre->addItem("فانتزی", static_cast<int>(Genre::Fantasy));
+    comboNewBookGenre->addItem("درسی", static_cast<int>(Genre::darsi));
+    comboNewBookGenre->addItem("معمایی", static_cast<int>(Genre::Mystery));
+    comboNewBookGenre->addItem("عاشقانه", static_cast<int>(Genre::Romance));
+    comboNewBookGenre->addItem("زندگینامه", static_cast<int>(Genre::Biography));
+    comboNewBookGenre->addItem("خوددرمانی", static_cast<int>(Genre::SelfHelp));
+    comboNewBookGenre->addItem("فلسفی", static_cast<int>(Genre::Philosophy));
+    comboNewBookGenre->addItem("شعر", static_cast<int>(Genre::Poetry));
+    comboNewBookGenre->addItem("کودک", static_cast<int>(Genre::Children));
     comboNewBookGenre->addItem("تاریخی", static_cast<int>(Genre::History));
     txtNewBookDescription = new QTextEdit();
     txtNewBookDescription->setMaximumHeight(80);

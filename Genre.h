@@ -4,7 +4,7 @@
 enum class Genre {
     Fiction, NonFiction, SciFi, Fantasy, Mystery,
     Romance, History, Biography, SelfHelp, Philosophy,
-    Poetry, Children
+    Poetry, Children,darsi,
 };
 
 
