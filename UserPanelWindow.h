@@ -9,7 +9,7 @@
 #include <QComboBox>
 #include <QVector>
 #include <QJsonObject>
-#include<QJsonArray>
+#include <QJsonArray>
 #include <QDialog>
 #include <QTextEdit>
 #include "BookSearchEngine.h"
@@ -29,6 +29,8 @@ private:
     QLineEdit* txtSearch;
     QComboBox* comboGenreFilter;
     QComboBox* comboBookView; // همه / پیشنهادی / محبوب / پرفروش
+    QPushButton* btnChargeWallet;
+    QPushButton* btnProfile;
     QPushButton* btnOpenNotifications;
 
     // ---- تب فروشگاه ----
@@ -36,19 +38,7 @@ private:
     QPushButton* btnBuy;
     QPushButton* btnAddToCart;
     QPushButton* btnSaveForLater;
-
-    // ---- دیالوگِ جزئیاتِ کتاب (نظرات + امتیاز) ----
-    QDialog* bookDetailsDialog = nullptr;
-    QLabel* dialogDescriptionLabel = nullptr;
-    QListWidget* dialogCommentsList = nullptr;
-    QTextEdit* dialogNewCommentText = nullptr;
-    QComboBox* dialogRatingCombo = nullptr;
-    QPushButton* dialogSubmitCommentBtn = nullptr;
-    QPushButton* dialogSubmitRatingBtn = nullptr;
-    QPushButton* dialogEditCommentBtn = nullptr;
-    QPushButton* dialogDeleteCommentBtn = nullptr;
-    int currentDetailsBookId = -1;
-    QJsonArray currentDetailsComments; // برای پیداکردنِ userId هر نظر موقعِ ویرایش/حذف
+    QPushButton* btnViewDetails; // جایگزینِ دابل‌کلیک -- تا دیده بشه و کاربر بفهمه هست
 
     // ---- تب سبدخرید ----
     QListWidget* listWidgetCart;
@@ -74,6 +64,26 @@ private:
     PdfReaderWidget* pdfReader = nullptr;
     NotificationCenterWidget* notificationCenter = nullptr;
 
+    // ---- دیالوگِ جزئیاتِ کتاب (نظرات + امتیاز) ----
+    QDialog* bookDetailsDialog = nullptr;
+    QLabel* dialogDescriptionLabel = nullptr;
+    QListWidget* dialogCommentsList = nullptr;
+    QTextEdit* dialogNewCommentText = nullptr;
+    QComboBox* dialogRatingCombo = nullptr;
+    QPushButton* dialogSubmitCommentBtn = nullptr;
+    QPushButton* dialogSubmitRatingBtn = nullptr;
+    QPushButton* dialogEditCommentBtn = nullptr;
+    QPushButton* dialogDeleteCommentBtn = nullptr;
+    int currentDetailsBookId = -1;
+    QJsonArray currentDetailsComments;
+
+    // ---- دیالوگِ پروفایل ----
+    QDialog* profileDialog = nullptr;
+    QLineEdit* profileUsernameField = nullptr;
+    QLineEdit* profileEmailField = nullptr;
+    QLineEdit* profileOldPasswordField = nullptr;
+    QLineEdit* profileNewPasswordField = nullptr;
+
     void buildUi();
     void requestCatalog();
     void requestLibrary();
@@ -82,11 +92,11 @@ private:
     void refreshCartListWidget();
     Book* findCachedBookById(int bookId);
 
-    // ----  ژانرِ موردعلاقه (اولین ورود) و جزئیاتِ کتاب/نظرات ----
     void promptFavoriteGenresIfNeeded(const QJsonArray &currentGenres);
     void openBookDetailsDialog(int bookId);
     void refreshDialogCommentsList();
     void requestBooksForCurrentView();
+    void openProfileDialog();
 
 public:
     explicit UserPanelWindow(int userId, QWidget *parent = nullptr);
@@ -105,11 +115,17 @@ private slots:
     void onOpenNotificationsClicked();
 
     void onBookViewChanged(int index);
+    void onViewDetailsClicked();
     void onCatalogItemDoubleClicked(QListWidgetItem* item);
     void onSubmitCommentClicked();
     void onSubmitRatingClicked();
     void onEditSelectedCommentClicked();
     void onDeleteSelectedCommentClicked();
+
+    void onChargeWalletClicked();
+    void onProfileClicked();
+    void onSaveProfileClicked();
+    void onChangePasswordClicked();
 
     void updateWalletDisplay(double currentBalance);
     void onNetworkReply(CommandType commandType, QJsonObject payload, bool ok);
@@ -117,6 +133,8 @@ private slots:
 };
 
 #endif // USERPANELWINDOW_H
+
+
 
 
 

@@ -64,6 +64,8 @@ void RequestProcessor::handleRequest(CommandType commandType, const QByteArray &
     case CommandType::GetProfile:                processGetProfile(commandType, payload, sender); break;
     case CommandType::UpdateProfile:              processUpdateProfile(commandType, payload, sender); break;
     case CommandType::SetFavoriteGenres:          processSetFavoriteGenres(commandType, payload, sender); break;
+    case CommandType::DepositMoney:                processDepositMoney(commandType, payload, sender); break;
+
 
     case CommandType::GetBooks:                  processGetBooks(commandType, payload, sender); break;
     case CommandType::GetBookDetails:            processGetBookDetails(commandType, payload, sender); break;
@@ -328,6 +330,33 @@ void RequestProcessor::processSetFavoriteGenres(CommandType cmd, const QByteArra
     }
     sendOk(sender, cmd);
 }
+void RequestProcessor::processDepositMoney(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender) {
+    int userId = sender->getAssociatedUserId();
+    if (userId == -1) { sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید."); return; }
+
+    QJsonObject req = JsonPayload::fromBytes(data);
+    double amount = req["amount"].toDouble();
+    if (amount <= 0.0) {
+        sendError(sender, cmd, "مبلغِ شارژ باید بیشتر از صفر باشد.");
+        return;
+    }
+
+    auto regUser = DatabaseManager::getInstance().loadRegularUser(userId);
+    if (!regUser) {
+        sendError(sender, cmd, "خطا در بارگذاریِ حساب کاربری.");
+        return;
+    }
+    regUser->depositMoney(amount);
+    if (!DatabaseManager::getInstance().updateWalletBalance(userId, regUser->getWalletBalance())) {
+        sendError(sender, cmd, "خطا در ذخیره‌ی موجودی.");
+        return;
+    }
+
+    QJsonObject resp;
+    resp["newWalletBalance"] = regUser->getWalletBalance();
+    sendOk(sender, cmd, resp);
+}
+
 // =========================================================================
 // کتاب‌ها
 // =========================================================================

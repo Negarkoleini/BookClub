@@ -5,6 +5,7 @@
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QFormLayout>
 #include <QTabWidget>
 #include <QGroupBox>
 #include <QMessageBox>
@@ -28,9 +29,10 @@ UserPanelWindow::UserPanelWindow(int userId, QWidget *parent)
     QJsonObject req;
     ClientNetworkManager::getInstance().sendRequest(CommandType::GetNotifications, req);
 }
+
 void UserPanelWindow::buildUi() {
     setWindowTitle("BookClub - پنل کاربری");
-    resize(900, 600);
+    resize(950, 650);
 
     auto* central = new QWidget();
     auto* mainLayout = new QVBoxLayout(central);
@@ -38,8 +40,11 @@ void UserPanelWindow::buildUi() {
     // ---- نوار بالا ----
     auto* topBar = new QHBoxLayout();
     lblBalance = new QLabel("موجودی: ...");
+    btnChargeWallet = new QPushButton("💳 شارژِ کیف پول");
+    btnProfile = new QPushButton("👤 پروفایل");
     txtSearch = new QLineEdit();
     txtSearch->setPlaceholderText("جستجو بر اساس نام کتاب یا نویسنده...");
+
     comboGenreFilter = new QComboBox();
     comboGenreFilter->addItem("همه‌ی ژانرها", -1);
     comboGenreFilter->addItem("داستانی", static_cast<int>(Genre::Fiction));
@@ -65,6 +70,8 @@ void UserPanelWindow::buildUi() {
     btnOpenNotifications = new QPushButton("🔔 اعلان‌ها");
 
     topBar->addWidget(lblBalance);
+    topBar->addWidget(btnChargeWallet);
+    topBar->addWidget(btnProfile);
     topBar->addWidget(txtSearch, /*stretch=*/1);
     topBar->addWidget(comboGenreFilter);
     topBar->addWidget(comboBookView);
@@ -78,9 +85,11 @@ void UserPanelWindow::buildUi() {
     auto* shopLayout = new QVBoxLayout(shopTab);
     listWidgetCatalog = new QListWidget();
     auto* shopButtons = new QHBoxLayout();
+    btnViewDetails = new QPushButton("جزئیات / نظرات / امتیاز");
     btnBuy = new QPushButton("خرید مستقیم");
     btnAddToCart = new QPushButton("افزودن به سبد خرید");
     btnSaveForLater = new QPushButton("ذخیره برای بعد");
+    shopButtons->addWidget(btnViewDetails);
     shopButtons->addWidget(btnBuy);
     shopButtons->addWidget(btnAddToCart);
     shopButtons->addWidget(btnSaveForLater);
@@ -128,6 +137,7 @@ void UserPanelWindow::buildUi() {
     connect(comboGenreFilter, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &UserPanelWindow::onGenreFilterChanged);
     connect(comboBookView, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &UserPanelWindow::onBookViewChanged);
     connect(listWidgetCatalog, &QListWidget::itemDoubleClicked, this, &UserPanelWindow::onCatalogItemDoubleClicked);
+    connect(btnViewDetails, &QPushButton::clicked, this, &UserPanelWindow::onViewDetailsClicked);
     connect(btnBuy, &QPushButton::clicked, this, &UserPanelWindow::onBuyBookClicked);
     connect(btnAddToCart, &QPushButton::clicked, this, &UserPanelWindow::onAddToCartClicked);
     connect(btnSaveForLater, &QPushButton::clicked, this, &UserPanelWindow::onSaveForLaterClicked);
@@ -136,9 +146,13 @@ void UserPanelWindow::buildUi() {
     connect(btnRead, &QPushButton::clicked, this, &UserPanelWindow::onReadBookClicked);
     connect(btnRemoveSaved, &QPushButton::clicked, this, &UserPanelWindow::onRemoveSavedClicked);
     connect(btnOpenNotifications, &QPushButton::clicked, this, &UserPanelWindow::onOpenNotificationsClicked);
+    connect(btnChargeWallet, &QPushButton::clicked, this, &UserPanelWindow::onChargeWalletClicked);
+    connect(btnProfile, &QPushButton::clicked, this, &UserPanelWindow::onProfileClicked);
 }
 
+// =========================================================================
 // درخواست‌های شبکه
+// =========================================================================
 void UserPanelWindow::requestCatalog() {
     QJsonObject req;
     ClientNetworkManager::getInstance().sendRequest(CommandType::GetBooks, req);
@@ -164,45 +178,113 @@ void UserPanelWindow::requestBooksForCurrentView() {
     }
 }
 
-void UserPanelWindow::promptFavoriteGenresIfNeeded(const QJsonArray &currentGenres) {
-    if (!currentGenres.isEmpty()) return; // قبلاً انتخاب کرده، کاری لازم نیست
-    QStringList genreNames = {"داستانی", "غیرداستانی", "علمی‌تخیلی", "فانتزی", "معمایی",
-                              "عاشقانه", "تاریخی", "زندگی‌نامه", "خوددرمانی", "فلسفی", "شعر", "کودک"};
-    auto* dialog = new QDialog(this);
-    dialog->setWindowTitle("انتخابِ ژانرهای موردعلاقه");
-    auto* layout = new QVBoxLayout(dialog);
-    layout->addWidget(new QLabel("لطفاً ۱ تا ۳ ژانرِ موردعلاقه‌تان را انتخاب کنید:"));
-
-    auto* list = new QListWidget();
-    list->setSelectionMode(QAbstractItemView::MultiSelection);
-    for (int i = 0; i < genreNames.size(); ++i) {
-        auto* item = new QListWidgetItem(genreNames[i]);
-        item->setData(Qt::UserRole, i);
-        list->addItem(item);
+// =========================================================================
+// رندر لیست‌ها
+// =========================================================================
+void UserPanelWindow::refreshCatalogListWidget(const QVector<Book> &books) {
+    listWidgetCatalog->clear();
+    for (const auto &b : books) {
+        QString text = QString("%1 — %2  |  %3 تومان  |  ★ %4")
+                           .arg(QString::fromStdString(b.getTitle()))
+                           .arg(QString::fromStdString(b.getAuthor()))
+                           .arg(b.getBasePrice())
+                           .arg(b.getAverageRating(), 0, 'f', 1);
+        auto* item = new QListWidgetItem(text);
+        item->setData(Qt::UserRole, b.getId());
+        listWidgetCatalog->addItem(item);
     }
-    layout->addWidget(list);
-
-    auto* btnConfirm = new QPushButton("تأیید");
-    layout->addWidget(btnConfirm);
-
-    connect(btnConfirm, &QPushButton::clicked, this, [this, list, dialog]() {
-        auto selected = list->selectedItems();
-        if (selected.isEmpty() || selected.size() > 3) {
-            QMessageBox::warning(dialog, "خطا", "باید بینِ ۱ تا ۳ ژانر انتخاب کنید.");
-            return;
-        }
-        QJsonArray genresArr;
-        for (auto* item : selected) genresArr.append(item->data(Qt::UserRole).toInt());
-
-        QJsonObject req;
-        req["genres"] = genresArr;
-        ClientNetworkManager::getInstance().sendRequest(CommandType::SetFavoriteGenres, req);
-        dialog->accept();
-    });
-
-    dialog->exec();
 }
 
+void UserPanelWindow::refreshCartListWidget() {
+    listWidgetCart->clear();
+    for (const auto &item : myCart.getItems()) {
+        QString text = QString("%1 × %2 = %3 تومان")
+                           .arg(QString::fromStdString(item.getBook().getTitle()))
+                           .arg(item.getQuantity())
+                           .arg(item.getSubtotal());
+        auto* w = new QListWidgetItem(text);
+        w->setData(Qt::UserRole, item.getBook().getId());
+        listWidgetCart->addItem(w);
+    }
+    lblCartTotal->setText(QString("مبلغ کل: %1 تومان").arg(myCart.calculateTotal()));
+}
+
+Book* UserPanelWindow::findCachedBookById(int bookId) {
+    for (auto &b : availableBooksCache) {
+        if (b.getId() == bookId) return &b;
+    }
+    return nullptr;
+}
+
+// =========================================================================
+// اسلات‌های فروشگاه
+// =========================================================================
+void UserPanelWindow::onSearchTextChanged(const QString &text) {
+    auto filtered = searchEngine.filterByTitleOrAuthor(text, availableBooksCache);
+    refreshCatalogListWidget(filtered);
+}
+
+void UserPanelWindow::onGenreFilterChanged(int /*index*/) {
+    int genreValue = comboGenreFilter->currentData().toInt();
+    if (genreValue < 0) {
+        refreshCatalogListWidget(availableBooksCache);
+    } else {
+        refreshCatalogListWidget(searchEngine.filterByGenre(static_cast<Genre>(genreValue), availableBooksCache));
+    }
+}
+
+void UserPanelWindow::onBookViewChanged(int /*index*/) {
+    requestBooksForCurrentView();
+}
+
+void UserPanelWindow::onViewDetailsClicked() {
+    auto* item = listWidgetCatalog->currentItem();
+    if (!item) {
+        QMessageBox::information(this, "راهنما", "اول یک کتاب را از لیست انتخاب کنید.");
+        return;
+    }
+    openBookDetailsDialog(item->data(Qt::UserRole).toInt());
+}
+
+void UserPanelWindow::onCatalogItemDoubleClicked(QListWidgetItem* item) {
+    if (!item) return;
+    openBookDetailsDialog(item->data(Qt::UserRole).toInt());
+}
+
+void UserPanelWindow::onBuyBookClicked() {
+    auto* item = listWidgetCatalog->currentItem();
+    if (!item) return;
+    int bookId = item->data(Qt::UserRole).toInt();
+
+    if (QMessageBox::question(this, "تایید خرید", "آیا از خریدِ این کتاب مطمئنید؟") != QMessageBox::Yes) return;
+
+    QJsonObject req;
+    req["bookId"] = bookId;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::BuyBook, req);
+}
+
+void UserPanelWindow::onAddToCartClicked() {
+    auto* item = listWidgetCatalog->currentItem();
+    if (!item) return;
+    int bookId = item->data(Qt::UserRole).toInt();
+
+    Book* b = findCachedBookById(bookId);
+    if (!b) return;
+    myCart.addItem(*b, 1);
+    refreshCartListWidget();
+}
+
+void UserPanelWindow::onSaveForLaterClicked() {
+    auto* item = listWidgetCatalog->currentItem();
+    if (!item) return;
+    QJsonObject req;
+    req["bookId"] = item->data(Qt::UserRole).toInt();
+    ClientNetworkManager::getInstance().sendRequest(CommandType::SaveBookForLater, req);
+}
+
+// =========================================================================
+// دیالوگِ جزئیاتِ کتاب: توضیحات + نظرات (با ویرایش/حذفِ نظرِ خودِ کاربر) + امتیاز
+// =========================================================================
 void UserPanelWindow::openBookDetailsDialog(int bookId) {
     currentDetailsBookId = bookId;
 
@@ -271,180 +353,6 @@ void UserPanelWindow::refreshDialogCommentsList() {
     }
 }
 
-// رندر لیست‌ها
-void UserPanelWindow::refreshCatalogListWidget(const QVector<Book> &books) {
-    listWidgetCatalog->clear();
-    for (const auto &b : books) {
-        QString text = QString("%1 — %2  |  %3 تومان  |  %4")
-                           .arg(QString::fromStdString(b.getTitle()))
-                           .arg(QString::fromStdString(b.getAuthor()))
-                           .arg(b.getBasePrice())
-                           .arg(b.getAverageRating(), 0, 'f', 1);
-        auto* item = new QListWidgetItem(text);
-        item->setData(Qt::UserRole, b.getId());
-        listWidgetCatalog->addItem(item);
-    }
-}
-
-void UserPanelWindow::refreshCartListWidget() {
-    listWidgetCart->clear();
-    for (const auto &item : myCart.getItems()) {
-        QString text = QString("%1 × %2 = %3 تومان")
-                           .arg(QString::fromStdString(item.getBook().getTitle()))
-                           .arg(item.getQuantity())
-                           .arg(item.getSubtotal());
-        auto* w = new QListWidgetItem(text);
-        w->setData(Qt::UserRole, item.getBook().getId());
-        listWidgetCart->addItem(w);
-    }
-    lblCartTotal->setText(QString("مبلغ کل: %1 تومان").arg(myCart.calculateTotal()));
-}
-
-Book* UserPanelWindow::findCachedBookById(int bookId) {
-    for (auto &b : availableBooksCache) {
-        if (b.getId() == bookId) return &b;
-    }
-    return nullptr;
-}
-
-// اسلات‌های فروشگاه
-// =========================================================================
-void UserPanelWindow::onSearchTextChanged(const QString &text) {
-    auto filtered = searchEngine.filterByTitleOrAuthor(text, availableBooksCache);
-    refreshCatalogListWidget(filtered);
-}
-
-void UserPanelWindow::onGenreFilterChanged(int /*index*/) {
-    int genreValue = comboGenreFilter->currentData().toInt();
-    if (genreValue < 0) {
-        refreshCatalogListWidget(availableBooksCache);
-    } else {
-        refreshCatalogListWidget(searchEngine.filterByGenre(static_cast<Genre>(genreValue), availableBooksCache));
-    }
-}
-
-void UserPanelWindow::onBuyBookClicked() {
-    auto* item = listWidgetCatalog->currentItem();
-    if (!item) return;
-    int bookId = item->data(Qt::UserRole).toInt();
-
-    if (QMessageBox::question(this, "تایید خرید", "آیا از خریدِ این کتاب مطمئنید؟") != QMessageBox::Yes) return;
-
-    QJsonObject req;
-    req["bookId"] = bookId;
-    ClientNetworkManager::getInstance().sendRequest(CommandType::BuyBook, req);
-}
-
-void UserPanelWindow::onAddToCartClicked() {
-    auto* item = listWidgetCatalog->currentItem();
-    if (!item) return;
-    int bookId = item->data(Qt::UserRole).toInt();
-
-    Book* b = findCachedBookById(bookId);
-    if (!b) return;
-    myCart.addItem(*b, 1);
-    refreshCartListWidget();
-}
-
-void UserPanelWindow::onSaveForLaterClicked() {
-    auto* item = listWidgetCatalog->currentItem();
-    if (!item) return;
-    QJsonObject req;
-    req["bookId"] = item->data(Qt::UserRole).toInt();
-    ClientNetworkManager::getInstance().sendRequest(CommandType::SaveBookForLater, req);
-}
-
-// اسلات‌های سبد خرید
-// =========================================================================
-void UserPanelWindow::onRemoveFromCartClicked() {
-    auto* item = listWidgetCart->currentItem();
-    if (!item) return;
-    myCart.removeItem(item->data(Qt::UserRole).toInt());
-    refreshCartListWidget();
-}
-
-void UserPanelWindow::onCheckoutClicked() {
-    if (myCart.getItems().empty()) {
-        QMessageBox::information(this, "سبد خالی", "سبدِ خریدِ شما خالی است.");
-        return;
-    }
-    for (const auto &item : myCart.getItems()) {
-        QJsonObject req;
-        req["bookId"] = item.getBook().getId();
-        ClientNetworkManager::getInstance().sendRequest(CommandType::BuyBook, req);
-    }
-    myCart.clearAll();
-    refreshCartListWidget();
-    QMessageBox::information(this, "تسویه حساب", "درخواستِ خریدِ همه ی کتاب های سبد ارسال شد.");
-}
-
-// اسلات‌های کتابخانه‌ی من
-// =========================================================================
-void UserPanelWindow::onReadBookClicked() {
-    auto* item = listWidgetMyLibrary->currentItem();
-    if (!item) return;
-    int bookId = item->data(Qt::UserRole).toInt();
-    Book* b = nullptr;
-    for (auto &book : myLibraryCache) {
-        if (book.getId() == bookId) { b = &book; break; }
-    }
-    if (!b) return;
-
-    QJsonObject req;
-    req["bookId"] = bookId;
-    ClientNetworkManager::getInstance().sendRequest(CommandType::GetPageLocation, req);
-
-    auto* dialog = new QDialog(this);
-    dialog->setWindowTitle(QString::fromStdString(b->getTitle()));
-    dialog->resize(800, 900);
-    auto* layout = new QVBoxLayout(dialog);
-
-    pdfReader = new PdfReaderWidget(dialog);
-    layout->addWidget(pdfReader);
-    pdfReader->openFile(QString::fromStdString(b->getPdfFileName()), bookId, 1);
-
-    connect(pdfReader, &PdfReaderWidget::pageChanged, this, [](int bId, int newPage) {
-        QJsonObject r;
-        r["bookId"] = bId;
-        r["pageNum"] = newPage;
-        ClientNetworkManager::getInstance().sendRequest(CommandType::SavePageLocation, r);
-    });
-
-    dialog->exec();
-}
-
-// اسلات‌های ذخیره‌شده‌ها
-// =========================================================================
-void UserPanelWindow::onRemoveSavedClicked() {
-    auto* item = listWidgetSaved->currentItem();
-    if (!item) return;
-    QJsonObject req;
-    req["bookId"] = item->data(Qt::UserRole).toInt();
-    ClientNetworkManager::getInstance().sendRequest(CommandType::RemoveSavedBook, req);
-}
-
-void UserPanelWindow::onOpenNotificationsClicked() {
-    if (!notificationCenter) {
-        notificationCenter = new NotificationCenterWidget();
-        notificationCenter->setWindowTitle("اعلان‌های من");
-        notificationCenter->resize(400, 500);
-    }
-    notificationCenter->show();
-    notificationCenter->raise();
-}
-
-
-// اسلات‌های نمای کتاب (پیشنهادی/محبوب/پرفروش) و جزئیاتِ کتاب+نظرات
-// =========================================================================
-void UserPanelWindow::onBookViewChanged(int /*index*/) {
-    requestBooksForCurrentView();
-}
-
-void UserPanelWindow::onCatalogItemDoubleClicked(QListWidgetItem* item) {
-    if (!item) return;
-    openBookDetailsDialog(item->data(Qt::UserRole).toInt());
-}
-
 void UserPanelWindow::onSubmitRatingClicked() {
     if (currentDetailsBookId == -1) return;
     QJsonObject req;
@@ -498,6 +406,167 @@ void UserPanelWindow::onDeleteSelectedCommentClicked() {
     ClientNetworkManager::getInstance().sendRequest(CommandType::DeleteComment, req);
 }
 
+// =========================================================================
+// اسلات‌های سبد خرید
+// =========================================================================
+void UserPanelWindow::onRemoveFromCartClicked() {
+    auto* item = listWidgetCart->currentItem();
+    if (!item) return;
+    myCart.removeItem(item->data(Qt::UserRole).toInt());
+    refreshCartListWidget();
+}
+
+void UserPanelWindow::onCheckoutClicked() {
+    if (myCart.getItems().empty()) {
+        QMessageBox::information(this, "سبد خالی", "سبدِ خریدِ شما خالی است.");
+        return;
+    }
+    for (const auto &item : myCart.getItems()) {
+        QJsonObject req;
+        req["bookId"] = item.getBook().getId();
+        ClientNetworkManager::getInstance().sendRequest(CommandType::BuyBook, req);
+    }
+    myCart.clearAll();
+    refreshCartListWidget();
+    QMessageBox::information(this, "تسویه حساب", "درخواستِ خریدِ همه ی کتاب های سبد ارسال شد.");
+}
+
+// =========================================================================
+// اسلات‌های کتابخانه‌ی من
+// =========================================================================
+void UserPanelWindow::onReadBookClicked() {
+    auto* item = listWidgetMyLibrary->currentItem();
+    if (!item) return;
+    int bookId = item->data(Qt::UserRole).toInt();
+    Book* b = nullptr;
+    for (auto &book : myLibraryCache) {
+        if (book.getId() == bookId) { b = &book; break; }
+    }
+    if (!b) return;
+
+    QJsonObject req;
+    req["bookId"] = bookId;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::GetPageLocation, req);
+
+    auto* dialog = new QDialog(this);
+    dialog->setWindowTitle(QString::fromStdString(b->getTitle()));
+    dialog->resize(800, 900);
+    auto* layout = new QVBoxLayout(dialog);
+
+    pdfReader = new PdfReaderWidget(dialog);
+    layout->addWidget(pdfReader);
+    pdfReader->openFile(QString::fromStdString(b->getPdfFileName()), bookId, 1);
+
+    connect(pdfReader, &PdfReaderWidget::pageChanged, this, [](int bId, int newPage) {
+        QJsonObject r;
+        r["bookId"] = bId;
+        r["pageNum"] = newPage;
+        ClientNetworkManager::getInstance().sendRequest(CommandType::SavePageLocation, r);
+    });
+
+    dialog->exec();
+}
+
+// =========================================================================
+// اسلات‌های ذخیره‌شده‌ها
+// =========================================================================
+void UserPanelWindow::onRemoveSavedClicked() {
+    auto* item = listWidgetSaved->currentItem();
+    if (!item) return;
+    QJsonObject req;
+    req["bookId"] = item->data(Qt::UserRole).toInt();
+    ClientNetworkManager::getInstance().sendRequest(CommandType::RemoveSavedBook, req);
+}
+
+void UserPanelWindow::onOpenNotificationsClicked() {
+    if (!notificationCenter) {
+        notificationCenter = new NotificationCenterWidget();
+        notificationCenter->setWindowTitle("اعلان‌های من");
+        notificationCenter->resize(400, 500);
+    }
+    notificationCenter->show();
+    notificationCenter->raise();
+}
+
+// =========================================================================
+// شارژِ کیف پول
+// =========================================================================
+void UserPanelWindow::onChargeWalletClicked() {
+    bool okPressed = false;
+    double amount = QInputDialog::getDouble(this, "شارژِ کیف پول", "مبلغِ شارژ (تومان):",
+                                            10000, 1, 100000000, 0, &okPressed);
+    if (!okPressed) return;
+
+    QJsonObject req;
+    req["amount"] = amount;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::DepositMoney, req);
+}
+
+// =========================================================================
+// پروفایل: مشاهده/ویرایشِ اطلاعات + تغییرِ رمز عبور
+// =========================================================================
+void UserPanelWindow::onProfileClicked() {
+    openProfileDialog();
+}
+
+void UserPanelWindow::openProfileDialog() {
+    profileDialog = new QDialog(this);
+    profileDialog->setWindowTitle("پروفایلِ من");
+    profileDialog->resize(400, 300);
+    auto* layout = new QVBoxLayout(profileDialog);
+
+    auto* form = new QFormLayout();
+    profileUsernameField = new QLineEdit();
+    profileUsernameField->setReadOnly(true); // نام کاربری قابل‌تغییر نیست
+    profileEmailField = new QLineEdit();
+    form->addRow("نام کاربری:", profileUsernameField);
+    form->addRow("ایمیل:", profileEmailField);
+    layout->addLayout(form);
+
+    auto* btnSaveProfile = new QPushButton("ذخیره‌ی تغییراتِ ایمیل");
+    layout->addWidget(btnSaveProfile);
+
+    layout->addWidget(new QLabel("---- تغییرِ رمزِ عبور ----"));
+    auto* passForm = new QFormLayout();
+    profileOldPasswordField = new QLineEdit();
+    profileOldPasswordField->setEchoMode(QLineEdit::Password);
+    profileNewPasswordField = new QLineEdit();
+    profileNewPasswordField->setEchoMode(QLineEdit::Password);
+    passForm->addRow("رمزِ فعلی:", profileOldPasswordField);
+    passForm->addRow("رمزِ جدید:", profileNewPasswordField);
+    layout->addLayout(passForm);
+
+    auto* btnChangePass = new QPushButton("تغییرِ رمزِ عبور");
+    layout->addWidget(btnChangePass);
+
+    connect(btnSaveProfile, &QPushButton::clicked, this, &UserPanelWindow::onSaveProfileClicked);
+    connect(btnChangePass, &QPushButton::clicked, this, &UserPanelWindow::onChangePasswordClicked);
+
+    // درخواستِ اطلاعاتِ تازه از سرور (پاسخش توی onNetworkReply پر می‌شه)
+    requestProfile();
+
+    profileDialog->exec();
+}
+
+void UserPanelWindow::onSaveProfileClicked() {
+    QJsonObject req;
+    req["email"] = profileEmailField->text();
+    ClientNetworkManager::getInstance().sendRequest(CommandType::UpdateProfile, req);
+}
+
+void UserPanelWindow::onChangePasswordClicked() {
+    QString oldPass = profileOldPasswordField->text();
+    QString newPass = profileNewPasswordField->text();
+    if (oldPass.isEmpty() || newPass.isEmpty()) {
+        QMessageBox::warning(profileDialog, "خطا", "رمزِ فعلی و رمزِ جدید را وارد کنید.");
+        return;
+    }
+    QJsonObject req;
+    req["oldPassword"] = oldPass;
+    req["newPassword"] = newPass;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::ChangePassword, req);
+}
+
 void UserPanelWindow::updateWalletDisplay(double currentBalance) {
     lblBalance->setText(QString("موجودی: %1 تومان").arg(currentBalance));
 }
@@ -517,7 +586,8 @@ void UserPanelWindow::onPushNotification(QJsonObject payload) {
     }
 }
 
-//  پاسخ‌های شبکه
+// =========================================================================
+// پاسخ‌های شبکه
 // =========================================================================
 void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payload, bool ok) {
     if (!ok) {
@@ -541,20 +611,42 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
         if (payload.contains("walletBalance")) {
             updateWalletDisplay(payload.value("walletBalance").toDouble());
         }
+        // اگه دیالوگِ پروفایل باز باشه، فیلدهاش رو با اطلاعاتِ تازه پر کن
+        if (profileDialog && profileUsernameField) {
+            profileUsernameField->setText(payload.value("username").toString());
+            profileEmailField->setText(payload.value("email").toString());
+        }
         // اگه هنوز ژانرِ موردعلاقه انتخاب نکرده (اولین ورود)، دیالوگِ انتخابِ ژانر رو نشون بده
         promptFavoriteGenresIfNeeded(payload.value("favoriteGenres").toArray());
         break;
     }
+    case CommandType::UpdateProfile: {
+        QMessageBox::information(this, "موفق", "پروفایل بروزرسانی شد.");
+        break;
+    }
+    case CommandType::ChangePassword: {
+        QMessageBox::information(this, "موفق", "رمزِ عبور تغییر کرد.");
+        if (profileOldPasswordField) profileOldPasswordField->clear();
+        if (profileNewPasswordField) profileNewPasswordField->clear();
+        break;
+    }
+    case CommandType::DepositMoney: {
+        if (payload.contains("newWalletBalance")) {
+            updateWalletDisplay(payload.value("newWalletBalance").toDouble());
+            QMessageBox::information(this, "موفق", "کیف‌پول شارژ شد.");
+        }
+        break;
+    }
     case CommandType::SetFavoriteGenres: {
         QMessageBox::information(this, "موفق", "ژانرهای موردعلاقه ذخیره شد.");
-        requestBooksForCurrentView(); // شاید بخوایم پیشنهادی‌ها رو دوباره بگیریم
+        requestBooksForCurrentView();
         break;
     }
     case CommandType::BuyBook: {
         if (payload.contains("newWalletBalance")) {
             updateWalletDisplay(payload.value("newWalletBalance").toDouble());
         }
-        requestLibrary(); // کتابخانه رو رفرش کن تا کتابِ تازه‌خریده‌شده نشون داده بشه
+        requestLibrary();
         break;
     }
     case CommandType::GetLibrary: {
@@ -606,7 +698,7 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
     }
     case CommandType::SaveBookForLater:
     case CommandType::RemoveSavedBook: {
-        requestLibrary(); // دوباره لیستِ ذخیره‌شده‌ها رو بگیر
+        requestLibrary();
         break;
     }
     case CommandType::GetPageLocation: {
@@ -632,7 +724,6 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
     case CommandType::AddComment:
     case CommandType::EditComment:
     case CommandType::DeleteComment: {
-
         if (currentDetailsBookId != -1) {
             QJsonObject req;
             req["bookId"] = currentDetailsBookId;
@@ -641,7 +732,7 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
         break;
     }
     case CommandType::AddRating: {
-        if (dialogDescriptionLabel && payload.contains("newAverage")) {
+        if (payload.contains("newAverage")) {
             QMessageBox::information(this, "موفق", QString("امتیازِ شما ثبت شد. میانگینِ جدید: %1")
                                                        .arg(payload.value("newAverage").toDouble(), 0, 'f', 1));
         }
@@ -652,3 +743,46 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
     }
 }
 
+// =========================================================================
+// دیالوگِ انتخابِ ژانرهای موردعلاقه (اولین ورود)
+// =========================================================================
+void UserPanelWindow::promptFavoriteGenresIfNeeded(const QJsonArray &currentGenres) {
+    if (!currentGenres.isEmpty()) return; // قبلاً انتخاب کرده
+
+    QStringList genreNames = {"داستانی", "غیرداستانی", "علمی‌تخیلی", "فانتزی", "معمایی",
+                              "عاشقانه", "تاریخی", "زندگی‌نامه", "خوددرمانی", "فلسفی", "شعر", "کودک"};
+
+    auto* dialog = new QDialog(this);
+    dialog->setWindowTitle("انتخابِ ژانرهای موردعلاقه");
+    auto* layout = new QVBoxLayout(dialog);
+    layout->addWidget(new QLabel("لطفاً ۱ تا ۳ ژانرِ موردعلاقه‌تان را انتخاب کنید:"));
+
+    auto* list = new QListWidget();
+    list->setSelectionMode(QAbstractItemView::MultiSelection);
+    for (int i = 0; i < genreNames.size(); ++i) {
+        auto* item = new QListWidgetItem(genreNames[i]);
+        item->setData(Qt::UserRole, i);
+        list->addItem(item);
+    }
+    layout->addWidget(list);
+
+    auto* btnConfirm = new QPushButton("تأیید");
+    layout->addWidget(btnConfirm);
+
+    connect(btnConfirm, &QPushButton::clicked, this, [this, list, dialog]() {
+        auto selected = list->selectedItems();
+        if (selected.isEmpty() || selected.size() > 3) {
+            QMessageBox::warning(dialog, "خطا", "باید بینِ ۱ تا ۳ ژانر انتخاب کنید.");
+            return;
+        }
+        QJsonArray genresArr;
+        for (auto* item : selected) genresArr.append(item->data(Qt::UserRole).toInt());
+
+        QJsonObject req;
+        req["genres"] = genresArr;
+        ClientNetworkManager::getInstance().sendRequest(CommandType::SetFavoriteGenres, req);
+        dialog->accept();
+    });
+
+    dialog->exec();
+}

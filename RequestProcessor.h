@@ -30,6 +30,7 @@ private:
     void processGetProfile(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processUpdateProfile(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processSetFavoriteGenres(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
+    void processDepositMoney(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
 
     // ---- کتاب‌ها ----
     void processGetBooks(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);

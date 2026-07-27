@@ -14,7 +14,7 @@ void RegularUser::depositMoney(double amount){
     }
 }
 bool RegularUser:: withdrawMoney(double amount){
-    if(amount>0.0 && WalletBalance>=amount){
+    if(amount>=0.0 && WalletBalance>=amount){
         WalletBalance-=amount;
         return true;
     }
@@ -83,5 +83,5 @@ int RegularUser::getPageLocation(int bookId) const{
     if(it!=BookmarkPages.end()){
         return it->second;
     }
-    return 1;//ghabla baz nashode pas az safhe 1 shoro mishe
+    return 1;//قبلا باز نیوده پس از صفحه یک شروع میششود
 }
