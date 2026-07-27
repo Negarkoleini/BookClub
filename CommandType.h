@@ -32,6 +32,7 @@ enum class CommandType
     GetProfile,
     UpdateProfile,
     SetFavoriteGenres,
+    DepositMoney,
 
     // ---- سبد خرید ----
     AddToCart,
