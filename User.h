@@ -37,6 +37,7 @@ public:
 
     std::string getRoleString()const;
     std::string getRegistrationDate() const;
+    std::string getSecurityAnswerHash() const;
 
     AccountStatus getStatus() const;
     void setStatus(AccountStatus s);

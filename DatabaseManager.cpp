@@ -155,7 +155,7 @@ bool DatabaseManager::addRegularUser(const RegularUser &user) {
     q.addBindValue(static_cast<int>(user.getStatus()));
     q.addBindValue(QString::fromStdString(user.getRegistrationDate()));
     q.addBindValue(QString::fromStdString(user.getSecurityQuestion()));
-    q.addBindValue(""); // securityAnswerHash: از طریق setSecurityQuestion جدا ست می‌شود، نه این‌جا
+    q.addBindValue(QString::fromStdString(user.getSecurityAnswerHash())); // securityAnswerHash: از طریق setSecurityQuestion جدا ست می‌شود، نه این‌جا
     q.addBindValue(user.getWalletBalance());
     if (!q.exec()) {
         qWarning() << "addRegularUser error:" << q.lastError().text();
@@ -167,7 +167,12 @@ bool DatabaseManager::addPublisher(const Publisher &publisher) {
     QMutexLocker locker(&dbMutex);
     QSqlQuery q(db);
     q.prepare(R"(INSERT INTO users
-        (id, username, passwordHash, email, role, status, registrationDate, publisherName, corporateId)
+(id, username, passwordHash, email, role, status,
+ registrationDate,
+ securityQuestion,
+ securityAnswerHash,
+ publisherName,
+ corporateId)
         VALUES (?,?,?,?,?,?,?,?,?);)");
     q.addBindValue(publisher.getId());
     q.addBindValue(QString::fromStdString(publisher.getUsername()));
@@ -178,6 +183,8 @@ bool DatabaseManager::addPublisher(const Publisher &publisher) {
     q.addBindValue(QString::fromStdString(publisher.getRegistrationDate()));
     q.addBindValue(QString::fromStdString(publisher.getPublisherName()));
     q.addBindValue(QString::fromStdString(publisher.getCorporateId()));
+    q.addBindValue(QString::fromStdString(publisher.getSecurityQuestion()));
+    q.addBindValue(QString::fromStdString(publisher.getSecurityAnswerHash()));
     if (!q.exec()) {
         qWarning() << "addPublisher error:" << q.lastError().text();
         return false;
@@ -188,7 +195,11 @@ bool DatabaseManager::addAdmin(const Admin &admin) {
     QMutexLocker locker(&dbMutex);
     QSqlQuery q(db);
     q.prepare(R"(INSERT INTO users
-        (id, username, passwordHash, email, role, status, registrationDate, securityLevel)
+(id, username, passwordHash, email, role, status,
+ registrationDate,
+ securityQuestion,
+ securityAnswerHash,
+ securityLevel)
         VALUES (?,?,?,?,?,?,?,?);)");
     q.addBindValue(admin.getId());
     q.addBindValue(QString::fromStdString(admin.getUsername()));
@@ -198,6 +209,8 @@ bool DatabaseManager::addAdmin(const Admin &admin) {
     q.addBindValue(static_cast<int>(admin.getStatus()));
     q.addBindValue(QString::fromStdString(admin.getRegistrationDate()));
     q.addBindValue(admin.getSecurityLevel());
+    q.addBindValue(QString::fromStdString(admin.getSecurityQuestion()));
+    q.addBindValue(QString::fromStdString(admin.getSecurityAnswerHash()));
     if (!q.exec()) {
         qWarning() << "addAdmin error:" << q.lastError().text();
         return false;

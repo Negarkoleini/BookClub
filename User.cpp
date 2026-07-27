@@ -66,6 +66,10 @@ std::string User::getSecurityQuestion() const {
     return securityQuestion;
 }
 
+std::string User::getSecurityAnswerHash() const {
+    return securityAnswerHash;
+}
+
 bool User::verifySecurityAnswer(const std::string &answerHash) const {
     return securityAnswerHash == answerHash;
 }
