@@ -526,6 +526,14 @@ void UserPanelWindow::openProfileDialog() {
     auto* btnSaveProfile = new QPushButton("ذخیره‌ی تغییراتِ ایمیل");
     layout->addWidget(btnSaveProfile);
 
+    auto* btnEditGenres = new QPushButton(" تغییر ژانرهای موردعلاقه");
+    layout->addWidget(btnEditGenres);
+
+    connect(btnEditGenres, &QPushButton::clicked, this, [this]() {
+        hasPromptedGenres = false;
+        promptFavoriteGenresIfNeeded(QJsonArray());
+    });
+
     layout->addWidget(new QLabel("---- تغییرِ رمزِ عبور ----"));
     auto* passForm = new QFormLayout();
     profileOldPasswordField = new QLineEdit();
@@ -617,7 +625,8 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
             profileEmailField->setText(payload.value("email").toString());
         }
         // اگه هنوز ژانرِ موردعلاقه انتخاب نکرده (اولین ورود)، دیالوگِ انتخابِ ژانر رو نشون بده
-        promptFavoriteGenresIfNeeded(payload.value("favoriteGenres").toArray());
+        m_lastSavedGenres = payload.value("favoriteGenres").toArray();
+        promptFavoriteGenresIfNeeded(m_lastSavedGenres);
         break;
     }
     case CommandType::UpdateProfile: {
@@ -747,7 +756,13 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
 // دیالوگِ انتخابِ ژانرهای موردعلاقه (اولین ورود)
 // =========================================================================
 void UserPanelWindow::promptFavoriteGenresIfNeeded(const QJsonArray &currentGenres) {
-    if (!currentGenres.isEmpty()) return; // قبلاً انتخاب کرده
+    // ۱. اگر در این نشست قبلاً دیالوگ نشان داده شده یا کاربر قبلاً ژانرهایی داشته، خارج شو
+    if (hasPromptedGenres || !currentGenres.isEmpty()) {
+        return;
+    }
+
+    // ۲. پرچم را true کن تا در فراخوانی‌های بعدی GetProfile دوباره اجرا نشود
+    hasPromptedGenres = true;
 
     QStringList genreNames = {"داستانی", "غیرداستانی", "علمی‌تخیلی", "فانتزی", "معمایی",
                               "عاشقانه", "تاریخی", "زندگی‌نامه", "خوددرمانی", "فلسفی", "شعر", "کودک","درسی"};
@@ -762,6 +777,14 @@ void UserPanelWindow::promptFavoriteGenresIfNeeded(const QJsonArray &currentGenr
     for (int i = 0; i < genreNames.size(); ++i) {
         auto* item = new QListWidgetItem(genreNames[i]);
         item->setData(Qt::UserRole, i);
+
+        for (int j = 0; j < currentGenres.size(); ++j) {
+            if (currentGenres.at(j).toInt() == i) {
+                item->setSelected(true);
+                break;
+            }
+        }
+
         list->addItem(item);
     }
     layout->addWidget(list);
@@ -785,4 +808,8 @@ void UserPanelWindow::promptFavoriteGenresIfNeeded(const QJsonArray &currentGenr
     });
 
     dialog->exec();
+}
+void UserPanelWindow::openEditGenresDialog() {
+    hasPromptedGenres = false;
+    promptFavoriteGenresIfNeeded(m_lastSavedGenres);
 }

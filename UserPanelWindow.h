@@ -24,6 +24,8 @@
 class UserPanelWindow : public QMainWindow {
     Q_OBJECT
 private:
+    bool hasPromptedGenres = false;
+    QJsonArray m_lastSavedGenres;
     // ---- بالای پنجره ----
     QLabel* lblBalance;
     QLineEdit* txtSearch;
@@ -130,6 +132,7 @@ private slots:
     void updateWalletDisplay(double currentBalance);
     void onNetworkReply(CommandType commandType, QJsonObject payload, bool ok);
     void onPushNotification(QJsonObject payload);
+    void openEditGenresDialog();
 };
 
 #endif // USERPANELWINDOW_H

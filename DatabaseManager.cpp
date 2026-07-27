@@ -341,6 +341,16 @@ std::unique_ptr<RegularUser> DatabaseManager::loadRegularUser(int userId) const 
         q.value("walletBalance").toDouble()
         );
     user->setStatus(static_cast<AccountStatus>(q.value("status").toInt()));
+
+    QString raw = q.value("favoriteGenres").toString();
+    std::vector<Genre> genres;
+    for (const QString &part : raw.split(',', Qt::SkipEmptyParts)) {
+        bool ok = false;
+        int val = part.toInt(&ok);
+        if (ok) genres.push_back(static_cast<Genre>(val));
+    }
+    user->setFavoriteGenres(genres);
+
     return user;
 }
 

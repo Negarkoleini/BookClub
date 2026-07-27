@@ -273,7 +273,6 @@ void RequestProcessor::processChangePassword(CommandType cmd, const QByteArray &
     DatabaseManager::getInstance().updatePasswordHash(summary.id, SecurityUtils::oneWayHash(newPassword));
     sendOk(sender, cmd);
 }
-
 void RequestProcessor::processGetProfile(CommandType cmd, const QByteArray & /*data*/, ClientSocketWorker* sender) {
     int userId = sender->getAssociatedUserId();
     if (userId == -1) { sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید."); return; }
@@ -292,7 +291,17 @@ void RequestProcessor::processGetProfile(CommandType cmd, const QByteArray & /*d
 
     if (summary.role == "RegularUser") {
         auto regUser = DatabaseManager::getInstance().loadRegularUser(userId);
-        if (regUser) resp["walletBalance"] = regUser->getWalletBalance();
+        if (regUser) {
+            resp["walletBalance"] = regUser->getWalletBalance();
+
+
+            QJsonArray genresArr;
+            for (Genre g : regUser->getFavoriteGenres()) {
+                genresArr.append(static_cast<int>(g));
+            }
+            resp["favoriteGenres"] = genresArr;
+            // ----------------------------------------------
+        }
     }
     sendOk(sender, cmd, resp);
 }
@@ -317,12 +326,16 @@ void RequestProcessor::processSetFavoriteGenres(CommandType cmd, const QByteArra
 
     QJsonObject req = JsonPayload::fromBytes(data);
     QJsonArray arr = req["genres"].toArray();
+
     if (arr.size() < 1 || arr.size() > 3) {
         sendError(sender, cmd, "باید بین ۱ تا ۳ ژانر انتخاب کنید.");
         return;
     }
+
     std::vector<Genre> genres;
-    for (const auto &v : arr) genres.push_back(static_cast<Genre>(v.toInt()));
+    for (int i = 0; i < arr.size(); ++i) {
+        genres.push_back(static_cast<Genre>(arr.at(i).toInt()));
+    }
 
     if (!DatabaseManager::getInstance().updateFavoriteGenres(userId, genres)) {
         sendError(sender, cmd, "خطا در ذخیره‌ی ژانرها.");
@@ -672,42 +685,56 @@ void RequestProcessor::processGetPageLocation(CommandType cmd, const QByteArray 
 // نظر و امتیاز
 // =========================================================================
 void RequestProcessor::processAddComment(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender) {
-    if (sender->getAssociatedUserId() == -1) {
+    int userId = sender->getAssociatedUserId();
+    if (userId == -1) {
         sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید.");
         return;
     }
+
     QJsonObject req = JsonPayload::fromBytes(data);
     int bookId = req["bookId"].toInt();
     std::string text = req["text"].toString().toStdString();
-    int userId = sender->getAssociatedUserId();
 
+    // ۱. اعتبارسنجی ورودی
+    if (text.empty()) {
+        sendError(sender, cmd, "متن نظر نمی‌تواند خالی باشد.");
+        return;
+    }
+
+    // ۲. بررسی سقف روزانه
     int maxCommentsPerDay = DatabaseManager::getInstance().getIntSetting("maxCommentsPerDay", 1000);
     if (DatabaseManager::getInstance().getCommentCountToday(userId) >= maxCommentsPerDay) {
         sendError(sender, cmd, QString("شما به سقفِ مجازِ ثبتِ نظر در امروز (%1 نظر) رسیده‌اید.").arg(maxCommentsPerDay));
         return;
     }
 
+    // ۳. دریافت اطلاعات کاربر
     UserSummary user;
-    DatabaseManager::getInstance().findUserSummaryById(userId, user);
+    if (!DatabaseManager::getInstance().findUserSummaryById(userId, user)) {
+        sendError(sender, cmd, "اطلاعات کاربر یافت نشد.");
+        return;
+    }
 
+    // ۴. ثبت نظر در دیتابیس
     Comment c(0, bookId, userId, user.username, text, currentTimestamp());
     int newId = DatabaseManager::getInstance().addComment(c);
-    if (newId < 0) {
+    if (newId <= 0) { // تغییر به <= 0
         sendError(sender, cmd, "خطا در ثبت نظر.");
         return;
     }
 
+    // ۵. ارسال نوتیفیکیشن به ناشر کتاب
     Book book;
-    if (DatabaseManager::getInstance().getBookById(bookId, book)) {
+    if (broadcaster && DatabaseManager::getInstance().getBookById(bookId, book)) {
         AppNotification notif = AppNotification::createNewReviewNotification(0, book.getPublisherId(), book.getTitle());
         broadcaster->sendToUser(notif);
     }
 
+    // ۶. ارسال پاسخ موفقیت به کلاینت
     QJsonObject resp;
     resp["commentId"] = newId;
     sendOk(sender, cmd, resp);
 }
-
 void RequestProcessor::processAddRating(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender) {
     if (sender->getAssociatedUserId() == -1) {
         sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید.");
