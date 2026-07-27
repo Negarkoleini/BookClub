@@ -750,7 +750,7 @@ void UserPanelWindow::promptFavoriteGenresIfNeeded(const QJsonArray &currentGenr
     if (!currentGenres.isEmpty()) return; // قبلاً انتخاب کرده
 
     QStringList genreNames = {"داستانی", "غیرداستانی", "علمی‌تخیلی", "فانتزی", "معمایی",
-                              "عاشقانه", "تاریخی", "زندگی‌نامه", "خوددرمانی", "فلسفی", "شعر", "کودک"};
+                              "عاشقانه", "تاریخی", "زندگی‌نامه", "خوددرمانی", "فلسفی", "شعر", "کودک","درسی"};
 
     auto* dialog = new QDialog(this);
     dialog->setWindowTitle("انتخابِ ژانرهای موردعلاقه");
