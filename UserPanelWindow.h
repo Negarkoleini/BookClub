@@ -9,6 +9,9 @@
 #include <QComboBox>
 #include <QVector>
 #include <QJsonObject>
+#include<QJsonArray>
+#include <QDialog>
+#include <QTextEdit>
 #include "BookSearchEngine.h"
 #include "PdfReaderWidget.h"
 #include "InAppNotificationWidget.h"
@@ -25,6 +28,7 @@ private:
     QLabel* lblBalance;
     QLineEdit* txtSearch;
     QComboBox* comboGenreFilter;
+    QComboBox* comboBookView; // همه / پیشنهادی / محبوب / پرفروش
     QPushButton* btnOpenNotifications;
 
     // ---- تب فروشگاه ----
@@ -32,6 +36,19 @@ private:
     QPushButton* btnBuy;
     QPushButton* btnAddToCart;
     QPushButton* btnSaveForLater;
+
+    // ---- دیالوگِ جزئیاتِ کتاب (نظرات + امتیاز) ----
+    QDialog* bookDetailsDialog = nullptr;
+    QLabel* dialogDescriptionLabel = nullptr;
+    QListWidget* dialogCommentsList = nullptr;
+    QTextEdit* dialogNewCommentText = nullptr;
+    QComboBox* dialogRatingCombo = nullptr;
+    QPushButton* dialogSubmitCommentBtn = nullptr;
+    QPushButton* dialogSubmitRatingBtn = nullptr;
+    QPushButton* dialogEditCommentBtn = nullptr;
+    QPushButton* dialogDeleteCommentBtn = nullptr;
+    int currentDetailsBookId = -1;
+    QJsonArray currentDetailsComments; // برای پیداکردنِ userId هر نظر موقعِ ویرایش/حذف
 
     // ---- تب سبدخرید ----
     QListWidget* listWidgetCart;
@@ -65,6 +82,12 @@ private:
     void refreshCartListWidget();
     Book* findCachedBookById(int bookId);
 
+    // ----  ژانرِ موردعلاقه (اولین ورود) و جزئیاتِ کتاب/نظرات ----
+    void promptFavoriteGenresIfNeeded(const QJsonArray &currentGenres);
+    void openBookDetailsDialog(int bookId);
+    void refreshDialogCommentsList();
+    void requestBooksForCurrentView();
+
 public:
     explicit UserPanelWindow(int userId, QWidget *parent = nullptr);
     ~UserPanelWindow() override = default;
@@ -80,6 +103,13 @@ private slots:
     void onReadBookClicked();
     void onRemoveSavedClicked();
     void onOpenNotificationsClicked();
+
+    void onBookViewChanged(int index);
+    void onCatalogItemDoubleClicked(QListWidgetItem* item);
+    void onSubmitCommentClicked();
+    void onSubmitRatingClicked();
+    void onEditSelectedCommentClicked();
+    void onDeleteSelectedCommentClicked();
 
     void updateWalletDisplay(double currentBalance);
     void onNetworkReply(CommandType commandType, QJsonObject payload, bool ok);

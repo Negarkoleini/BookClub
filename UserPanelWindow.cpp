@@ -55,11 +55,19 @@ void UserPanelWindow::buildUi() {
     comboGenreFilter->addItem("شعر", static_cast<int>(Genre::Poetry));
     comboGenreFilter->addItem("کودک", static_cast<int>(Genre::Children));
     comboGenreFilter->addItem("تاریخی", static_cast<int>(Genre::History));
+
+    comboBookView = new QComboBox();
+    comboBookView->addItem("همه‌ی کتاب‌ها");
+    comboBookView->addItem("پیشنهادی برای من");
+    comboBookView->addItem("محبوب‌ترین‌ها");
+    comboBookView->addItem("پرفروش‌ترین‌ها");
+
     btnOpenNotifications = new QPushButton("🔔 اعلان‌ها");
 
     topBar->addWidget(lblBalance);
     topBar->addWidget(txtSearch, /*stretch=*/1);
     topBar->addWidget(comboGenreFilter);
+    topBar->addWidget(comboBookView);
     topBar->addWidget(btnOpenNotifications);
     mainLayout->addLayout(topBar);
 
@@ -118,6 +126,8 @@ void UserPanelWindow::buildUi() {
 
     connect(txtSearch, &QLineEdit::textChanged, this, &UserPanelWindow::onSearchTextChanged);
     connect(comboGenreFilter, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &UserPanelWindow::onGenreFilterChanged);
+    connect(comboBookView, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &UserPanelWindow::onBookViewChanged);
+    connect(listWidgetCatalog, &QListWidget::itemDoubleClicked, this, &UserPanelWindow::onCatalogItemDoubleClicked);
     connect(btnBuy, &QPushButton::clicked, this, &UserPanelWindow::onBuyBookClicked);
     connect(btnAddToCart, &QPushButton::clicked, this, &UserPanelWindow::onAddToCartClicked);
     connect(btnSaveForLater, &QPushButton::clicked, this, &UserPanelWindow::onSaveForLaterClicked);
@@ -142,6 +152,123 @@ void UserPanelWindow::requestLibrary() {
 void UserPanelWindow::requestProfile() {
     QJsonObject req;
     ClientNetworkManager::getInstance().sendRequest(CommandType::GetProfile, req);
+}
+
+void UserPanelWindow::requestBooksForCurrentView() {
+    QJsonObject req;
+    switch (comboBookView->currentIndex()) {
+    case 1: ClientNetworkManager::getInstance().sendRequest(CommandType::GetSuggestedBooks, req); break;
+    case 2: ClientNetworkManager::getInstance().sendRequest(CommandType::GetPopularBooks, req); break;
+    case 3: ClientNetworkManager::getInstance().sendRequest(CommandType::GetBestsellingBooks, req); break;
+    default: ClientNetworkManager::getInstance().sendRequest(CommandType::GetBooks, req); break;
+    }
+}
+
+void UserPanelWindow::promptFavoriteGenresIfNeeded(const QJsonArray &currentGenres) {
+    if (!currentGenres.isEmpty()) return; // قبلاً انتخاب کرده، کاری لازم نیست
+    QStringList genreNames = {"داستانی", "غیرداستانی", "علمی‌تخیلی", "فانتزی", "معمایی",
+                              "عاشقانه", "تاریخی", "زندگی‌نامه", "خوددرمانی", "فلسفی", "شعر", "کودک"};
+    auto* dialog = new QDialog(this);
+    dialog->setWindowTitle("انتخابِ ژانرهای موردعلاقه");
+    auto* layout = new QVBoxLayout(dialog);
+    layout->addWidget(new QLabel("لطفاً ۱ تا ۳ ژانرِ موردعلاقه‌تان را انتخاب کنید:"));
+
+    auto* list = new QListWidget();
+    list->setSelectionMode(QAbstractItemView::MultiSelection);
+    for (int i = 0; i < genreNames.size(); ++i) {
+        auto* item = new QListWidgetItem(genreNames[i]);
+        item->setData(Qt::UserRole, i);
+        list->addItem(item);
+    }
+    layout->addWidget(list);
+
+    auto* btnConfirm = new QPushButton("تأیید");
+    layout->addWidget(btnConfirm);
+
+    connect(btnConfirm, &QPushButton::clicked, this, [this, list, dialog]() {
+        auto selected = list->selectedItems();
+        if (selected.isEmpty() || selected.size() > 3) {
+            QMessageBox::warning(dialog, "خطا", "باید بینِ ۱ تا ۳ ژانر انتخاب کنید.");
+            return;
+        }
+        QJsonArray genresArr;
+        for (auto* item : selected) genresArr.append(item->data(Qt::UserRole).toInt());
+
+        QJsonObject req;
+        req["genres"] = genresArr;
+        ClientNetworkManager::getInstance().sendRequest(CommandType::SetFavoriteGenres, req);
+        dialog->accept();
+    });
+
+    dialog->exec();
+}
+
+void UserPanelWindow::openBookDetailsDialog(int bookId) {
+    currentDetailsBookId = bookId;
+
+    bookDetailsDialog = new QDialog(this);
+    bookDetailsDialog->setWindowTitle("جزئیاتِ کتاب");
+    bookDetailsDialog->resize(500, 550);
+    auto* layout = new QVBoxLayout(bookDetailsDialog);
+
+    dialogDescriptionLabel = new QLabel();
+    dialogDescriptionLabel->setWordWrap(true);
+    layout->addWidget(dialogDescriptionLabel);
+
+    auto* ratingRow = new QHBoxLayout();
+    ratingRow->addWidget(new QLabel("امتیازِ شما:"));
+    dialogRatingCombo = new QComboBox();
+    dialogRatingCombo->addItems({"1", "2", "3", "4", "5"});
+    dialogSubmitRatingBtn = new QPushButton("ثبتِ امتیاز");
+    ratingRow->addWidget(dialogRatingCombo);
+    ratingRow->addWidget(dialogSubmitRatingBtn);
+    layout->addLayout(ratingRow);
+
+    layout->addWidget(new QLabel("نظرات:"));
+    dialogCommentsList = new QListWidget();
+    layout->addWidget(dialogCommentsList);
+
+    auto* commentButtonsRow = new QHBoxLayout();
+    dialogEditCommentBtn = new QPushButton("ویرایشِ نظرِ انتخابی");
+    dialogDeleteCommentBtn = new QPushButton("حذفِ نظرِ انتخابی");
+    commentButtonsRow->addWidget(dialogEditCommentBtn);
+    commentButtonsRow->addWidget(dialogDeleteCommentBtn);
+    layout->addLayout(commentButtonsRow);
+
+    dialogNewCommentText = new QTextEdit();
+    dialogNewCommentText->setPlaceholderText("نظرِ خود را بنویسید...");
+    dialogNewCommentText->setMaximumHeight(70);
+    layout->addWidget(dialogNewCommentText);
+    dialogSubmitCommentBtn = new QPushButton("ثبتِ نظر");
+    layout->addWidget(dialogSubmitCommentBtn);
+
+    connect(dialogSubmitRatingBtn, &QPushButton::clicked, this, &UserPanelWindow::onSubmitRatingClicked);
+    connect(dialogSubmitCommentBtn, &QPushButton::clicked, this, &UserPanelWindow::onSubmitCommentClicked);
+    connect(dialogEditCommentBtn, &QPushButton::clicked, this, &UserPanelWindow::onEditSelectedCommentClicked);
+    connect(dialogDeleteCommentBtn, &QPushButton::clicked, this, &UserPanelWindow::onDeleteSelectedCommentClicked);
+
+    QJsonObject req;
+    req["bookId"] = bookId;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::GetBookDetails, req);
+
+    bookDetailsDialog->exec();
+}
+
+void UserPanelWindow::refreshDialogCommentsList() {
+    if (!dialogCommentsList) return;
+    dialogCommentsList->clear();
+    for (const auto &v : currentDetailsComments) {
+        QJsonObject c = v.toObject();
+        bool isMine = (c.value("userId").toInt() == currentUserId);
+        QString text = QString("%1%2: %3")
+                           .arg(c.value("username").toString())
+                           .arg(isMine ? " (شما)" : "")
+                           .arg(c.value("text").toString());
+        auto* item = new QListWidgetItem(text);
+        item->setData(Qt::UserRole, c.value("commentId").toInt());
+        item->setData(Qt::UserRole + 1, isMine);
+        dialogCommentsList->addItem(item);
+    }
 }
 
 // رندر لیست‌ها
@@ -306,6 +433,71 @@ void UserPanelWindow::onOpenNotificationsClicked() {
     notificationCenter->raise();
 }
 
+
+// اسلات‌های نمای کتاب (پیشنهادی/محبوب/پرفروش) و جزئیاتِ کتاب+نظرات
+// =========================================================================
+void UserPanelWindow::onBookViewChanged(int /*index*/) {
+    requestBooksForCurrentView();
+}
+
+void UserPanelWindow::onCatalogItemDoubleClicked(QListWidgetItem* item) {
+    if (!item) return;
+    openBookDetailsDialog(item->data(Qt::UserRole).toInt());
+}
+
+void UserPanelWindow::onSubmitRatingClicked() {
+    if (currentDetailsBookId == -1) return;
+    QJsonObject req;
+    req["bookId"] = currentDetailsBookId;
+    req["score"] = dialogRatingCombo->currentText().toInt();
+    ClientNetworkManager::getInstance().sendRequest(CommandType::AddRating, req);
+}
+
+void UserPanelWindow::onSubmitCommentClicked() {
+    if (currentDetailsBookId == -1) return;
+    QString text = dialogNewCommentText->toPlainText().trimmed();
+    if (text.isEmpty()) return;
+
+    QJsonObject req;
+    req["bookId"] = currentDetailsBookId;
+    req["text"] = text;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::AddComment, req);
+    dialogNewCommentText->clear();
+}
+
+void UserPanelWindow::onEditSelectedCommentClicked() {
+    auto* item = dialogCommentsList->currentItem();
+    if (!item) return;
+    if (!item->data(Qt::UserRole + 1).toBool()) {
+        QMessageBox::warning(this, "اجازه نیست", "فقط می‌توانید نظرِ خودتان را ویرایش کنید.");
+        return;
+    }
+    int commentId = item->data(Qt::UserRole).toInt();
+
+    bool okPressed = false;
+    QString newText = QInputDialog::getMultiLineText(this, "ویرایشِ نظر", "متنِ جدید:", "", &okPressed);
+    if (!okPressed || newText.trimmed().isEmpty()) return;
+
+    QJsonObject req;
+    req["commentId"] = commentId;
+    req["text"] = newText.trimmed();
+    ClientNetworkManager::getInstance().sendRequest(CommandType::EditComment, req);
+}
+
+void UserPanelWindow::onDeleteSelectedCommentClicked() {
+    auto* item = dialogCommentsList->currentItem();
+    if (!item) return;
+    if (!item->data(Qt::UserRole + 1).toBool()) {
+        QMessageBox::warning(this, "اجازه نیست", "فقط می‌توانید نظرِ خودتان را حذف کنید.");
+        return;
+    }
+    if (QMessageBox::question(this, "تایید", "این نظر حذف شود؟") != QMessageBox::Yes) return;
+
+    QJsonObject req;
+    req["commentId"] = item->data(Qt::UserRole).toInt();
+    ClientNetworkManager::getInstance().sendRequest(CommandType::DeleteComment, req);
+}
+
 void UserPanelWindow::updateWalletDisplay(double currentBalance) {
     lblBalance->setText(QString("موجودی: %1 تومان").arg(currentBalance));
 }
@@ -329,14 +521,15 @@ void UserPanelWindow::onPushNotification(QJsonObject payload) {
 // =========================================================================
 void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payload, bool ok) {
     if (!ok) {
-        if (commandType == CommandType::BuyBook) {
-            QMessageBox::warning(this, "خطا در خرید", payload.value("error").toString());
-        }
+        QMessageBox::warning(this, "خطا", payload.value("error").toString());
         return;
     }
 
     switch (commandType) {
-    case CommandType::GetBooks: {
+    case CommandType::GetBooks:
+    case CommandType::GetSuggestedBooks:
+    case CommandType::GetPopularBooks:
+    case CommandType::GetBestsellingBooks: {
         availableBooksCache.clear();
         for (const auto &v : payload.value("books").toArray()) {
             availableBooksCache.push_back(ClientUtils::bookFromJson(v.toObject()));
@@ -348,6 +541,13 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
         if (payload.contains("walletBalance")) {
             updateWalletDisplay(payload.value("walletBalance").toDouble());
         }
+        // اگه هنوز ژانرِ موردعلاقه انتخاب نکرده (اولین ورود)، دیالوگِ انتخابِ ژانر رو نشون بده
+        promptFavoriteGenresIfNeeded(payload.value("favoriteGenres").toArray());
+        break;
+    }
+    case CommandType::SetFavoriteGenres: {
+        QMessageBox::information(this, "موفق", "ژانرهای موردعلاقه ذخیره شد.");
+        requestBooksForCurrentView(); // شاید بخوایم پیشنهادی‌ها رو دوباره بگیریم
         break;
     }
     case CommandType::BuyBook: {
@@ -413,6 +613,37 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
         if (pdfReader && payload.contains("pageNum")) {
             int page = payload.value("pageNum").toInt();
             pdfReader->jumpToPage(page);
+        }
+        break;
+    }
+    case CommandType::GetBookDetails: {
+        currentDetailsComments = payload.value("comments").toArray();
+        if (dialogDescriptionLabel) {
+            QString text = QString("%1 — %2\n\n%3\n\nمیانگینِ امتیاز: %4")
+                               .arg(payload.value("title").toString())
+                               .arg(payload.value("author").toString())
+                               .arg(payload.value("description").toString())
+                               .arg(payload.value("averageRating").toDouble(), 0, 'f', 1);
+            dialogDescriptionLabel->setText(text);
+        }
+        refreshDialogCommentsList();
+        break;
+    }
+    case CommandType::AddComment:
+    case CommandType::EditComment:
+    case CommandType::DeleteComment: {
+
+        if (currentDetailsBookId != -1) {
+            QJsonObject req;
+            req["bookId"] = currentDetailsBookId;
+            ClientNetworkManager::getInstance().sendRequest(CommandType::GetBookDetails, req);
+        }
+        break;
+    }
+    case CommandType::AddRating: {
+        if (dialogDescriptionLabel && payload.contains("newAverage")) {
+            QMessageBox::information(this, "موفق", QString("امتیازِ شما ثبت شد. میانگینِ جدید: %1")
+                                                       .arg(payload.value("newAverage").toDouble(), 0, 'f', 1));
         }
         break;
     }
