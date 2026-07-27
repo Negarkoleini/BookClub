@@ -19,15 +19,20 @@ inline Book bookFromJson(const QJsonObject &o) {
         o.value("pdfFileName").toString().toStdString(),
         o.value("publishDate").toString().toStdString()
         );
-    b.setId(o.value("id").toInt());//شناسه وتقعی سرور را جایگزین شناسه خودکار سازنده میکنیم
+
+    b.setId(o.value("id").toInt()); // شناسه واقعی سرور را جایگزین شناسه خودکار می‌سازیم
+
+    b.setAverageRating(o.value("averageRating").toDouble());
+
+    if (o.contains("isActive")) b.setIsActive(o.value("isActive").toBool());
+    if (o.contains("isDeleted")) b.setIsDeleted(o.value("isDeleted").toBool());
+
     return b;
 }
-
 
 inline double bookFinalPriceFromJson(const QJsonObject &o) {
     return o.contains("finalPrice") ? o.value("finalPrice").toDouble() : o.value("basePrice").toDouble();
 }
 
 } // namespace ClientUtils
-
 #endif // CLIENTUTILS_H

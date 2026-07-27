@@ -742,14 +742,31 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
     }
     case CommandType::AddRating: {
         if (payload.contains("newAverage")) {
+            double newAvg = payload.value("newAverage").toDouble();
             QMessageBox::information(this, "موفق", QString("امتیازِ شما ثبت شد. میانگینِ جدید: %1")
-                                                       .arg(payload.value("newAverage").toDouble(), 0, 'f', 1));
+                                                       .arg(newAvg, 0, 'f', 1));
+
+            if (currentDetailsBookId != -1) {
+                Book* b = findCachedBookById(currentDetailsBookId);
+                if (b) {
+                    b->setAverageRating(newAvg); // آپدیت مقدار در حافظه کلاینت
+                }
+            }
+
+            refreshCatalogListWidget(availableBooksCache);
+
+            // درخواست لیست تازه از سرور (برای همگام‌سازی کامل)
+            requestBooksForCurrentView();
+
+            if (bookDetailsDialog && dialogDescriptionLabel && currentDetailsBookId != -1) {
+                QJsonObject req;
+                req["bookId"] = currentDetailsBookId;
+                ClientNetworkManager::getInstance().sendRequest(CommandType::GetBookDetails, req);
+            }
         }
         break;
     }
-    default:
-        break;
-    }
+}
 }
 
 // =========================================================================

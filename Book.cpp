@@ -73,6 +73,8 @@ bool Book::updateUserRating(int userId, int newScore) {
     return false;
 }
 
+void Book::setAverageRating(double rating) { averageRating = rating; }
+
 std::vector<Rating> Book::getRatings() const { return userRatings; }
 
 vector<Comment> Book::getComments() const{ return userComments; }

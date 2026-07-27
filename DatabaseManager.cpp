@@ -460,6 +460,9 @@ static Book rowToBook(QSqlQuery &q) {
     b.setId(q.value("id").toInt());
     b.setIsActive(q.value("isActive").toInt() != 0);
     b.setIsDeleted(q.value("isDeleted").toInt() != 0);
+
+    b.setAverageRating(q.value("averageRating").toDouble());
+
     return b;
 }
 QVector<Book> DatabaseManager::getAllActiveBooks() const {
@@ -565,8 +568,10 @@ bool DatabaseManager::upsertRating(int bookId, int userId, int score) {
         qWarning() << "upsertRating error:" << q.lastError().text();
         return false;
     }
+
     QSqlQuery avg(db);
-    avg.prepare("SELECT AVG(score) FROM ratings WHERE bookId = ?;");
+    // استفاده از COALESCE برای جلوگیری از NULL شدن
+    avg.prepare("SELECT COALESCE(AVG(score), 0.0) FROM ratings WHERE bookId = ?;");
     avg.addBindValue(bookId);
     if (avg.exec() && avg.next()) {
         QSqlQuery upd(db);
