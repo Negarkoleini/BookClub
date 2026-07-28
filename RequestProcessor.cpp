@@ -562,12 +562,11 @@ void RequestProcessor::processAddBook(CommandType cmd, const QByteArray &data, C
         return;
     }
 
-    // نکته‌ی مهم: اعلان باید برای *همه‌ی* کاربرانی که این ژانر جزو ژانرهای موردعلاقه‌شان است
-    // ساخته و در دیتابیس ذخیره شود (چه در این لحظه آنلاین باشند چه نباشند)؛ در غیر این صورت
-    // کاربرانی که هنگام انتشار کتاب آنلاین نبوده‌اند، بعداً هم که وارد شوند چیزی نخواهند دید.
+    // اعلان برای همه‌ی کاربران عادی، چون کتاب جدید باید فوراً در فروشگاه برای همه‌ی کاربران دیده شود.
     AppNotification notif = AppNotification::createNewBookNotification(0, -1, req["title"].toString().toStdString());
-    for (int uid : DatabaseManager::getInstance().getUserIdsByFavoriteGenre(newBook.getGenre())) {
-        AppNotification copy = AppNotification::fromStorage(0, notif.getType(), notif.getMessage(), uid, false, notif.getTimestamp());
+    for (const auto &user : DatabaseManager::getInstance().getAllUsers()) {
+        if (user.role != "RegularUser") continue;
+        AppNotification copy = AppNotification::fromStorage(0, notif.getType(), notif.getMessage(), user.id, false, notif.getTimestamp());
         broadcaster->sendToUser(copy); // خودش هم ذخیره در دیتابیس و هم push آنی (اگر آنلاین باشد) را انجام می‌دهد
     }
 
@@ -654,8 +653,11 @@ void RequestProcessor::processBuyBook(CommandType cmd, const QByteArray &data, C
 
     UserSummary buyer;
     DatabaseManager::getInstance().findUserSummaryById(buyerId, buyer);
-    double price = book.getFinalPrice(currentTimestamp());
-
+    double price = book.getBasePrice();
+    const std::string now = currentTimestamp();
+    for (const auto &d : DatabaseManager::getInstance().getActiveDiscountsForBook(bookId, now)) {
+        price = d.getDiscountedPrice(price);
+    }
 
     auto regUser = DatabaseManager::getInstance().loadRegularUser(buyerId);
     if (!regUser) {

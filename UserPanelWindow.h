@@ -31,7 +31,6 @@ private:
     QLabel* lblBalance;
     QLineEdit* txtSearch;
     QComboBox* comboGenreFilter;
-    QComboBox* comboBookView; // همه / پیشنهادی / محبوب / پرفروش
     QPushButton* btnChargeWallet;
     QPushButton* btnProfile;
     QPushButton* btnLogout;
@@ -72,9 +71,15 @@ private:
     QJsonArray shelvesCache; // آخرین پاسخِ GetShelves: [{shelfId, shelfName, bookIds:[...]}]
 
     int currentUserId;
+    int selectedCatalogBookId = -1;
     BookSearchEngine searchEngine;
     ShoppingCart myCart;
     QVector<Book> availableBooksCache;
+    QVector<Book> suggestedBooksCache;
+    QVector<Book> popularBooksCache;
+    QVector<Book> bestsellingBooksCache;
+    QVector<Book> freeBooksCache;
+    QVector<Book> newestBooksCache;
     QVector<Book> myLibraryCache;
     QVector<Book> savedBooksCache;
 
@@ -152,7 +157,6 @@ private slots:
     void onMoveBookToShelfClicked();
     void onRemoveBookFromShelfClicked();
 
-    void onBookViewChanged(int index);
     void onViewDetailsClicked();
     void onCatalogItemDoubleClicked(QListWidgetItem* item);
     void onSubmitCommentClicked();

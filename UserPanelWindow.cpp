@@ -16,9 +16,133 @@
 #include <QIcon>
 #include <QFileInfo>
 #include <QDateTime>
+#include <functional>
 #include "TimedDiscount.h"
 
 namespace {
+QString formatRemainingTime(const QString &endDateTime);
+
+QString formatPriceValue(double value) {
+    return QString::number(value, 'f', 0);
+}
+
+QString buildBookPriceSubtitle(const Book &book, const QString &currentTime) {
+    const double displayPrice = book.getFinalPrice(currentTime.toStdString());
+    const auto discounts = book.getDiscounts();
+    if (!discounts.empty()) {
+        const TimedDiscount &discount = discounts.front();
+        const double basePrice = book.getBasePrice();
+        const double savedAmount = basePrice - displayPrice;
+        const QString discountType = discount.getDiscountType() == DiscountType::Percentage
+                                         ? QString("%1%") .arg(discount.getDiscountValue(), 0, 'f', 0)
+                                         : QString("%1 تومان").arg(discount.getDiscountValue(), 0, 'f', 0);
+        return QString("قیمت: %1 تومان\nتخفیف %2 | صرفه‌جویی %3 تومان\n%4")
+            .arg(displayPrice, 0, 'f', 0)
+            .arg(discountType)
+            .arg(savedAmount, 0, 'f', 0)
+            .arg(formatRemainingTime(QString::fromStdString(discount.getEndDateTime())));
+    }
+    return QString("قیمت: %1 تومان").arg(book.getBasePrice(), 0, 'f', 0);
+}
+
+QPixmap loadPosterCover(const std::string &coverPath, const std::string &title, const QSize &size) {
+    QPixmap cover;
+    if (!coverPath.empty() && QFileInfo::exists(QString::fromStdString(coverPath))) {
+        cover.load(QString::fromStdString(coverPath));
+    }
+    if (!cover.isNull()) {
+        return cover.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    }
+
+    QPixmap placeholder(size);
+    placeholder.fill(QColor("#cfd8dc"));
+    QPainter painter(&placeholder);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(QColor("#37474f"));
+    QFont f = painter.font();
+    f.setBold(true);
+    painter.setFont(f);
+    painter.drawText(placeholder.rect().adjusted(8, 8, -8, -8),
+                     Qt::AlignCenter | Qt::TextWordWrap,
+                     QString::fromStdString(title));
+    return placeholder;
+}
+
+void addCatalogSection(QListWidget *listWidget,
+                       const QString &title,
+                       const QVector<Book> &books,
+                       const QString &currentTime,
+                       const QSize &posterSize,
+                       const std::function<void(int)> &onSelectBook) {
+    if (books.isEmpty()) {
+        return;
+    }
+
+    auto* sectionWidget = new QWidget();
+    auto* sectionLayout = new QVBoxLayout(sectionWidget);
+    sectionLayout->setContentsMargins(6, 8, 6, 10);
+    sectionLayout->setSpacing(6);
+
+    auto* header = new QLabel(title);
+    header->setStyleSheet(
+        "QLabel {"
+        "border-bottom: 1px solid #e5e7eb;"
+        "padding-bottom: 4px;"
+        "font-weight: bold;"
+        "color: #374151;"
+        "}");
+    sectionLayout->addWidget(header);
+
+    auto* booksRow = new QWidget();
+    auto* booksRowLayout = new QHBoxLayout(booksRow);
+    booksRowLayout->setContentsMargins(0, 0, 0, 0);
+    booksRowLayout->setSpacing(10);
+
+    for (const auto &book : books) {
+        auto* button = new QPushButton();
+        button->setToolTip(QString::fromStdString(book.getTitle()));
+        button->setCheckable(true);
+        button->setFixedSize(120, 190);
+        button->setStyleSheet(
+            "QPushButton {"
+            "text-align: center;"
+            "padding: 6px;"
+            "border: 1px solid #d1d5db;"
+            "border-radius: 8px;"
+            "background-color: #ffffff;"
+            "color: #111827;"
+            "}"
+            "QPushButton:checked {"
+            "border: 2px solid #2563eb;"
+            "background-color: #eff6ff;"
+            "}");
+
+        QPixmap cover = loadPosterCover(book.getCoverImagePath(), book.getTitle(), QSize(90, 120));
+        button->setIcon(QIcon(cover));
+        button->setIconSize(QSize(90, 120));
+        button->setText(QString("%1\n%2")
+                             .arg(QString::fromStdString(book.getTitle()))
+                             .arg(buildBookPriceSubtitle(book, currentTime)));
+        button->setStyleSheet(button->styleSheet() +
+            "QPushButton { padding-top: 6px; }"
+            "QPushButton::icon { padding-bottom: 4px; }");
+        button->setToolTip(QString::fromStdString(book.getTitle()) + " — " + QString::fromStdString(book.getAuthor()));
+        button->setProperty("bookId", book.getId());
+        QObject::connect(button, &QPushButton::clicked, [onSelectBook, bookId = book.getId()]() {
+            onSelectBook(bookId);
+        });
+        booksRowLayout->addWidget(button);
+    }
+
+    sectionLayout->addWidget(booksRow);
+
+    auto* item = new QListWidgetItem();
+    item->setSizeHint(sectionWidget->sizeHint());
+    item->setFlags(item->flags() & ~Qt::ItemIsSelectable);
+    listWidget->addItem(item);
+    listWidget->setItemWidget(item, sectionWidget);
+}
+
 QString formatRemainingTime(const QString &endDateTime) {
     QDateTime end = QDateTime::fromString(endDateTime, "yyyy-MM-dd HH:mm:ss");
     if (!end.isValid()) {
@@ -113,15 +237,6 @@ void UserPanelWindow::buildUi() {
     comboGenreFilter->addItem("کودک", static_cast<int>(Genre::Children));
     comboGenreFilter->addItem("تاریخی", static_cast<int>(Genre::History));
 
-    comboBookView = new QComboBox();
-    comboBookView->addItem("همه‌ی کتاب‌ها");
-    comboBookView->addItem("پیشنهادی برای من");
-    comboBookView->addItem("محبوب‌ترین‌ها");
-    comboBookView->addItem("پرفروش‌ترین‌ها");
-    comboBookView->addItem("رایگان");
-    comboBookView->addItem("تازه منتشرشده");
-    comboBookView->addItem("تاریخچه خریدها");
-
     btnOpenNotifications = new QPushButton("🔔 اعلان‌ها");
 
     topBar->addWidget(lblBalance);
@@ -130,7 +245,6 @@ void UserPanelWindow::buildUi() {
     topBar->addWidget(btnLogout);
     topBar->addWidget(txtSearch, /*stretch=*/1);
     topBar->addWidget(comboGenreFilter);
-    topBar->addWidget(comboBookView);
     topBar->addWidget(btnOpenNotifications);
     mainLayout->addLayout(topBar);
 
@@ -140,13 +254,12 @@ void UserPanelWindow::buildUi() {
     auto* shopTab = new QWidget();
     auto* shopLayout = new QVBoxLayout(shopTab);
     listWidgetCatalog = new QListWidget();
-    listWidgetCatalog->setViewMode(QListWidget::IconMode);
-    listWidgetCatalog->setIconSize(QSize(140, 190));
-    listWidgetCatalog->setGridSize(QSize(170, 260));
+    listWidgetCatalog->setViewMode(QListWidget::ListMode);
+    listWidgetCatalog->setSelectionMode(QAbstractItemView::NoSelection);
     listWidgetCatalog->setResizeMode(QListWidget::Adjust);
     listWidgetCatalog->setMovement(QListWidget::Static);
-    listWidgetCatalog->setUniformItemSizes(true);
-    listWidgetCatalog->setSpacing(8);
+    listWidgetCatalog->setUniformItemSizes(false);
+    listWidgetCatalog->setSpacing(0);
     listWidgetCatalog->setWordWrap(true);
     auto* shopButtons = new QHBoxLayout();
     btnViewDetails = new QPushButton("جزئیات / نظرات / امتیاز");
@@ -165,6 +278,8 @@ void UserPanelWindow::buildUi() {
     auto* cartTab = new QWidget();
     auto* cartLayout = new QVBoxLayout(cartTab);
     listWidgetCart = new QListWidget();
+    listWidgetCart->setViewMode(QListWidget::ListMode);
+    listWidgetCart->setUniformItemSizes(true);
     lblCartTotal = new QLabel("مبلغ کل: 0");
     auto* cartButtons = new QHBoxLayout();
     btnRemoveFromCart = new QPushButton("حذف از سبد");
@@ -180,6 +295,13 @@ void UserPanelWindow::buildUi() {
     auto* libraryTab = new QWidget();
     auto* libraryLayout = new QVBoxLayout(libraryTab);
     listWidgetMyLibrary = new QListWidget();
+    listWidgetMyLibrary->setViewMode(QListWidget::IconMode);
+    listWidgetMyLibrary->setIconSize(QSize(140, 190));
+    listWidgetMyLibrary->setGridSize(QSize(170, 260));
+    listWidgetMyLibrary->setResizeMode(QListWidget::Adjust);
+    listWidgetMyLibrary->setMovement(QListWidget::Static);
+    listWidgetMyLibrary->setUniformItemSizes(true);
+    listWidgetMyLibrary->setSpacing(8);
     auto* libraryButtons = new QHBoxLayout();
     btnRead = new QPushButton("مطالعه‌ی کتاب");
     btnAddToShelf = new QPushButton("📚 افزودن به قفسه...");
@@ -193,6 +315,13 @@ void UserPanelWindow::buildUi() {
     auto* savedTab = new QWidget();
     auto* savedLayout = new QVBoxLayout(savedTab);
     listWidgetSaved = new QListWidget();
+    listWidgetSaved->setViewMode(QListWidget::IconMode);
+    listWidgetSaved->setIconSize(QSize(140, 190));
+    listWidgetSaved->setGridSize(QSize(170, 260));
+    listWidgetSaved->setResizeMode(QListWidget::Adjust);
+    listWidgetSaved->setMovement(QListWidget::Static);
+    listWidgetSaved->setUniformItemSizes(true);
+    listWidgetSaved->setSpacing(8);
     btnReadSaved = new QPushButton("مطالعه‌ی کتاب (فقط در صورت خرید)");
     btnRemoveSaved = new QPushButton("حذف از ذخیره‌شده‌ها");
     savedLayout->addWidget(listWidgetSaved);
@@ -217,6 +346,13 @@ void UserPanelWindow::buildUi() {
     shelfTopBar->addWidget(btnDeleteShelf);
 
     listWidgetShelfBooks = new QListWidget();
+    listWidgetShelfBooks->setViewMode(QListWidget::IconMode);
+    listWidgetShelfBooks->setIconSize(QSize(140, 190));
+    listWidgetShelfBooks->setGridSize(QSize(170, 260));
+    listWidgetShelfBooks->setResizeMode(QListWidget::Adjust);
+    listWidgetShelfBooks->setMovement(QListWidget::Static);
+    listWidgetShelfBooks->setUniformItemSizes(true);
+    listWidgetShelfBooks->setSpacing(8);
 
     auto* shelfBookButtons = new QHBoxLayout();
     comboMoveTargetShelf = new QComboBox();
@@ -238,7 +374,6 @@ void UserPanelWindow::buildUi() {
 
     connect(txtSearch, &QLineEdit::textChanged, this, &UserPanelWindow::onSearchTextChanged);
     connect(comboGenreFilter, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &UserPanelWindow::onGenreFilterChanged);
-    connect(comboBookView, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &UserPanelWindow::onBookViewChanged);
     connect(listWidgetCatalog, &QListWidget::itemDoubleClicked, this, &UserPanelWindow::onCatalogItemDoubleClicked);
     connect(btnViewDetails, &QPushButton::clicked, this, &UserPanelWindow::onViewDetailsClicked);
     connect(btnBuy, &QPushButton::clicked, this, &UserPanelWindow::onBuyBookClicked);
@@ -268,6 +403,11 @@ void UserPanelWindow::buildUi() {
 void UserPanelWindow::requestCatalog() {
     QJsonObject req;
     ClientNetworkManager::getInstance().sendRequest(CommandType::GetBooks, req);
+    ClientNetworkManager::getInstance().sendRequest(CommandType::GetSuggestedBooks, req);
+    ClientNetworkManager::getInstance().sendRequest(CommandType::GetPopularBooks, req);
+    ClientNetworkManager::getInstance().sendRequest(CommandType::GetBestsellingBooks, req);
+    ClientNetworkManager::getInstance().sendRequest(CommandType::GetFreeBooks, req);
+    ClientNetworkManager::getInstance().sendRequest(CommandType::GetNewestBooks, req);
 }
 
 void UserPanelWindow::requestLibrary() {
@@ -281,19 +421,7 @@ void UserPanelWindow::requestProfile() {
 }
 
 void UserPanelWindow::requestBooksForCurrentView() {
-    QJsonObject req;
-    switch (comboBookView->currentIndex()) {
-    case 1: ClientNetworkManager::getInstance().sendRequest(CommandType::GetSuggestedBooks, req); break;
-    case 2: ClientNetworkManager::getInstance().sendRequest(CommandType::GetPopularBooks, req); break;
-    case 3: ClientNetworkManager::getInstance().sendRequest(CommandType::GetBestsellingBooks, req); break;
-    case 4:
-    case 5:
-    case 6:
-        applyCurrentBookViewFilter();
-        break;
-    default:
-        ClientNetworkManager::getInstance().sendRequest(CommandType::GetBooks, req); break;
-    }
+    applyCurrentBookViewFilter();
 }
 
 // =========================================================================
@@ -324,49 +452,54 @@ QPixmap UserPanelWindow::loadCoverOrPlaceholder(const std::string &coverPath, co
 }
 
 void UserPanelWindow::refreshCatalogListWidget(const QVector<Book> &books) {
+    Q_UNUSED(books);
     listWidgetCatalog->clear();
-    const QSize posterSize(140, 190);
-    for (const auto &b : books) {
-        QPixmap cover = loadCoverOrPlaceholder(b.getCoverImagePath(), b.getTitle(), posterSize);
+    const QString currentTime = QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
+    const QString searchText = txtSearch->text();
+    int genreValue = comboGenreFilter->currentData().toInt();
+    const QSize catalogPosterSize(110, 150);
 
-        const QString currentTime = QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
-        const double displayPrice = b.getFinalPrice(currentTime.toStdString());
-        const auto discounts = b.getDiscounts();
-        QString pricePart;
-        if (!discounts.empty()) {
-            const TimedDiscount &d = discounts.front();
-            const QString endDateTime = QString::fromStdString(d.getEndDateTime());
-            pricePart = QString("قیمت: %1 تومان\n%2")
-                            .arg(displayPrice, 0, 'f', 0)
-                            .arg(discountSummaryText(discounts, b.getBasePrice(), displayPrice, endDateTime));
-        } else {
-            pricePart = QString("قیمت: %1 تومان").arg(b.getBasePrice(), 0, 'f', 0);
+    auto filterBooks = [&](const QVector<Book> &source) {
+        auto filtered = searchEngine.filterByTitleOrAuthor(searchText, source);
+        if (genreValue >= 0) {
+            filtered = searchEngine.filterByGenre(static_cast<Genre>(genreValue), filtered);
         }
+        return filtered;
+    };
 
-        QString label = QString("%1\n%2  |  ★ %3")
-                            .arg(QString::fromStdString(b.getTitle()))
-                            .arg(pricePart)
-                            .arg(b.getAverageRating(), 0, 'f', 1);
+    auto addSection = [&](const QString &title, const QVector<Book> &source) {
+        const auto filteredSection = filterBooks(source);
+        if (filteredSection.isEmpty()) return;
 
-        auto* item = new QListWidgetItem(QIcon(cover), label);
-        item->setTextAlignment(Qt::AlignHCenter);
-        item->setData(Qt::UserRole, b.getId());
-        item->setToolTip(QString::fromStdString(b.getTitle()) + " — " + QString::fromStdString(b.getAuthor()));
-        listWidgetCatalog->addItem(item);
-    }
+        addCatalogSection(listWidgetCatalog, title, filteredSection, currentTime, catalogPosterSize,
+            [this](int bookId) {
+                selectedCatalogBookId = bookId;
+            });
+    };
+
+    addSection("📚 پیشنهادی برای شما", suggestedBooksCache);
+    addSection("🔥 پرفروش‌ترین‌ها", bestsellingBooksCache);
+    addSection("🆕 تازه منتشرشده", newestBooksCache);
+    addSection("⭐ محبوب‌ترین‌ها", popularBooksCache);
 }
 
 void UserPanelWindow::refreshProfileHistoryList() {
     if (!profilePurchaseHistoryList) return;
     profilePurchaseHistoryList->clear();
+    profilePurchaseHistoryList->setViewMode(QListWidget::IconMode);
+    profilePurchaseHistoryList->setIconSize(QSize(120, 170));
+    profilePurchaseHistoryList->setGridSize(QSize(150, 220));
+    profilePurchaseHistoryList->setResizeMode(QListWidget::Adjust);
+    profilePurchaseHistoryList->setMovement(QListWidget::Static);
+    profilePurchaseHistoryList->setUniformItemSizes(true);
+    profilePurchaseHistoryList->setSpacing(8);
+
     if (myLibraryCache.isEmpty()) {
         profilePurchaseHistoryList->addItem("هنوز کتابی خریداری نشده است.");
         return;
     }
     for (const auto &b : myLibraryCache) {
-        auto* item = new QListWidgetItem(QString::fromStdString(b.getTitle()));
-        item->setData(Qt::UserRole, b.getId());
-        profilePurchaseHistoryList->addItem(item);
+        addPosterBookItem(profilePurchaseHistoryList, b, QString("خریداری‌شده"));
     }
 }
 
@@ -398,49 +531,22 @@ void UserPanelWindow::refreshCartListWidget() {
         w->setData(Qt::UserRole, item.getBook().getId());
         listWidgetCart->addItem(w);
     }
-    double totalWithDiscounts = myCart.calculateTotalWithDiscounts(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss").toStdString());
-    double without = myCart.calculateTotal();
+    const double totalWithDiscounts = myCart.calculateTotalWithDiscounts(currentTime.toStdString());
+    const double without = myCart.calculateTotal();
+    const double discountAmount = without - totalWithDiscounts;
     lblCartTotal->setText(QString("مبلغ کل: %1 تومان  |  تخفیف: %2 تومان  |  سود شما: %3 تومان  |  قابل پرداخت: %4 تومان")
                           .arg(without, 0, 'f', 0)
-                          .arg(without - totalWithDiscounts, 0, 'f', 0)
-                          .arg(without - totalWithDiscounts, 0, 'f', 0)
+                          .arg(discountAmount, 0, 'f', 0)
+                          .arg(discountAmount, 0, 'f', 0)
                           .arg(totalWithDiscounts, 0, 'f', 0));
 }
 
 QVector<Book> UserPanelWindow::getBooksForCurrentViewFromCache() const {
-    switch (comboBookView->currentIndex()) {
-    case 4: {
-        QVector<Book> result;
-        for (const auto &b : availableBooksCache) {
-            if (b.isFree()) result.push_back(b);
-        }
-        return result;
-    }
-    case 5: {
-        QVector<Book> result;
-        result.reserve(availableBooksCache.size());
-        for (const auto &b : availableBooksCache) result.push_back(b);
-        return searchEngine.sortBooksByNewest(result);
-    }
-    case 6: {
-        QVector<Book> result;
-        for (const auto &b : myLibraryCache) result.push_back(b);
-        return result;
-    }
-    default:
-        return availableBooksCache;
-    }
+    return availableBooksCache;
 }
 
 void UserPanelWindow::applyCurrentBookViewFilter() {
-    QVector<Book> source = getBooksForCurrentViewFromCache();
-    QString searchText = txtSearch->text();
-    auto filtered = searchEngine.filterByTitleOrAuthor(searchText, source);
-    int genreValue = comboGenreFilter->currentData().toInt();
-    if (genreValue >= 0) {
-        filtered = searchEngine.filterByGenre(static_cast<Genre>(genreValue), filtered);
-    }
-    refreshCatalogListWidget(filtered);
+    refreshCatalogListWidget(availableBooksCache);
 }
 
 Book* UserPanelWindow::findCachedBookById(int bookId) {
@@ -497,13 +603,13 @@ void UserPanelWindow::refreshShelfBooksList() {
 
         for (const auto &bidVal : so.value("bookIds").toArray()) {
             int bookId = bidVal.toInt();
-            QString title = QString("کتابِ شماره‌ی %1").arg(bookId);
             if (Book* b = findCachedBookById(bookId)) {
-                title = QString::fromStdString(b->getTitle());
+                addPosterBookItem(listWidgetShelfBooks, *b, QString("در این قفسه"));
+            } else {
+                auto* item = new QListWidgetItem(QString("کتابِ شماره‌ی %1").arg(bookId));
+                item->setData(Qt::UserRole, bookId);
+                listWidgetShelfBooks->addItem(item);
             }
-            auto* item = new QListWidgetItem(title);
-            item->setData(Qt::UserRole, bookId);
-            listWidgetShelfBooks->addItem(item);
         }
         break;
     }
@@ -631,28 +737,22 @@ void UserPanelWindow::onGenreFilterChanged(int /*index*/) {
     applyCurrentBookViewFilter();
 }
 
-void UserPanelWindow::onBookViewChanged(int /*index*/) {
-    requestBooksForCurrentView();
-}
-
 void UserPanelWindow::onViewDetailsClicked() {
-    auto* item = listWidgetCatalog->currentItem();
-    if (!item) {
-        QMessageBox::information(this, "راهنما", "اول یک کتاب را از لیست انتخاب کنید.");
+    if (selectedCatalogBookId < 0) {
+        QMessageBox::information(this, "راهنما", "اول یک کتاب را از فروشگاه انتخاب کنید.");
         return;
     }
-    openBookDetailsDialog(item->data(Qt::UserRole).toInt());
+    openBookDetailsDialog(selectedCatalogBookId);
 }
 
-void UserPanelWindow::onCatalogItemDoubleClicked(QListWidgetItem* item) {
-    if (!item) return;
-    openBookDetailsDialog(item->data(Qt::UserRole).toInt());
+void UserPanelWindow::onCatalogItemDoubleClicked(QListWidgetItem* /*item*/) {
+    if (selectedCatalogBookId < 0) return;
+    openBookDetailsDialog(selectedCatalogBookId);
 }
 
 void UserPanelWindow::onBuyBookClicked() {
-    auto* item = listWidgetCatalog->currentItem();
-    if (!item) return;
-    int bookId = item->data(Qt::UserRole).toInt();
+    if (selectedCatalogBookId < 0) return;
+    int bookId = selectedCatalogBookId;
 
     if (QMessageBox::question(this, "تایید خرید", "آیا از خریدِ این کتاب مطمئنید؟") != QMessageBox::Yes) return;
 
@@ -662,9 +762,8 @@ void UserPanelWindow::onBuyBookClicked() {
 }
 
 void UserPanelWindow::onAddToCartClicked() {
-    auto* item = listWidgetCatalog->currentItem();
-    if (!item) return;
-    int bookId = item->data(Qt::UserRole).toInt();
+    if (selectedCatalogBookId < 0) return;
+    int bookId = selectedCatalogBookId;
 
     Book* b = findCachedBookById(bookId);
     if (!b) return;
@@ -673,10 +772,9 @@ void UserPanelWindow::onAddToCartClicked() {
 }
 
 void UserPanelWindow::onSaveForLaterClicked() {
-    auto* item = listWidgetCatalog->currentItem();
-    if (!item) return;
+    if (selectedCatalogBookId < 0) return;
     QJsonObject req;
-    req["bookId"] = item->data(Qt::UserRole).toInt();
+    req["bookId"] = selectedCatalogBookId;
     ClientNetworkManager::getInstance().sendRequest(CommandType::SaveBookForLater, req);
 }
 
@@ -1041,16 +1139,21 @@ void UserPanelWindow::updateWalletDisplay(double currentBalance) {
 
 void UserPanelWindow::onPushNotification(QJsonObject payload) {
     QString message = payload.value("message").toString();
+    const NotificationType notificationType = static_cast<NotificationType>(payload.value("type").toInt());
     auto* toast = new InAppNotificationWidget(this);
     toast->popToastMessage(message);
 
     if (notificationCenter) {
         AppNotification n = AppNotification::fromStorage(
             payload.value("id").toInt(),
-            static_cast<NotificationType>(payload.value("type").toInt()),
+            notificationType,
             message.toStdString(), currentUserId, false,
             payload.value("timestamp").toString().toStdString());
         notificationCenter->addNotification(n);
+    }
+
+    if (notificationType == NotificationType::NewBookInFavoriteGenre) {
+        requestCatalog();
     }
 }
 
@@ -1064,21 +1167,52 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
     }
 
     switch (commandType) {
-    case CommandType::GetBooks:
-    case CommandType::GetSuggestedBooks:
-    case CommandType::GetPopularBooks:
-    case CommandType::GetBestsellingBooks: {
+    case CommandType::GetBooks: {
         availableBooksCache.clear();
         for (const auto &v : payload.value("books").toArray()) {
             availableBooksCache.push_back(ClientUtils::bookFromJson(v.toObject()));
         }
-        if (comboBookView->currentIndex() >= 4) {
-            applyCurrentBookViewFilter();
-        } else if (comboBookView->currentIndex() >= 1 && comboBookView->currentIndex() <= 3) {
-            refreshCatalogListWidget(availableBooksCache);
-        } else {
-            refreshCatalogListWidget(availableBooksCache);
+        applyCurrentBookViewFilter();
+        break;
+    }
+    case CommandType::GetSuggestedBooks: {
+        suggestedBooksCache.clear();
+        for (const auto &v : payload.value("books").toArray()) {
+            suggestedBooksCache.push_back(ClientUtils::bookFromJson(v.toObject()));
         }
+        applyCurrentBookViewFilter();
+        break;
+    }
+    case CommandType::GetPopularBooks: {
+        popularBooksCache.clear();
+        for (const auto &v : payload.value("books").toArray()) {
+            popularBooksCache.push_back(ClientUtils::bookFromJson(v.toObject()));
+        }
+        applyCurrentBookViewFilter();
+        break;
+    }
+    case CommandType::GetBestsellingBooks: {
+        bestsellingBooksCache.clear();
+        for (const auto &v : payload.value("books").toArray()) {
+            bestsellingBooksCache.push_back(ClientUtils::bookFromJson(v.toObject()));
+        }
+        applyCurrentBookViewFilter();
+        break;
+    }
+    case CommandType::GetFreeBooks: {
+        freeBooksCache.clear();
+        for (const auto &v : payload.value("books").toArray()) {
+            freeBooksCache.push_back(ClientUtils::bookFromJson(v.toObject()));
+        }
+        applyCurrentBookViewFilter();
+        break;
+    }
+    case CommandType::GetNewestBooks: {
+        newestBooksCache.clear();
+        for (const auto &v : payload.value("books").toArray()) {
+            newestBooksCache.push_back(ClientUtils::bookFromJson(v.toObject()));
+        }
+        applyCurrentBookViewFilter();
         break;
     }
     case CommandType::GetProfile: {
@@ -1132,9 +1266,7 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
             Book* b = findCachedBookById(bookId);
             if (b) {
                 myLibraryCache.push_back(*b);
-                auto* item = new QListWidgetItem(QString::fromStdString(b->getTitle()));
-                item->setData(Qt::UserRole, bookId);
-                listWidgetMyLibrary->addItem(item);
+                addPosterBookItem(listWidgetMyLibrary, *b, QString("در کتابخانه شما"));
             }
         }
         savedBooksCache.clear();
@@ -1144,9 +1276,7 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
             Book* b = findCachedBookById(bookId);
             if (b) {
                 savedBooksCache.push_back(*b);
-                auto* item = new QListWidgetItem(QString::fromStdString(b->getTitle()));
-                item->setData(Qt::UserRole, bookId);
-                listWidgetSaved->addItem(item);
+                addPosterBookItem(listWidgetSaved, *b, QString("ذخیره‌شده"));
             }
         }
         refreshProfileHistoryList();
