@@ -5,11 +5,16 @@
 #include <QComboBox>
 #include <QLabel>
 #include <QTabWidget>
+#include<QDialog>
+#include <QDialog>
+#include <QLabel>
+#include <QResizeEvent>
+#include <QJsonObject>
 #include <QJsonObject>
 #include "CommandType.h"
 
 
-class LoginWindow : public QWidget {
+class LoginWindow : public QDialog {
     Q_OBJECT
 private:
     // تب ورود
@@ -30,6 +35,7 @@ private:
     QLineEdit* txtSecurityAnswer;
     QPushButton* btnRegister;
     QLabel* lblRegisterStatus;
+     QLabel *bgLabel;
 
     QTabWidget* tabs;
 
@@ -37,6 +43,9 @@ private:
 
     void buildUi();
     void doForgotPasswordFlow();
+
+protected:
+     void resizeEvent(QResizeEvent *event) override; // اضافه کردن این
 
 public:
     explicit LoginWindow(QWidget *parent = nullptr);

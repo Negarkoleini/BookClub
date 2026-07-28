@@ -5,14 +5,46 @@
 #include <QHBoxLayout>
 #include <QMessageBox>
 #include <QInputDialog>
+#include <QCoreApplication>
+#include <QLabel>
+#include <QPixmap>
+#include <QCoreApplication>
+#include <QPixmap>
+#include <QResizeEvent>
+#include<QDialog>
 
-LoginWindow::LoginWindow(QWidget *parent) : QWidget(parent) {
+LoginWindow::LoginWindow(QWidget *parent) : QDialog(parent) {
     buildUi();
+
+    // ۱. ساخت لیبل پس‌زمینه
+    bgLabel = new QLabel(this);
+    QString imagePath = QCoreApplication::applicationDirPath() + "/img/1785233222108.png";
+    QPixmap pixmap(imagePath);
+
+    if (!pixmap.isNull()) {
+        bgLabel->setPixmap(pixmap);
+        bgLabel->setScaledContents(true); // فیت شدن کامل عکس
+        bgLabel->lower();                // فرستادن به زیر بقیه اجزا
+    }
+
+    // ۲. شفاف کردن پس‌زمینه تب‌ویجت و ویجت‌های داخلی تا عکس از زیرشان دیده شود
+    this->setStyleSheet(
+        "QTabWidget::pane { background: transparent; }" // حذف پس‌زمینه کادر تب
+        "QWidget { background: transparent; }"          // شفاف کردن ویجت‌های داخلی صفحه ورود/ثبت‌نام
+        );
 
     connect(&ClientNetworkManager::getInstance(), &ClientNetworkManager::serverReplyReceived,
             this, &LoginWindow::onNetworkReply);
     connect(&ClientNetworkManager::getInstance(), &ClientNetworkManager::connectionError,
             this, &LoginWindow::onNetworkError);
+}
+
+// ۳. تابع برای اینکه عکس همیشه اندازه پنجره بماند و نصفه نشود
+void LoginWindow::resizeEvent(QResizeEvent *event) {
+    QDialog::resizeEvent(event);
+    if (bgLabel) {
+        bgLabel->setGeometry(this->rect()); // پوشش کامل ابعاد پنجره در هر لحظه
+    }
 }
 
 void LoginWindow::buildUi() {

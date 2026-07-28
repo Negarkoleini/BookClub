@@ -96,6 +96,7 @@ qt_add_executable(BookClub
     MainServer.cpp
     MainClient.cpp
     main.cpp
+    loginpic.qrc
 )
 
 
