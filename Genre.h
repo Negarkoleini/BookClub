@@ -4,11 +4,12 @@
 enum class Genre {
     Fiction, NonFiction, SciFi, Fantasy, Mystery,
     Romance, History, Biography, SelfHelp, Philosophy,
-    Poetry, Children
+    Poetry, Children, darsi
 };
 
 // ابزارهای کمکی برای تبدیل ژانر به رشته و برعکس
 // (برای ذخیره‌سازی در فایل/دیتابیس و نمایش در UI لازم است)
+
 class GenreUtils {
 public:
     GenreUtils() = delete;
