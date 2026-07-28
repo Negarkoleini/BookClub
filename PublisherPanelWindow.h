@@ -8,6 +8,7 @@
 #include <QComboBox>
 #include <QVector>
 #include <QJsonObject>
+#include <QJsonArray>
 #include "Book.h"
 #include "CommandType.h"
 #include "AnalyticsChartWidget.h"
@@ -39,8 +40,10 @@ private:
     QPushButton* btnDeleteSelected;
     QPushButton* btnOpenAnalytics;
     QPushButton* btnManageDiscounts;
+    QPushButton* btnViewBookDetails;
 
     QVector<Book> myBooksCache;
+    QJsonArray myBooksAnalyticsCache; // اطلاعاتِ خامِ آمار (قیمت، امتیاز، فروش) برای نمایشِ دقیق در جدول
     AnalyticsChartWidget* chartWidget = nullptr;
     DiscountManagerWidget* discountWidget = nullptr;
 
@@ -61,5 +64,6 @@ private slots:
     void openDiscountWindow();
     void onOpenNotificationsClicked();
     void onPushNotification(QJsonObject payload);
+    void onViewBookDetailsClicked();
     void onNetworkReply(CommandType commandType, QJsonObject payload, bool ok);
 };

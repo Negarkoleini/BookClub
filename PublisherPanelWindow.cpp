@@ -55,10 +55,12 @@ void PublisherPanelWindow::buildUi() {
     btnDeleteSelected = new QPushButton("حذف/غیرفعال‌کردن");
     btnOpenAnalytics = new QPushButton("📊 آمار و نمودار");
     btnManageDiscounts = new QPushButton("🏷️ مدیریتِ تخفیف");
+    btnViewBookDetails = new QPushButton("👁️ جزئیاتِ کتاب (نظرات و امتیاز)");
     tableButtons->addWidget(btnEditSelected);
     tableButtons->addWidget(btnDeleteSelected);
     tableButtons->addWidget(btnOpenAnalytics);
     tableButtons->addWidget(btnManageDiscounts);
+    tableButtons->addWidget(btnViewBookDetails);
 
     leftLayout->addWidget(tableMyBooks);
     leftLayout->addLayout(tableButtons);
@@ -112,6 +114,7 @@ void PublisherPanelWindow::buildUi() {
     connect(btnOpenAnalytics, &QPushButton::clicked, this, &PublisherPanelWindow::openAnalyticsWindow);
     connect(btnManageDiscounts, &QPushButton::clicked, this, &PublisherPanelWindow::openDiscountWindow);
     connect(btnOpenNotifications, &QPushButton::clicked, this, &PublisherPanelWindow::onOpenNotificationsClicked);
+    connect(btnViewBookDetails, &QPushButton::clicked, this, &PublisherPanelWindow::onViewBookDetailsClicked);
 }
 
 void PublisherPanelWindow::requestMyBooks() {
@@ -127,10 +130,15 @@ void PublisherPanelWindow::refreshTable() {
     tableMyBooks->setRowCount(myBooksCache.size());
     for (int row = 0; row < myBooksCache.size(); ++row) {
         const Book &b = myBooksCache[row];
+        // نکته‌ی مهم: قیمت/امتیاز/فروش از Book (که فقط id/title/isActive را دارد) خوانده نمی‌شود
+        // بلکه از پاسخِ خامِ سرور (myBooksAnalyticsCache) گرفته می‌شود؛ همینه که تا قبل از این
+        // اصلاح، بعد از هر ویرایش این ستون‌ها همیشه یک مقدارِ ثابت/صفر نشان می‌دادن.
+        QJsonObject stats = (row < myBooksAnalyticsCache.size()) ? myBooksAnalyticsCache[row].toObject() : QJsonObject();
+
         tableMyBooks->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(b.getTitle())));
-        tableMyBooks->setItem(row, 1, new QTableWidgetItem(QString::number(b.getBasePrice())));
-        tableMyBooks->setItem(row, 2, new QTableWidgetItem(QString::number(b.getAverageRating(), 'f', 1)));
-        tableMyBooks->setItem(row, 3, new QTableWidgetItem("-")); // تعدادِ فروش را از پاسخِ آمار جدا نگه می‌داریم
+        tableMyBooks->setItem(row, 1, new QTableWidgetItem(QString::number(stats.value("basePrice").toDouble())));
+        tableMyBooks->setItem(row, 2, new QTableWidgetItem(QString::number(stats.value("averageRating").toDouble(), 'f', 1)));
+        tableMyBooks->setItem(row, 3, new QTableWidgetItem(QString::number(stats.value("salesCount").toInt())));
         tableMyBooks->setItem(row, 4, new QTableWidgetItem(b.getIsActive() ? "فعال" : "غیرفعال"));
         tableMyBooks->item(row, 0)->setData(Qt::UserRole, b.getId());
     }
@@ -225,6 +233,18 @@ void PublisherPanelWindow::onPushNotification(QJsonObject payload) {
     }
 }
 
+void PublisherPanelWindow::onViewBookDetailsClicked() {
+    auto selected = tableMyBooks->selectedItems();
+    if (selected.isEmpty()) {
+        QMessageBox::information(this, "توجه", "ابتدا یک کتاب را از لیست انتخاب کنید.");
+        return;
+    }
+    int bookId = tableMyBooks->item(selected.first()->row(), 0)->data(Qt::UserRole).toInt();
+    QJsonObject req;
+    req["bookId"] = bookId;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::GetBookDetails, req);
+}
+
 void PublisherPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payload, bool ok) {
     if (!ok) {
         QMessageBox::warning(this, "خطا", payload.value("error").toString());
@@ -233,7 +253,8 @@ void PublisherPanelWindow::onNetworkReply(CommandType commandType, QJsonObject p
 
     if (commandType == CommandType::GetPublisherAnalytics) {
         myBooksCache.clear();
-        for (const auto &v : payload.value("books").toArray()) {
+        myBooksAnalyticsCache = payload.value("books").toArray();
+        for (const auto &v : myBooksAnalyticsCache) {
             QJsonObject bo = v.toObject();
             // پاسخِ این دستور شکلِ متفاوتی از GetBooks دارد (bookId به‌جای id، و فیلدهای کمتر)؛
             // برای همین یک Book سبک با مقادیرِ موجود می‌سازیم (بقیه‌ی فیلدها خالی می‌مانند
@@ -276,6 +297,45 @@ void PublisherPanelWindow::onNetworkReply(CommandType commandType, QJsonObject p
                 no.value("timestamp").toString().toStdString()));
         }
         notificationCenter->loadNotifications(notifs);
+        return;
+    }
+
+    if (commandType == CommandType::GetBookDetails) {
+        // فروش/درآمد در پاسخِ GetBookDetails نیست؛ از کشِ محلیِ آمار (که همین الان از سرور گرفته‌ایم) می‌خوانیم
+        int salesCount = 0;
+        double revenue = 0.0;
+        for (const auto &v : myBooksAnalyticsCache) {
+            QJsonObject bo = v.toObject();
+            if (bo.value("bookId").toInt() == payload.value("id").toInt()) {
+                salesCount = bo.value("salesCount").toInt();
+                revenue = bo.value("revenue").toDouble();
+                break;
+            }
+        }
+
+        QString text;
+        text += "عنوان: " + payload.value("title").toString() + "\n";
+        text += "نویسنده: " + payload.value("author").toString() + "\n";
+        text += "توضیحات: " + payload.value("description").toString() + "\n\n";
+        text += "قیمتِ نهایی: " + QString::number(payload.value("finalPrice").toDouble()) + " تومان\n";
+        text += "میانگینِ امتیاز: " + QString::number(payload.value("averageRating").toDouble(), 'f', 2) + "\n";
+        text += "تعدادِ فروش: " + QString::number(salesCount) + "   |   درآمد: " + QString::number(revenue) + " تومان\n";
+
+        QJsonArray comments = payload.value("comments").toArray();
+        text += QString("\n--- نظراتِ کاربران (%1 مورد) ---\n").arg(comments.size());
+        if (comments.isEmpty()) {
+            text += "هنوز نظری ثبت نشده است.\n";
+        }
+        for (const auto &v : comments) {
+            QJsonObject co = v.toObject();
+            bool approved = co.value("isApproved").toBool();
+            text += QString("• %1%2: %3\n")
+                        .arg(co.value("username").toString())
+                        .arg(approved ? "" : " [در انتظارِ تاییدِ ادمین]")
+                        .arg(co.value("text").toString());
+        }
+
+        QMessageBox::information(this, "جزئیاتِ کتاب", text);
         return;
     }
 }
