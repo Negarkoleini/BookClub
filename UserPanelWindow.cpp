@@ -12,6 +12,9 @@
 #include <QDialog>
 #include <QJsonArray>
 #include <QInputDialog>
+#include <QPainter>
+#include <QIcon>
+#include <QFileInfo>
 
 UserPanelWindow::UserPanelWindow(int userId, QWidget *parent)
     : QMainWindow(parent), currentUserId(userId), myCart(userId) {
@@ -85,6 +88,14 @@ void UserPanelWindow::buildUi() {
     auto* shopTab = new QWidget();
     auto* shopLayout = new QVBoxLayout(shopTab);
     listWidgetCatalog = new QListWidget();
+    listWidgetCatalog->setViewMode(QListWidget::IconMode);
+    listWidgetCatalog->setIconSize(QSize(140, 190));
+    listWidgetCatalog->setGridSize(QSize(170, 260));
+    listWidgetCatalog->setResizeMode(QListWidget::Adjust);
+    listWidgetCatalog->setMovement(QListWidget::Static);
+    listWidgetCatalog->setUniformItemSizes(true);
+    listWidgetCatalog->setSpacing(8);
+    listWidgetCatalog->setWordWrap(true);
     auto* shopButtons = new QHBoxLayout();
     btnViewDetails = new QPushButton("جزئیات / نظرات / امتیاز");
     btnBuy = new QPushButton("خرید مستقیم");
@@ -225,16 +236,45 @@ void UserPanelWindow::requestBooksForCurrentView() {
 // =========================================================================
 // رندر لیست‌ها
 // =========================================================================
+QPixmap UserPanelWindow::loadCoverOrPlaceholder(const std::string &coverPath, const std::string &title, const QSize &size) {
+    QPixmap cover;
+    if (!coverPath.empty() && QFileInfo::exists(QString::fromStdString(coverPath))) {
+        cover.load(QString::fromStdString(coverPath));
+    }
+    if (!cover.isNull()) {
+        return cover.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    }
+
+    // پوسترِ جایگزین برای کتاب‌هایی که عکسِ جلد ندارند یا فایلش یافت نشد
+    QPixmap placeholder(size);
+    placeholder.fill(QColor("#cfd8dc"));
+    QPainter painter(&placeholder);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(QColor("#37474f"));
+    QFont f = painter.font();
+    f.setBold(true);
+    painter.setFont(f);
+    painter.drawText(placeholder.rect().adjusted(8, 8, -8, -8),
+                     Qt::AlignCenter | Qt::TextWordWrap,
+                     QString::fromStdString(title));
+    return placeholder;
+}
+
 void UserPanelWindow::refreshCatalogListWidget(const QVector<Book> &books) {
     listWidgetCatalog->clear();
+    const QSize posterSize(140, 190);
     for (const auto &b : books) {
-        QString text = QString("%1 — %2  |  %3 تومان  |  ★ %4")
-                           .arg(QString::fromStdString(b.getTitle()))
-                           .arg(QString::fromStdString(b.getAuthor()))
-                           .arg(b.getBasePrice())
-                           .arg(b.getAverageRating(), 0, 'f', 1);
-        auto* item = new QListWidgetItem(text);
+        QPixmap cover = loadCoverOrPlaceholder(b.getCoverImagePath(), b.getTitle(), posterSize);
+
+        QString label = QString("%1\n%2 تومان  |  ★ %3")
+                            .arg(QString::fromStdString(b.getTitle()))
+                            .arg(b.getBasePrice())
+                            .arg(b.getAverageRating(), 0, 'f', 1);
+
+        auto* item = new QListWidgetItem(QIcon(cover), label);
+        item->setTextAlignment(Qt::AlignHCenter);
         item->setData(Qt::UserRole, b.getId());
+        item->setToolTip(QString::fromStdString(b.getTitle()) + " — " + QString::fromStdString(b.getAuthor()));
         listWidgetCatalog->addItem(item);
     }
 }
@@ -506,6 +546,11 @@ void UserPanelWindow::openBookDetailsDialog(int bookId) {
     bookDetailsDialog->resize(500, 550);
     auto* layout = new QVBoxLayout(bookDetailsDialog);
 
+    dialogCoverLabel = new QLabel();
+    dialogCoverLabel->setAlignment(Qt::AlignHCenter);
+    dialogCoverLabel->setFixedHeight(220);
+    layout->addWidget(dialogCoverLabel);
+
     dialogDescriptionLabel = new QLabel();
     dialogDescriptionLabel->setWordWrap(true);
     layout->addWidget(dialogDescriptionLabel);
@@ -658,6 +703,10 @@ void UserPanelWindow::onReadBookClicked() {
         if (book.getId() == bookId) { b = &book; break; }
     }
     if (!b) return;
+    if (b->getPdfFileName().empty()) {
+        QMessageBox::warning(this, "خطا", "برای این کتاب فایلِ PDF ثبت نشده است.");
+        return;
+    }
 
     QJsonObject req;
     req["bookId"] = bookId;
@@ -949,12 +998,21 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
     case CommandType::GetBookDetails: {
         currentDetailsComments = payload.value("comments").toArray();
         if (dialogDescriptionLabel) {
-            QString text = QString("%1 — %2\n\n%3\n\nمیانگینِ امتیاز: %4")
+            QString text = QString("%1 — %2\n\n%3\n\nقیمت: %4 تومان   |   میانگینِ امتیاز: %5")
                                .arg(payload.value("title").toString())
                                .arg(payload.value("author").toString())
                                .arg(payload.value("description").toString())
+                               .arg(payload.value("finalPrice").toDouble())
                                .arg(payload.value("averageRating").toDouble(), 0, 'f', 1);
             dialogDescriptionLabel->setText(text);
+        }
+        if (dialogCoverLabel) {
+            QPixmap cover = loadCoverOrPlaceholder(
+                payload.value("coverImagePath").toString().toStdString(),
+                payload.value("title").toString().toStdString(),
+                QSize(160, 210));
+            dialogCoverLabel->setPixmap(cover);
+            dialogCoverLabel->setAlignment(Qt::AlignHCenter);
         }
         refreshDialogCommentsList();
         break;
@@ -984,7 +1042,6 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
 
             refreshCatalogListWidget(availableBooksCache);
 
-            // درخواست لیست تازه از سرور (برای همگام‌سازی کامل)
             requestBooksForCurrentView();
 
             if (bookDetailsDialog && dialogDescriptionLabel && currentDetailsBookId != -1) {
@@ -997,7 +1054,6 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
     }
     }
 }
-
 // =========================================================================
 // دیالوگِ انتخابِ ژانرهای موردعلاقه (اولین ورود)
 // =========================================================================

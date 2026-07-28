@@ -601,3 +601,4 @@ void AdminPanelWindow::onNetworkReply(CommandType commandType, QJsonObject paylo
         break;
     }
 }
+

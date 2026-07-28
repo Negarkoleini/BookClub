@@ -49,7 +49,13 @@ void PdfReaderWidget::openFile(const QString &filePath, int bookId, int startPag
 
     QPdfDocument::Error err = document->load(filePath);
     if (err != QPdfDocument::Error::None) {
-        lblPageInfo->setText("خطا در بازکردنِ فایلِ PDF");
+        lblPageInfo->setText("خطا در بازکردنِ فایلِ PDF: فایل یافت نشد یا معتبر نیست.");
+        return;
+    }
+    if (document->pageCount() <= 0) {
+        // نکته‌ی مهم: اگر اینجا بدونِ این چک به pageNavigator()->jump() با اندیسِ منفی برسیم،
+        // برنامه کرش می‌کند (این دقیقاً همان چیزی بود که باعث بسته‌شدنِ کاملِ برنامه می‌شد).
+        lblPageInfo->setText("این فایل صفحه‌ای برای نمایش ندارد یا فایلِ PDF معتبری نیست.");
         return;
     }
 
@@ -72,6 +78,7 @@ void PdfReaderWidget::jumpToPage(int pageNumber) {
 }
 
 void PdfReaderWidget::triggerNextPage() {
+    if (document->pageCount() <= 0) return;
     int current = pdfView->pageNavigator()->currentPage();
     if (current + 1 < document->pageCount()) {
         pdfView->pageNavigator()->jump(current + 1, {});
@@ -79,6 +86,7 @@ void PdfReaderWidget::triggerNextPage() {
 }
 
 void PdfReaderWidget::triggerPrevPage() {
+    if (document->pageCount() <= 0) return;
     int current = pdfView->pageNavigator()->currentPage();
     if (current - 1 >= 0) {
         pdfView->pageNavigator()->jump(current - 1, {});
@@ -86,6 +94,7 @@ void PdfReaderWidget::triggerPrevPage() {
 }
 
 void PdfReaderWidget::triggerGotoPage(int pageNumberOneBased) {
+    if (document->pageCount() <= 0) return;
     int zeroBased = qBound(0, pageNumberOneBased - 1, document->pageCount() - 1);
     pdfView->pageNavigator()->jump(zeroBased, {});
 }

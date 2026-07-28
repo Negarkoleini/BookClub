@@ -12,6 +12,7 @@
 #include <QJsonArray>
 #include <QDialog>
 #include <QTextEdit>
+#include <QPixmap>
 #include "BookSearchEngine.h"
 #include "PdfReaderWidget.h"
 #include "InAppNotificationWidget.h"
@@ -81,6 +82,7 @@ private:
     // ---- دیالوگِ جزئیاتِ کتاب (نظرات + امتیاز) ----
     QDialog* bookDetailsDialog = nullptr;
     QLabel* dialogDescriptionLabel = nullptr;
+    QLabel* dialogCoverLabel = nullptr;
     QListWidget* dialogCommentsList = nullptr;
     QTextEdit* dialogNewCommentText = nullptr;
     QComboBox* dialogRatingCombo = nullptr;
@@ -105,6 +107,7 @@ private:
     void refreshCatalogListWidget(const QVector<Book> &books);
     void refreshCartListWidget();
     Book* findCachedBookById(int bookId);
+    QPixmap loadCoverOrPlaceholder(const std::string &coverPath, const std::string &title, const QSize &size);
 
     // ---- قفسه‌های شخصی ----
     void requestShelves();

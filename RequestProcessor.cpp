@@ -463,6 +463,7 @@ void RequestProcessor::processGetBookDetails(CommandType cmd, const QByteArray &
     resp["author"] = QString::fromStdString(b.getAuthor());
     resp["description"] = QString::fromStdString(b.getDescription());
     resp["genre"] = static_cast<int>(b.getGenre());
+    resp["coverImagePath"] = QString::fromStdString(b.getCoverImagePath());
     resp["finalPrice"] = b.getFinalPrice(currentTimestamp());
     resp["averageRating"] = b.getAverageRating();
     resp["comments"] = commentsArr;
@@ -975,6 +976,7 @@ void RequestProcessor::processGetPublisherAnalytics(CommandType cmd, const QByte
         QJsonObject bo;
         bo["bookId"] = b.getId();
         bo["title"] = QString::fromStdString(b.getTitle());
+        bo["basePrice"] = b.getBasePrice();
         bo["averageRating"] = b.getAverageRating();
         bo["isActive"] = b.getIsActive();
         bo["salesCount"] = salesCount;
