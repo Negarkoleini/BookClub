@@ -9,80 +9,80 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    // تعریف استایل‌شیت کلی (Global QSS) برای تم صورتی و کرم
+    // استایل‌شیت اصلاح‌شده: پس‌زمینه کرم مشخص + دکمه‌های قهوه‌ای ملایم (کاراملی/شکلاتی)
     QString mainStyleSheet = R"(
-        /* پس‌زمینه اصلی تمام پنجره‌ها و دیالوگ‌ها */
-        QMainWindow, QDialog {
-            background-color: #FDF8F5;
-            color: #2C2C2C;
+        /* پس‌زمینه اصلی کلیه پنجره‌ها و ویجت‌های داخل پنجره (کرم warm & soft) */
+        QMainWindow, QDialog, QWidget {
+            background-color: #F3E9DC;
+            color: #4A3B32;
             font-family: "Segoe UI", "Tahoma", sans-serif;
             font-size: 13px;
         }
 
-        /* پس‌زمینه ویجت‌ها و پنل‌های داخلی */
-        QWidget#centralWidget, QFrame, QGroupBox {
-            background-color: #FDF8F5;
+        /* فریم‌ها و پنل‌های داخلی */
+        QFrame, QGroupBox {
+            background-color: #F3E9DC;
             border: none;
-            color: #2C2C2C;
+            color: #4A3B32;
         }
 
         /* برچسب‌های متنی */
         QLabel {
-            color: #2C2C2C;
+            color: #4A3B32;
             background-color: transparent;
         }
 
-        /* ورودی‌های متن، کادرهای اعداد و منوهای کشویی */
+        /* کادرهای ورودی متن (QLineEdit) و کادرهای اعداد */
         QLineEdit, QTextEdit, QPlainTextEdit, QSpinBox, QDoubleSpinBox, QComboBox {
             background-color: #FFFFFF;
-            border: 1.5px solid #F48FB1;
+            border: 1.5px solid #CDBA9F;
             border-radius: 8px;
             padding: 6px 10px;
-            color: #2C2C2C;
-            selection-background-color: #F48FB1;
+            color: #4A3B32;
+            selection-background-color: #8C6239;
             selection-color: #FFFFFF;
         }
 
         QLineEdit:focus, QTextEdit:focus, QPlainTextEdit:focus, QComboBox:focus {
-            border: 2px solid #D81B60;
+            border: 2px solid #8C6239;
             background-color: #FFFFFF;
         }
 
-        /* دکمه‌های اصلی برنامه با رنگ صورتی پررنگ */
+        /* دکمه‌های اصلی: قهوه‌ای کاراملی ملایم با متن کرم روشم */
         QPushButton {
-            background-color: #D81B60;
-            color: #FFFFFF;
+            background-color: #8C6239;
+            color: #FAF4ED;
             border: none;
             border-radius: 8px;
             padding: 8px 16px;
             font-weight: bold;
-            min-height: 20px;
+            min-height: 22px;
         }
 
         QPushButton:hover {
-            background-color: #C2185B;
+            background-color: #A07244;
         }
 
         QPushButton:pressed {
-            background-color: #880E4F;
+            background-color: #74502C;
         }
 
         QPushButton:disabled {
-            background-color: #E0E0E0;
-            color: #9E9E9E;
+            background-color: #DCD0C0;
+            color: #9C8F80;
         }
 
-        /* تب‌ها و سربرگ‌های پنجره‌ها */
+        /* تب‌ها و دکمه‌های سربرگ (مثل تب ورود / ثبت‌نام بالای فرم) */
         QTabWidget::pane {
-            border: 1px solid #F48FB1;
+            border: 1px solid #CDBA9F;
             background: #FFFFFF;
             border-radius: 8px;
         }
 
         QTabBar::tab {
-            background: #FCE4EC;
-            color: #880E4F;
-            padding: 8px 16px;
+            background: #E5D5C0;
+            color: #4A3B32;
+            padding: 8px 18px;
             border-top-left-radius: 6px;
             border-top-right-radius: 6px;
             margin-right: 2px;
@@ -90,24 +90,24 @@ int main(int argc, char *argv[])
         }
 
         QTabBar::tab:selected {
-            background: #D81B60;
-            color: #FFFFFF;
+            background: #8C6239;
+            color: #FAF4ED;
             font-weight: bold;
         }
 
-        /* جداول و لیست‌های اطلاعات */
+        /* جداول و لیست‌ها */
         QTableWidget, QListWidget, QTreeView, QTableView {
             background-color: #FFFFFF;
-            border: 1px solid #F8BBD0;
-            gridline-color: #FCE4EC;
+            border: 1px solid #CDBA9F;
+            gridline-color: #E5D5C0;
             border-radius: 8px;
-            color: #2C2C2C;
-            alternate-background-color: #FFF5F8;
+            color: #4A3B32;
+            alternate-background-color: #FBF7F2;
         }
 
         QHeaderView::section {
-            background-color: #FCE4EC;
-            color: #880E4F;
+            background-color: #E5D5C0;
+            color: #4A3B32;
             padding: 8px;
             border: none;
             font-weight: bold;
@@ -116,38 +116,38 @@ int main(int argc, char *argv[])
         /* نوار اسکرول */
         QScrollBar:vertical {
             border: none;
-            background: #FDF8F5;
+            background: #F3E9DC;
             width: 8px;
             border-radius: 4px;
         }
 
         QScrollBar::handle:vertical {
-            background: #F48FB1;
+            background: #CDBA9F;
             border-radius: 4px;
         }
 
         QScrollBar::handle:vertical:hover {
-            background: #D81B60;
+            background: #8C6239;
         }
 
         QScrollBar:horizontal {
             border: none;
-            background: #FDF8F5;
+            background: #F3E9DC;
             height: 8px;
             border-radius: 4px;
         }
 
         QScrollBar::handle:horizontal {
-            background: #F48FB1;
+            background: #CDBA9F;
             border-radius: 4px;
         }
 
         QScrollBar::handle:horizontal:hover {
-            background: #D81B60;
+            background: #8C6239;
         }
     )";
 
-    // اعمال تم به کل برنامه (حتی QMessageBox خطا هم از تم جدید پیروی می‌کنه)
+    // اعمال تم
     app.setStyleSheet(mainStyleSheet);
 
     if (!startServer()) {

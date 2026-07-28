@@ -173,7 +173,7 @@ bool DatabaseManager::addPublisher(const Publisher &publisher) {
  securityAnswerHash,
  publisherName,
  corporateId)
-        VALUES (?,?,?,?,?,?,?,?,?);)");
+        VALUES (?,?,?,?,?,?,?,?,?,?,?);)");
     q.addBindValue(publisher.getId());
     q.addBindValue(QString::fromStdString(publisher.getUsername()));
     q.addBindValue(QString::fromStdString(publisher.getPasswordHash()));
@@ -181,10 +181,10 @@ bool DatabaseManager::addPublisher(const Publisher &publisher) {
     q.addBindValue(QString::fromStdString(publisher.getRoleString()));
     q.addBindValue(static_cast<int>(publisher.getStatus()));
     q.addBindValue(QString::fromStdString(publisher.getRegistrationDate()));
-    q.addBindValue(QString::fromStdString(publisher.getPublisherName()));
-    q.addBindValue(QString::fromStdString(publisher.getCorporateId()));
     q.addBindValue(QString::fromStdString(publisher.getSecurityQuestion()));
     q.addBindValue(QString::fromStdString(publisher.getSecurityAnswerHash()));
+    q.addBindValue(QString::fromStdString(publisher.getPublisherName()));
+    q.addBindValue(QString::fromStdString(publisher.getCorporateId()));
     if (!q.exec()) {
         qWarning() << "addPublisher error:" << q.lastError().text();
         return false;
@@ -200,7 +200,7 @@ bool DatabaseManager::addAdmin(const Admin &admin) {
  securityQuestion,
  securityAnswerHash,
  securityLevel)
-        VALUES (?,?,?,?,?,?,?,?);)");
+        VALUES (?,?,?,?,?,?,?,?,?,?);)");
     q.addBindValue(admin.getId());
     q.addBindValue(QString::fromStdString(admin.getUsername()));
     q.addBindValue(QString::fromStdString(admin.getPasswordHash()));
@@ -208,9 +208,9 @@ bool DatabaseManager::addAdmin(const Admin &admin) {
     q.addBindValue(QString::fromStdString(admin.getRoleString()));
     q.addBindValue(static_cast<int>(admin.getStatus()));
     q.addBindValue(QString::fromStdString(admin.getRegistrationDate()));
-    q.addBindValue(admin.getSecurityLevel());
     q.addBindValue(QString::fromStdString(admin.getSecurityQuestion()));
     q.addBindValue(QString::fromStdString(admin.getSecurityAnswerHash()));
+    q.addBindValue(admin.getSecurityLevel());
     if (!q.exec()) {
         qWarning() << "addAdmin error:" << q.lastError().text();
         return false;
