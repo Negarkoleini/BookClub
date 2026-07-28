@@ -34,6 +34,7 @@ private:
     QComboBox* comboBookView; // همه / پیشنهادی / محبوب / پرفروش
     QPushButton* btnChargeWallet;
     QPushButton* btnProfile;
+    QPushButton* btnLogout;
     QPushButton* btnOpenNotifications;
 
     // ---- تب فروشگاه ----
@@ -57,6 +58,7 @@ private:
     // ---- تب ذخیره‌شده‌ها ----
     QListWidget* listWidgetSaved;
     QPushButton* btnRemoveSaved;
+    QPushButton* btnReadSaved;
 
     // ---- تب قفسه‌های شخصی ----
     QComboBox* comboShelfSelector;
@@ -99,6 +101,7 @@ private:
     QLineEdit* profileEmailField = nullptr;
     QLineEdit* profileOldPasswordField = nullptr;
     QLineEdit* profileNewPasswordField = nullptr;
+    QListWidget* profilePurchaseHistoryList = nullptr;
 
     void buildUi();
     void requestCatalog();
@@ -106,6 +109,9 @@ private:
     void requestProfile();
     void refreshCatalogListWidget(const QVector<Book> &books);
     void refreshCartListWidget();
+    void refreshProfileHistoryList();
+    QVector<Book> getBooksForCurrentViewFromCache() const;
+    void applyCurrentBookViewFilter();
     Book* findCachedBookById(int bookId);
     QPixmap loadCoverOrPlaceholder(const std::string &coverPath, const std::string &title, const QSize &size);
 
@@ -133,6 +139,7 @@ private slots:
     void onCheckoutClicked();
     void onRemoveFromCartClicked();
     void onReadBookClicked();
+    void onReadSavedBookClicked();
     void onRemoveSavedClicked();
     void onOpenNotificationsClicked();
 
@@ -155,6 +162,7 @@ private slots:
 
     void onChargeWalletClicked();
     void onProfileClicked();
+    void onLogoutClicked();
     void onSaveProfileClicked();
     void onChangePasswordClicked();
 
@@ -162,6 +170,9 @@ private slots:
     void onNetworkReply(CommandType commandType, QJsonObject payload, bool ok);
     void onPushNotification(QJsonObject payload);
     void openEditGenresDialog();
+
+signals:
+    void logoutRequested();
 };
 
 #endif // USERPANELWINDOW_H

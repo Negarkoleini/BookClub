@@ -22,6 +22,9 @@ enum class CommandType
     GetSuggestedBooks,   // بر اساسِ favoriteGenres کاربر
     GetPopularBooks,     // بر اساسِ میانگینِ امتیاز
     GetBestsellingBooks, // بر اساسِ تعدادِ فروش
+    GetFreeBooks,
+    GetNewestBooks,
+    GetUserPurchaseHistory,
 
     // ---- احراز هویت تکمیلی ----
     ForgotPasswordRequest,   // ارسال سوال امنیتی برای بازیابی

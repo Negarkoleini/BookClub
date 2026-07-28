@@ -30,10 +30,17 @@ void DashboardController::switchToLogin() {
     mainStackedWidget->setCurrentWidget(loginWindow);
 }
 
+void DashboardController::onLogoutRequested() {
+    currentUserId = -1;
+    currentRole.clear();
+    switchToLogin();
+}
+
 void DashboardController::switchToUserDashboard(int userId) {
     if (!userPanel) {
         userPanel = new UserPanelWindow(userId);
         mainStackedWidget->addWidget(userPanel);
+        connect(userPanel, &UserPanelWindow::logoutRequested, this, &DashboardController::onLogoutRequested);
     }
     mainStackedWidget->setCurrentWidget(userPanel);
 }
@@ -42,6 +49,7 @@ void DashboardController::switchToPublisherDashboard(int userId) {
     if (!publisherPanel) {
         publisherPanel = new PublisherPanelWindow(userId);
         mainStackedWidget->addWidget(publisherPanel);
+        connect(publisherPanel, &PublisherPanelWindow::logoutRequested, this, &DashboardController::onLogoutRequested);
     }
     mainStackedWidget->setCurrentWidget(publisherPanel);
 }
@@ -50,6 +58,7 @@ void DashboardController::switchToAdminDashboard(int userId) {
     if (!adminPanel) {
         adminPanel = new AdminPanelWindow(userId);
         mainStackedWidget->addWidget(adminPanel);
+        connect(adminPanel, &AdminPanelWindow::logoutRequested, this, &DashboardController::onLogoutRequested);
     }
     mainStackedWidget->setCurrentWidget(adminPanel);
 }

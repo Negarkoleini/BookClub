@@ -38,6 +38,9 @@ private:
     void processGetSuggestedBooks(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processGetPopularBooks(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processGetBestsellingBooks(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
+    void processGetFreeBooks(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
+    void processGetNewestBooks(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
+    void processGetUserPurchaseHistory(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processAddBook(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processEditBook(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processDeleteBook(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);

@@ -1,9 +1,29 @@
 #include <QStackedWidget>
 #include <QMessageBox>
 #include <QInputDialog>
+#include <QFile>
+#include <QTextStream>
+#include <QStandardPaths>
+#include <QDir>
 
 #include "ClientNetworkManager.h"
 #include "DashboardController.h"
+
+namespace {
+QString readServerPortFromFile() {
+    QString dir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QDir().mkpath(dir);
+    QFile file(QDir(dir).filePath("server_port.txt"));
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return "5555";
+    }
+
+    QTextStream in(&file);
+    QString portText = in.readLine().trimmed();
+    file.close();
+    return portText.isEmpty() ? "5555" : portText;
+}
+}
 
 void startClient()
 {
@@ -21,12 +41,13 @@ void startClient()
     if (!okPressed)
         return;
 
-    if (!ClientNetworkManager::getInstance().establishConnection(serverIp, 5555)) {
+    const quint16 port = static_cast<quint16>(readServerPortFromFile().toUShort());
+
+    if (!ClientNetworkManager::getInstance().establishConnection(serverIp, port)) {
         QMessageBox::critical(
             nullptr,
             "خطا",
-            "اتصال به سرور برقرار نشد."
-            );
+            QString("اتصال به سرور روی پورت %1 برقرار نشد.").arg(port));
         return;
     }
 

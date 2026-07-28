@@ -23,6 +23,13 @@ private:
     QComboBox* comboRoleFilter;
     QComboBox* comboStatusFilter;
     QTableWidget* tableAllUsersReport;
+    QPushButton* btnProfile;
+    QPushButton* btnLogout;
+    QDialog* profileDialog = nullptr;
+    QLineEdit* profileUsernameField = nullptr;
+    QLineEdit* profileEmailField = nullptr;
+    QLineEdit* profileOldPasswordField = nullptr;
+    QLineEdit* profileNewPasswordField = nullptr;
     QPushButton* btnBanUser;
     QPushButton* btnUnbanUser;
     QPushButton* btnDisableTemporarily;
@@ -94,7 +101,14 @@ private slots:
     void executeRejectDiscount();
 
     void executeSaveLimits();
+    void onProfileClicked();
+    void onSaveProfileClicked();
+    void onChangePasswordClicked();
+    void onLogoutClicked();
 
     void onNetworkReply(CommandType commandType, QJsonObject payload, bool ok);
+
+signals:
+    void logoutRequested();
 };
 #endif // ADMINPANELWINDOW_H

@@ -118,13 +118,10 @@ double Book::getFinalPrice(const std::string& currentSystemTime) const {
     for (const auto& discount : discounts) {
         if (discount.isActiveNow(currentSystemTime)) {
             if (discount.getDiscountType() == DiscountType::Percentage) {
-                // اعمال تخفیف درصدی (مثلاً ۲۰ درصد تخفیف)
-                finalPrice -= (basePrice * (discount.getDiscountValue() / 100.0));
+                finalPrice = finalPrice - (finalPrice * (discount.getDiscountValue() / 100.0));
             } else if (discount.getDiscountType() == DiscountType::Cash) {
-                // اعمال تخفیف مبلغی (مثلاً ۵۰ هزار تومان تخفیف)
-                finalPrice -= discount.getDiscountValue();
+                finalPrice = finalPrice - discount.getDiscountValue();
             }
-            // اگر داک گفته فقط یک تخفیف همزمان اعمال شود:
             break;
         }
     }

@@ -26,7 +26,15 @@ private:
     QTableWidget* tableMyBooks;
     QLabel* lblMyBooksHeader;
     QPushButton* btnOpenNotifications;
+    QPushButton* btnProfile;
+    QPushButton* btnLogout;
     NotificationCenterWidget* notificationCenter = nullptr;
+
+    QDialog* profileDialog = nullptr;
+    QLineEdit* profileUsernameField = nullptr;
+    QLineEdit* profileEmailField = nullptr;
+    QLineEdit* profileOldPasswordField = nullptr;
+    QLineEdit* profileNewPasswordField = nullptr;
 
     // فرمِ افزودنِ کتابِ جدید
     QLineEdit* txtNewBookTitle;
@@ -67,10 +75,17 @@ private slots:
     void openAnalyticsWindow();
     void openDiscountWindow();
     void onOpenNotificationsClicked();
+    void onProfileClicked();
+    void onSaveProfileClicked();
+    void onChangePasswordClicked();
+    void onLogoutClicked();
     void onPushNotification(QJsonObject payload);
     void onViewBookDetailsClicked();
     void onBrowseCoverPath();
     void onBrowsePdfPath();
     void onMyBooksSelectionChanged();
     void onNetworkReply(CommandType commandType, QJsonObject payload, bool ok);
+
+signals:
+    void logoutRequested();
 };

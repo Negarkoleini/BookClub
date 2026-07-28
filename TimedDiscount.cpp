@@ -24,6 +24,9 @@ double TimedDiscount::getDiscountValue() const{
 int TimedDiscount::getDiscountId() const{
     return DiscountId;
 }
+void TimedDiscount::setDiscountId(int id) {
+    DiscountId = id;
+}
 std::string TimedDiscount::getStartDateTime() const
 {
     return startDateTime;

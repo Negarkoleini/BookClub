@@ -2,7 +2,7 @@
 #include <QMessageBox>
 #include <QString>
 
-bool startServer();
+bool startServer(QString* errorMessage = nullptr);
 void startClient();
 
 int main(int argc, char *argv[])
@@ -150,8 +150,9 @@ int main(int argc, char *argv[])
     // اعمال تم
     app.setStyleSheet(mainStyleSheet);
 
-    if (!startServer()) {
-        QMessageBox::critical(nullptr, "خطا", "سرور راه‌اندازی نشد؛ برنامه بسته می‌شود.");
+    QString startupError;
+    if (!startServer(&startupError)) {
+        QMessageBox::critical(nullptr, "خطا", startupError.isEmpty() ? "سرور راه‌اندازی نشد؛ برنامه بسته می‌شود." : startupError);
         return 1;
     }
 

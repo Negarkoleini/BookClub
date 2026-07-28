@@ -29,6 +29,15 @@ void AdminPanelWindow::buildUi() {
     setWindowTitle("BookClub - پنل مدیر سیستم");
     resize(1050, 700);
 
+    auto* outerLayout = new QVBoxLayout();
+    auto* topBar = new QHBoxLayout();
+    btnProfile = new QPushButton("👤 پروفایل");
+    btnLogout = new QPushButton("🚪 خروج از حساب");
+    topBar->addStretch(1);
+    topBar->addWidget(btnProfile);
+    topBar->addWidget(btnLogout);
+    outerLayout->addLayout(topBar);
+
     auto* tabs = new QTabWidget();
     tabs->addTab(buildUsersTab(), "کاربران");
     tabs->addTab(buildBooksTab(), "کتاب ها");
@@ -36,7 +45,13 @@ void AdminPanelWindow::buildUi() {
     tabs->addTab(buildDiscountsTab(), "تخفیف ها");
     tabs->addTab(buildSettingsTab(), "محدودیت های سیستمی");
 
-    setCentralWidget(tabs);
+    outerLayout->addWidget(tabs);
+    auto* central = new QWidget();
+    central->setLayout(outerLayout);
+    setCentralWidget(central);
+
+    connect(btnProfile, &QPushButton::clicked, this, &AdminPanelWindow::onProfileClicked);
+    connect(btnLogout, &QPushButton::clicked, this, &AdminPanelWindow::onLogoutClicked);
 }
 
 QWidget* AdminPanelWindow::buildUsersTab() {
@@ -216,6 +231,67 @@ QWidget* AdminPanelWindow::buildSettingsTab() {
 // =========================================================================
 // درخواست‌های شبکه
 // =========================================================================
+void AdminPanelWindow::onProfileClicked() {
+    profileDialog = new QDialog(this);
+    profileDialog->setWindowTitle("پروفایلِ مدیر");
+    profileDialog->resize(400, 280);
+    auto* layout = new QVBoxLayout(profileDialog);
+
+    auto* form = new QFormLayout();
+    profileUsernameField = new QLineEdit();
+    profileUsernameField->setReadOnly(true);
+    profileEmailField = new QLineEdit();
+    form->addRow("نام کاربری:", profileUsernameField);
+    form->addRow("ایمیل:", profileEmailField);
+    layout->addLayout(form);
+
+    auto* btnSave = new QPushButton("ذخیره‌ی تغییراتِ ایمیل");
+    layout->addWidget(btnSave);
+
+    layout->addWidget(new QLabel("---- تغییرِ رمزِ عبور ----"));
+    auto* passForm = new QFormLayout();
+    profileOldPasswordField = new QLineEdit();
+    profileOldPasswordField->setEchoMode(QLineEdit::Password);
+    profileNewPasswordField = new QLineEdit();
+    profileNewPasswordField->setEchoMode(QLineEdit::Password);
+    passForm->addRow("رمزِ فعلی:", profileOldPasswordField);
+    passForm->addRow("رمزِ جدید:", profileNewPasswordField);
+    layout->addLayout(passForm);
+
+    auto* btnChange = new QPushButton("تغییرِ رمزِ عبور");
+    layout->addWidget(btnChange);
+
+    connect(btnSave, &QPushButton::clicked, this, &AdminPanelWindow::onSaveProfileClicked);
+    connect(btnChange, &QPushButton::clicked, this, &AdminPanelWindow::onChangePasswordClicked);
+
+    QJsonObject req;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::GetProfile, req);
+    profileDialog->exec();
+}
+
+void AdminPanelWindow::onSaveProfileClicked() {
+    QJsonObject req;
+    req["email"] = profileEmailField->text();
+    ClientNetworkManager::getInstance().sendRequest(CommandType::UpdateProfile, req);
+}
+
+void AdminPanelWindow::onChangePasswordClicked() {
+    QString oldPass = profileOldPasswordField->text();
+    QString newPass = profileNewPasswordField->text();
+    if (oldPass.isEmpty() || newPass.isEmpty()) {
+        QMessageBox::warning(profileDialog, "خطا", "رمزِ فعلی و رمزِ جدید را وارد کنید.");
+        return;
+    }
+    QJsonObject req;
+    req["oldPassword"] = oldPass;
+    req["newPassword"] = newPass;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::ChangePassword, req);
+}
+
+void AdminPanelWindow::onLogoutClicked() {
+    emit logoutRequested();
+}
+
 void AdminPanelWindow::fetchSystemReports() {
     requestAllUsers();
     requestAllBooks();
