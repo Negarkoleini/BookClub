@@ -72,6 +72,9 @@ void RequestProcessor::handleRequest(CommandType commandType, const QByteArray &
     case CommandType::GetSuggestedBooks:          processGetSuggestedBooks(commandType, payload, sender); break;
     case CommandType::GetPopularBooks:            processGetPopularBooks(commandType, payload, sender); break;
     case CommandType::GetBestsellingBooks:        processGetBestsellingBooks(commandType, payload, sender); break;
+    case CommandType::GetFreeBooks:               processGetFreeBooks(commandType, payload, sender); break;
+    case CommandType::GetNewestBooks:             processGetNewestBooks(commandType, payload, sender); break;
+    case CommandType::GetUserPurchaseHistory:     processGetUserPurchaseHistory(commandType, payload, sender); break;
     case CommandType::AddBook:                   processAddBook(commandType, payload, sender); break;
     case CommandType::EditBook:                  processEditBook(commandType, payload, sender); break;
     case CommandType::DeleteBook:                processDeleteBook(commandType, payload, sender); break;
@@ -447,6 +450,43 @@ void RequestProcessor::processGetBestsellingBooks(CommandType cmd, const QByteAr
     }
     QJsonObject resp;
     resp["books"] = arr;
+    sendOk(sender, cmd, resp);
+}
+
+void RequestProcessor::processGetFreeBooks(CommandType cmd, const QByteArray & /*data*/, ClientSocketWorker* sender) {
+    QJsonArray arr;
+    for (const auto &b : DatabaseManager::getInstance().getAllActiveBooks()) {
+        if (b.isFree()) arr.append(bookToJsonObject(b, currentTimestamp()));
+    }
+    QJsonObject resp;
+    resp["books"] = arr;
+    sendOk(sender, cmd, resp);
+}
+
+void RequestProcessor::processGetNewestBooks(CommandType cmd, const QByteArray & /*data*/, ClientSocketWorker* sender) {
+    QVector<Book> books = DatabaseManager::getInstance().getAllActiveBooks();
+    std::sort(books.begin(), books.end(), [](const Book &a, const Book &b) {
+        return a.getPublishDate() > b.getPublishDate();
+    });
+    QJsonArray arr;
+    for (const auto &b : books) {
+        arr.append(bookToJsonObject(b, currentTimestamp()));
+    }
+    QJsonObject resp;
+    resp["books"] = arr;
+    sendOk(sender, cmd, resp);
+}
+
+void RequestProcessor::processGetUserPurchaseHistory(CommandType cmd, const QByteArray & /*data*/, ClientSocketWorker* sender) {
+    int userId = sender->getAssociatedUserId();
+    if (userId == -1) { sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید."); return; }
+
+    QJsonArray arr;
+    for (int bookId : DatabaseManager::getInstance().getPurchasedBookIds(userId)) {
+        arr.append(bookId);
+    }
+    QJsonObject resp;
+    resp["purchasedBookIds"] = arr;
     sendOk(sender, cmd, resp);
 }
 

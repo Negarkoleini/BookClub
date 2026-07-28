@@ -20,6 +20,7 @@ public:
     std::string getStartDateTime() const;
     std::string getEndDateTime() const;
     int getDiscountId() const;
+    void setDiscountId(int id);
     int getTargetBookId() const;
     DiscountType getDiscountType() const;
     double getDiscountValue() const;

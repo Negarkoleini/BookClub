@@ -35,8 +35,12 @@ void PublisherPanelWindow::buildUi() {
     auto* outerLayout = new QVBoxLayout(central);
 
     auto* topBar = new QHBoxLayout();
+    btnProfile = new QPushButton("👤 پروفایل");
+    btnLogout = new QPushButton("🚪 خروج از حساب");
     btnOpenNotifications = new QPushButton("🔔 اعلان‌ها");
     topBar->addStretch(1);
+    topBar->addWidget(btnProfile);
+    topBar->addWidget(btnLogout);
     topBar->addWidget(btnOpenNotifications);
     outerLayout->addLayout(topBar);
 
@@ -133,6 +137,8 @@ void PublisherPanelWindow::buildUi() {
     connect(btnOpenAnalytics, &QPushButton::clicked, this, &PublisherPanelWindow::openAnalyticsWindow);
     connect(btnManageDiscounts, &QPushButton::clicked, this, &PublisherPanelWindow::openDiscountWindow);
     connect(btnOpenNotifications, &QPushButton::clicked, this, &PublisherPanelWindow::onOpenNotificationsClicked);
+    connect(btnProfile, &QPushButton::clicked, this, &PublisherPanelWindow::onProfileClicked);
+    connect(btnLogout, &QPushButton::clicked, this, &PublisherPanelWindow::onLogoutClicked);
     connect(btnViewBookDetails, &QPushButton::clicked, this, &PublisherPanelWindow::onViewBookDetailsClicked);
     connect(btnBrowseCoverPath, &QPushButton::clicked, this, &PublisherPanelWindow::onBrowseCoverPath);
     connect(btnBrowsePdfPath, &QPushButton::clicked, this, &PublisherPanelWindow::onBrowsePdfPath);
@@ -264,6 +270,67 @@ void PublisherPanelWindow::onOpenNotificationsClicked() {
     notificationCenter->raise();
 }
 
+void PublisherPanelWindow::onProfileClicked() {
+    profileDialog = new QDialog(this);
+    profileDialog->setWindowTitle("پروفایلِ ناشر");
+    profileDialog->resize(400, 280);
+    auto* layout = new QVBoxLayout(profileDialog);
+
+    auto* form = new QFormLayout();
+    profileUsernameField = new QLineEdit();
+    profileUsernameField->setReadOnly(true);
+    profileEmailField = new QLineEdit();
+    form->addRow("نام کاربری:", profileUsernameField);
+    form->addRow("ایمیل:", profileEmailField);
+    layout->addLayout(form);
+
+    auto* btnSave = new QPushButton("ذخیره‌ی تغییراتِ ایمیل");
+    layout->addWidget(btnSave);
+
+    layout->addWidget(new QLabel("---- تغییرِ رمزِ عبور ----"));
+    auto* passForm = new QFormLayout();
+    profileOldPasswordField = new QLineEdit();
+    profileOldPasswordField->setEchoMode(QLineEdit::Password);
+    profileNewPasswordField = new QLineEdit();
+    profileNewPasswordField->setEchoMode(QLineEdit::Password);
+    passForm->addRow("رمزِ فعلی:", profileOldPasswordField);
+    passForm->addRow("رمزِ جدید:", profileNewPasswordField);
+    layout->addLayout(passForm);
+
+    auto* btnChange = new QPushButton("تغییرِ رمزِ عبور");
+    layout->addWidget(btnChange);
+
+    connect(btnSave, &QPushButton::clicked, this, &PublisherPanelWindow::onSaveProfileClicked);
+    connect(btnChange, &QPushButton::clicked, this, &PublisherPanelWindow::onChangePasswordClicked);
+
+    QJsonObject req;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::GetProfile, req);
+    profileDialog->exec();
+}
+
+void PublisherPanelWindow::onSaveProfileClicked() {
+    QJsonObject req;
+    req["email"] = profileEmailField->text();
+    ClientNetworkManager::getInstance().sendRequest(CommandType::UpdateProfile, req);
+}
+
+void PublisherPanelWindow::onChangePasswordClicked() {
+    QString oldPass = profileOldPasswordField->text();
+    QString newPass = profileNewPasswordField->text();
+    if (oldPass.isEmpty() || newPass.isEmpty()) {
+        QMessageBox::warning(profileDialog, "خطا", "رمزِ فعلی و رمزِ جدید را وارد کنید.");
+        return;
+    }
+    QJsonObject req;
+    req["oldPassword"] = oldPass;
+    req["newPassword"] = newPass;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::ChangePassword, req);
+}
+
+void PublisherPanelWindow::onLogoutClicked() {
+    emit logoutRequested();
+}
+
 void PublisherPanelWindow::onPushNotification(QJsonObject payload) {
     QString message = payload.value("message").toString();
     auto* toast = new InAppNotificationWidget(this);
@@ -325,6 +392,14 @@ void PublisherPanelWindow::onBrowsePdfPath() {
 void PublisherPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payload, bool ok) {
     if (!ok) {
         QMessageBox::warning(this, "خطا", payload.value("error").toString());
+        return;
+    }
+
+    if (commandType == CommandType::GetProfile) {
+        if (profileDialog && profileUsernameField && profileEmailField) {
+            profileUsernameField->setText(payload.value("username").toString());
+            profileEmailField->setText(payload.value("email").toString());
+        }
         return;
     }
 

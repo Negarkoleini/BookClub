@@ -29,6 +29,23 @@ bool DatabaseManager::initialize(const QString &dbFilePath) {
         return false;
     }
 
+    QSqlQuery tableInfo(db);
+    tableInfo.exec("PRAGMA table_info(discounts);");
+    bool hasApprovalColumn = false;
+    while (tableInfo.next()) {
+        if (tableInfo.value("name").toString() == "isApproved") {
+            hasApprovalColumn = true;
+            break;
+        }
+    }
+    if (!hasApprovalColumn) {
+        QSqlQuery alter(db);
+        if (!alter.exec("ALTER TABLE discounts ADD COLUMN isApproved INTEGER DEFAULT 0;")) {
+            qWarning() << "Failed to add isApproved column to discounts" << alter.lastError().text();
+            return false;
+        }
+    }
+
     QSqlQuery q(db);
     if (q.exec("SELECT MAX(id) FROM books;") && q.next()) {
         int maxId = q.value(0).toInt();
@@ -932,7 +949,7 @@ QVector<TimedDiscount> DatabaseManager::getActiveDiscountsForBook(int bookId, co
     QMutexLocker locker(&dbMutex);
     QVector<TimedDiscount> result;
     QSqlQuery q(db);
-    q.prepare("SELECT * FROM discounts WHERE targetBookId=?;");
+    q.prepare("SELECT * FROM discounts WHERE targetBookId=? AND isApproved = 1;");
     q.addBindValue(bookId);
     if (q.exec()) {
         while (q.next()) {
@@ -963,6 +980,7 @@ QVector<TimedDiscount> DatabaseManager::getPendingDiscounts() const {
                 q.value("startDateTime").toString().toStdString(),
                 q.value("endDateTime").toString().toStdString()
                 );
+            d.setDiscountId(q.value("discountId").toInt());
             result.push_back(d);
         }
     }
@@ -982,6 +1000,7 @@ bool DatabaseManager::getDiscountById(int discountId, TimedDiscount &out) const 
         q.value("startDateTime").toString().toStdString(),
         q.value("endDateTime").toString().toStdString()
         );
+    out.setDiscountId(q.value("discountId").toInt());
     return true;
 }
 

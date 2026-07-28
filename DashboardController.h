@@ -32,6 +32,7 @@ public:
 
 private slots:
     void onLoginSucceeded(int userId, QString role);
+    void onLogoutRequested();
 };
 
 #endif // DASHBOARDCONTROLLER_H
