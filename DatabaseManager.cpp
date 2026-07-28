@@ -763,6 +763,20 @@ QVector<int> DatabaseManager::getPurchasedBookIds(int userId) const {
     }
     return ids;
 }
+
+QVector<QPair<int, QString>> DatabaseManager::getPurchaseHistoryForUser(int userId) const {
+    QMutexLocker locker(&dbMutex);
+    QVector<QPair<int, QString>> history;
+    QSqlQuery q(db);
+    q.prepare("SELECT purchasedBookId, transactionTime FROM transactions WHERE buyerUserId=? ORDER BY transactionTime DESC, transactionId DESC;");
+    q.addBindValue(userId);
+    if (q.exec()) {
+        while (q.next()) {
+            history.push_back({q.value(0).toInt(), q.value(1).toString()});
+        }
+    }
+    return history;
+}
 // کتابخانه شخصی
 bool DatabaseManager::saveBookForLater(int userId, int bookId) {
     QMutexLocker locker(&dbMutex);

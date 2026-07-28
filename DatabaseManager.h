@@ -5,6 +5,7 @@
 #include <QMutex>
 #include <QVector>
 #include <QSqlDatabase>
+#include <QPair>
 #include <memory>
 
 #include "User.h"
@@ -109,6 +110,7 @@ class DatabaseManager{
         bool addBookToLibrary(int userId, int bookId);
         bool isBookInLibrary(int userId, int bookId) const;
         QVector<int> getPurchasedBookIds(int userId) const;
+        QVector<QPair<int, QString>> getPurchaseHistoryForUser(int userId) const;
         //کتابخانه شخصی//
         bool saveBookForLater(int userId, int bookId);
         bool removeSavedBook(int userId, int bookId);

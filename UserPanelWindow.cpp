@@ -13,6 +13,8 @@
 #include <QJsonArray>
 #include <QInputDialog>
 #include <QPainter>
+#include <QScrollArea>
+#include <QFrame>
 #include <QIcon>
 #include <QFileInfo>
 #include <QDateTime>
@@ -51,7 +53,14 @@ QPixmap loadPosterCover(const std::string &coverPath, const std::string &title, 
         cover.load(QString::fromStdString(coverPath));
     }
     if (!cover.isNull()) {
-        return cover.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        // Scale so the image fills the target area, then center-crop to exact size
+        QPixmap scaled = cover.scaled(size, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+        if (scaled.size() != size) {
+            const int x = (scaled.width() - size.width()) / 2;
+            const int y = (scaled.height() - size.height()) / 2;
+            return scaled.copy(x, y, size.width(), size.height());
+        }
+        return scaled;
     }
 
     QPixmap placeholder(size);
@@ -66,6 +75,68 @@ QPixmap loadPosterCover(const std::string &coverPath, const std::string &title, 
                      Qt::AlignCenter | Qt::TextWordWrap,
                      QString::fromStdString(title));
     return placeholder;
+}
+
+QPushButton* createCatalogBookButton(const Book &book,
+                                     const QString &currentTime,
+                                     const QSize &posterSize) {
+    auto* button = new QPushButton();
+    button->setCheckable(true);
+    const int btnWidth = posterSize.width() + 40;
+    const int btnHeight = posterSize.height() + 120;
+    button->setMinimumSize(btnWidth, btnHeight);
+    button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
+    button->setCursor(Qt::PointingHandCursor);
+    button->setStyleSheet(
+        "QPushButton {"
+        "text-align: center;"
+        "padding: 6px;"
+        "border: 1px solid #d1d5db;"
+        "border-radius: 10px;"
+        "background-color: #ffffff;"
+        "color: #111827;"
+        "}"
+        "QPushButton:checked {"
+        "border: 2px solid #2563eb;"
+        "background-color: #eff6ff;"
+        "}");
+
+    auto* cardLayout = new QVBoxLayout(button);
+    cardLayout->setContentsMargins(8, 8, 8, 10);
+    cardLayout->setSpacing(8);
+
+    auto* coverLabel = new QLabel();
+    coverLabel->setAlignment(Qt::AlignCenter);
+    coverLabel->setFixedSize(posterSize);
+    coverLabel->setStyleSheet(
+        "background-color: #f3f4f6;"
+        "border: 1px solid #e5e7eb;"
+        "border-radius: 8px;"
+        "padding: 2px;");
+    const QPixmap cover = loadPosterCover(book.getCoverImagePath(), book.getTitle(), posterSize);
+    coverLabel->setPixmap(cover);
+
+    auto* titleLabel = new QLabel(QString::fromStdString(book.getTitle()));
+    titleLabel->setWordWrap(true);
+    titleLabel->setAlignment(Qt::AlignCenter);
+    titleLabel->setStyleSheet("font-weight: 600; color: #111827; font-size: 11px;");
+    titleLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    titleLabel->setMaximumHeight(70);
+
+    auto* priceLabel = new QLabel(buildBookPriceSubtitle(book, currentTime));
+    priceLabel->setWordWrap(true);
+    priceLabel->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+    priceLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    priceLabel->setMaximumHeight(90);
+    priceLabel->setStyleSheet("font-size: 10px; color: #6b7280; line-height: 1.4;");
+
+    cardLayout->addWidget(coverLabel, 0, Qt::AlignCenter);
+    cardLayout->addWidget(titleLabel, 0, Qt::AlignCenter);
+    cardLayout->addWidget(priceLabel, 0, Qt::AlignTop | Qt::AlignHCenter);
+
+    button->setProperty("bookId", book.getId());
+    button->setToolTip(QString::fromStdString(book.getTitle()) + " — " + QString::fromStdString(book.getAuthor()));
+    return button;
 }
 
 void addCatalogSection(QListWidget *listWidget,
@@ -84,63 +155,67 @@ void addCatalogSection(QListWidget *listWidget,
     sectionLayout->setSpacing(6);
 
     auto* header = new QLabel(title);
+    header->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     header->setStyleSheet(
         "QLabel {"
         "border-bottom: 1px solid #e5e7eb;"
         "padding-bottom: 4px;"
         "font-weight: bold;"
         "color: #374151;"
+        "font-size: 12px;"
         "}");
-    sectionLayout->addWidget(header);
+    sectionLayout->addWidget(header, 0, Qt::AlignRight);
 
     auto* booksRow = new QWidget();
     auto* booksRowLayout = new QHBoxLayout(booksRow);
     booksRowLayout->setContentsMargins(0, 0, 0, 0);
     booksRowLayout->setSpacing(10);
+    booksRowLayout->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+    auto* booksScrollArea = new QScrollArea();
+    booksScrollArea->setWidgetResizable(true);
+    booksScrollArea->setFrameShape(QFrame::NoFrame);
+    booksScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    booksScrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    booksScrollArea->setStyleSheet("QScrollArea { background: transparent; }");
+    booksScrollArea->setFixedHeight(posterSize.height() + 150);
+
+    auto* scrollContent = new QWidget();
+    auto* scrollLayout = new QHBoxLayout(scrollContent);
+    scrollLayout->setContentsMargins(0, 0, 0, 0);
+    scrollLayout->setSpacing(10);
+    scrollLayout->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
     for (const auto &book : books) {
-        auto* button = new QPushButton();
-        button->setToolTip(QString::fromStdString(book.getTitle()));
-        button->setCheckable(true);
-        button->setFixedSize(120, 190);
-        button->setStyleSheet(
-            "QPushButton {"
-            "text-align: center;"
-            "padding: 6px;"
-            "border: 1px solid #d1d5db;"
-            "border-radius: 8px;"
-            "background-color: #ffffff;"
-            "color: #111827;"
-            "}"
-            "QPushButton:checked {"
-            "border: 2px solid #2563eb;"
-            "background-color: #eff6ff;"
-            "}");
-
-        QPixmap cover = loadPosterCover(book.getCoverImagePath(), book.getTitle(), QSize(90, 120));
-        button->setIcon(QIcon(cover));
-        button->setIconSize(QSize(90, 120));
-        button->setText(QString("%1\n%2")
-                             .arg(QString::fromStdString(book.getTitle()))
-                             .arg(buildBookPriceSubtitle(book, currentTime)));
-        button->setStyleSheet(button->styleSheet() +
-            "QPushButton { padding-top: 6px; }"
-            "QPushButton::icon { padding-bottom: 4px; }");
-        button->setToolTip(QString::fromStdString(book.getTitle()) + " — " + QString::fromStdString(book.getAuthor()));
-        button->setProperty("bookId", book.getId());
+        auto* button = createCatalogBookButton(book, currentTime, posterSize);
         QObject::connect(button, &QPushButton::clicked, [onSelectBook, bookId = book.getId()]() {
             onSelectBook(bookId);
         });
-        booksRowLayout->addWidget(button);
+        scrollLayout->addWidget(button);
     }
 
-    sectionLayout->addWidget(booksRow);
+    booksScrollArea->setWidget(scrollContent);
+    sectionLayout->addWidget(booksScrollArea);
 
     auto* item = new QListWidgetItem();
     item->setSizeHint(sectionWidget->sizeHint());
     item->setFlags(item->flags() & ~Qt::ItemIsSelectable);
     listWidget->addItem(item);
     listWidget->setItemWidget(item, sectionWidget);
+}
+
+void addPosterBookItem(QListWidget *listWidget, const Book &book, const QString &badgeText) {
+    QPixmap cover = loadPosterCover(book.getCoverImagePath(), book.getTitle(), QSize(120, 160));
+    auto* item = new QListWidgetItem(QIcon(cover), QString("%1\n%2")
+                                         .arg(QString::fromStdString(book.getTitle()))
+                                         .arg(badgeText));
+    item->setData(Qt::UserRole, book.getId());
+    item->setToolTip(QString("%1 — %2\n%3")
+                     .arg(QString::fromStdString(book.getTitle()))
+                     .arg(QString::fromStdString(book.getAuthor()))
+                     .arg(badgeText));
+    item->setTextAlignment(Qt::AlignCenter);
+    listWidget->addItem(item);
 }
 
 QString formatRemainingTime(const QString &endDateTime) {
@@ -216,6 +291,7 @@ void UserPanelWindow::buildUi() {
     auto* topBar = new QHBoxLayout();
     lblBalance = new QLabel("موجودی: ...");
     btnChargeWallet = new QPushButton("💳 شارژِ کیف پول");
+    btnPurchaseHistory = new QPushButton("🛍️ خریدهای من");
     btnProfile = new QPushButton("👤 پروفایل");
     btnLogout = new QPushButton("🚪 خروج از حساب");
     txtSearch = new QLineEdit();
@@ -241,6 +317,7 @@ void UserPanelWindow::buildUi() {
 
     topBar->addWidget(lblBalance);
     topBar->addWidget(btnChargeWallet);
+    topBar->addWidget(btnPurchaseHistory);
     topBar->addWidget(btnProfile);
     topBar->addWidget(btnLogout);
     topBar->addWidget(txtSearch, /*stretch=*/1);
@@ -296,12 +373,18 @@ void UserPanelWindow::buildUi() {
     auto* libraryLayout = new QVBoxLayout(libraryTab);
     listWidgetMyLibrary = new QListWidget();
     listWidgetMyLibrary->setViewMode(QListWidget::IconMode);
-    listWidgetMyLibrary->setIconSize(QSize(140, 190));
-    listWidgetMyLibrary->setGridSize(QSize(170, 260));
+    listWidgetMyLibrary->setFlow(QListView::LeftToRight);
+    listWidgetMyLibrary->setWrapping(true);
+    listWidgetMyLibrary->setIconSize(QSize(150, 210));
+    listWidgetMyLibrary->setGridSize(QSize(180, 260));
     listWidgetMyLibrary->setResizeMode(QListWidget::Adjust);
     listWidgetMyLibrary->setMovement(QListWidget::Static);
     listWidgetMyLibrary->setUniformItemSizes(true);
-    listWidgetMyLibrary->setSpacing(8);
+    listWidgetMyLibrary->setSpacing(10);
+    listWidgetMyLibrary->setWordWrap(true);
+    listWidgetMyLibrary->setStyleSheet(
+        "QListWidget { background: transparent; }"
+        "QListWidget::item { padding: 6px; border: none; }");
     auto* libraryButtons = new QHBoxLayout();
     btnRead = new QPushButton("مطالعه‌ی کتاب");
     btnAddToShelf = new QPushButton("📚 افزودن به قفسه...");
@@ -393,6 +476,7 @@ void UserPanelWindow::buildUi() {
     connect(btnMoveToShelf, &QPushButton::clicked, this, &UserPanelWindow::onMoveBookToShelfClicked);
     connect(btnRemoveFromShelf, &QPushButton::clicked, this, &UserPanelWindow::onRemoveBookFromShelfClicked);
     connect(btnChargeWallet, &QPushButton::clicked, this, &UserPanelWindow::onChargeWalletClicked);
+    connect(btnPurchaseHistory, &QPushButton::clicked, this, &UserPanelWindow::onPurchaseHistoryClicked);
     connect(btnProfile, &QPushButton::clicked, this, &UserPanelWindow::onProfileClicked);
     connect(btnLogout, &QPushButton::clicked, this, &UserPanelWindow::onLogoutClicked);
 }
@@ -457,7 +541,7 @@ void UserPanelWindow::refreshCatalogListWidget(const QVector<Book> &books) {
     const QString currentTime = QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
     const QString searchText = txtSearch->text();
     int genreValue = comboGenreFilter->currentData().toInt();
-    const QSize catalogPosterSize(110, 150);
+    const QSize catalogPosterSize(150, 210);
 
     auto filterBooks = [&](const QVector<Book> &source) {
         auto filtered = searchEngine.filterByTitleOrAuthor(searchText, source);
@@ -477,7 +561,8 @@ void UserPanelWindow::refreshCatalogListWidget(const QVector<Book> &books) {
             });
     };
 
-    addSection("📚 پیشنهادی برای شما", suggestedBooksCache);
+    addSection("� کتاب‌های رایگان", freeBooksCache);
+    addSection("✨ پیشنهادی برای شما", suggestedBooksCache);
     addSection("🔥 پرفروش‌ترین‌ها", bestsellingBooksCache);
     addSection("🆕 تازه منتشرشده", newestBooksCache);
     addSection("⭐ محبوب‌ترین‌ها", popularBooksCache);
@@ -487,19 +572,23 @@ void UserPanelWindow::refreshProfileHistoryList() {
     if (!profilePurchaseHistoryList) return;
     profilePurchaseHistoryList->clear();
     profilePurchaseHistoryList->setViewMode(QListWidget::IconMode);
-    profilePurchaseHistoryList->setIconSize(QSize(120, 170));
-    profilePurchaseHistoryList->setGridSize(QSize(150, 220));
+    profilePurchaseHistoryList->setIconSize(QSize(150, 210));
+    profilePurchaseHistoryList->setGridSize(QSize(180, 260));
     profilePurchaseHistoryList->setResizeMode(QListWidget::Adjust);
     profilePurchaseHistoryList->setMovement(QListWidget::Static);
     profilePurchaseHistoryList->setUniformItemSizes(true);
     profilePurchaseHistoryList->setSpacing(8);
 
-    if (myLibraryCache.isEmpty()) {
+    if (purchaseHistoryCache.isEmpty()) {
         profilePurchaseHistoryList->addItem("هنوز کتابی خریداری نشده است.");
         return;
     }
-    for (const auto &b : myLibraryCache) {
-        addPosterBookItem(profilePurchaseHistoryList, b, QString("خریداری‌شده"));
+    for (const auto &entry : purchaseHistoryCache) {
+        Book* book = findCachedBookById(entry.bookId);
+        if (!book) {
+            continue;
+        }
+        addPosterBookItem(profilePurchaseHistoryList, *book, QString("خرید در %1").arg(entry.purchasedAt));
     }
 }
 
@@ -1049,6 +1138,32 @@ void UserPanelWindow::onChargeWalletClicked() {
     ClientNetworkManager::getInstance().sendRequest(CommandType::DepositMoney, req);
 }
 
+void UserPanelWindow::onPurchaseHistoryClicked() {
+    if (!purchaseHistoryDialog) {
+        purchaseHistoryDialog = new QDialog(this);
+        purchaseHistoryDialog->setWindowTitle("خریدهای من");
+        purchaseHistoryDialog->resize(560, 420);
+        auto* layout = new QVBoxLayout(purchaseHistoryDialog);
+        purchaseHistoryDialogList = new QListWidget();
+        purchaseHistoryDialogList->setViewMode(QListWidget::IconMode);
+        purchaseHistoryDialogList->setIconSize(QSize(120, 170));
+        purchaseHistoryDialogList->setGridSize(QSize(150, 220));
+        purchaseHistoryDialogList->setResizeMode(QListWidget::Adjust);
+        purchaseHistoryDialogList->setMovement(QListWidget::Static);
+        purchaseHistoryDialogList->setUniformItemSizes(true);
+        purchaseHistoryDialogList->setSpacing(8);
+        layout->addWidget(purchaseHistoryDialogList);
+    }
+
+    purchaseHistoryDialogList->clear();
+    purchaseHistoryDialogList->addItem("در حال دریافت اطلاعات...");
+    purchaseHistoryDialog->show();
+    purchaseHistoryDialog->raise();
+
+    QJsonObject req;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::GetUserPurchaseHistory, req);
+}
+
 // =========================================================================
 // پروفایل: مشاهده/ویرایشِ اطلاعات + تغییرِ رمز عبور
 // =========================================================================
@@ -1076,11 +1191,6 @@ void UserPanelWindow::openProfileDialog() {
 
     auto* btnSaveProfile = new QPushButton("ذخیره‌ی تغییراتِ ایمیل");
     layout->addWidget(btnSaveProfile);
-
-    auto* historyLabel = new QLabel("تاریخچه‌ی خرید:");
-    layout->addWidget(historyLabel);
-    profilePurchaseHistoryList = new QListWidget();
-    layout->addWidget(profilePurchaseHistoryList);
 
     auto* btnEditGenres = new QPushButton(" تغییر ژانرهای موردعلاقه");
     layout->addWidget(btnEditGenres);
@@ -1269,6 +1379,14 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
                 addPosterBookItem(listWidgetMyLibrary, *b, QString("در کتابخانه شما"));
             }
         }
+        purchaseHistoryCache.clear();
+        for (const auto &v : payload.value("purchaseHistory").toArray()) {
+            QJsonObject entry = v.toObject();
+            PurchaseHistoryEntry historyEntry;
+            historyEntry.bookId = entry.value("bookId").toInt();
+            historyEntry.purchasedAt = entry.value("purchasedAt").toString();
+            purchaseHistoryCache.push_back(historyEntry);
+        }
         savedBooksCache.clear();
         listWidgetSaved->clear();
         for (const auto &v : payload.value("savedBookIds").toArray()) {
@@ -1281,6 +1399,30 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
         }
         refreshProfileHistoryList();
         applyCurrentBookViewFilter();
+        break;
+    }
+    case CommandType::GetUserPurchaseHistory: {
+        purchaseHistoryCache.clear();
+        for (const auto &v : payload.value("purchaseHistory").toArray()) {
+            QJsonObject entry = v.toObject();
+            PurchaseHistoryEntry historyEntry;
+            historyEntry.bookId = entry.value("bookId").toInt();
+            historyEntry.purchasedAt = entry.value("purchasedAt").toString();
+            purchaseHistoryCache.push_back(historyEntry);
+        }
+        if (purchaseHistoryDialogList) {
+            purchaseHistoryDialogList->clear();
+            if (purchaseHistoryCache.isEmpty()) {
+                purchaseHistoryDialogList->addItem("هنوز کتابی خریداری نشده است.");
+            } else {
+                for (const auto &entry : purchaseHistoryCache) {
+                    Book* book = findCachedBookById(entry.bookId);
+                    if (!book) continue;
+                    addPosterBookItem(purchaseHistoryDialogList, *book, QString("خرید در %1").arg(entry.purchasedAt));
+                }
+            }
+        }
+        refreshProfileHistoryList();
         break;
     }
     case CommandType::GetNotifications: {

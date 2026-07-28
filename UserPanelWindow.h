@@ -22,6 +22,11 @@
 #include "CommandType.h"
 
 
+struct PurchaseHistoryEntry {
+    int bookId = -1;
+    QString purchasedAt;
+};
+
 class UserPanelWindow : public QMainWindow {
     Q_OBJECT
 private:
@@ -32,6 +37,7 @@ private:
     QLineEdit* txtSearch;
     QComboBox* comboGenreFilter;
     QPushButton* btnChargeWallet;
+    QPushButton* btnPurchaseHistory;
     QPushButton* btnProfile;
     QPushButton* btnLogout;
     QPushButton* btnOpenNotifications;
@@ -82,6 +88,7 @@ private:
     QVector<Book> newestBooksCache;
     QVector<Book> myLibraryCache;
     QVector<Book> savedBooksCache;
+    QVector<PurchaseHistoryEntry> purchaseHistoryCache;
 
     PdfReaderWidget* pdfReader = nullptr;
     NotificationCenterWidget* notificationCenter = nullptr;
@@ -102,6 +109,8 @@ private:
 
     // ---- دیالوگِ پروفایل ----
     QDialog* profileDialog = nullptr;
+    QDialog* purchaseHistoryDialog = nullptr;
+    QListWidget* purchaseHistoryDialogList = nullptr;
     QLineEdit* profileUsernameField = nullptr;
     QLineEdit* profileEmailField = nullptr;
     QLineEdit* profileOldPasswordField = nullptr;
@@ -165,6 +174,7 @@ private slots:
     void onDeleteSelectedCommentClicked();
 
     void onChargeWalletClicked();
+    void onPurchaseHistoryClicked();
     void onProfileClicked();
     void onLogoutClicked();
     void onSaveProfileClicked();

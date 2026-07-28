@@ -482,11 +482,14 @@ void RequestProcessor::processGetUserPurchaseHistory(CommandType cmd, const QByt
     if (userId == -1) { sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید."); return; }
 
     QJsonArray arr;
-    for (int bookId : DatabaseManager::getInstance().getPurchasedBookIds(userId)) {
-        arr.append(bookId);
+    for (const auto &entry : DatabaseManager::getInstance().getPurchaseHistoryForUser(userId)) {
+        QJsonObject item;
+        item["bookId"] = entry.first;
+        item["purchasedAt"] = entry.second;
+        arr.append(item);
     }
     QJsonObject resp;
-    resp["purchasedBookIds"] = arr;
+    resp["purchaseHistory"] = arr;
     sendOk(sender, cmd, resp);
 }
 
@@ -694,6 +697,13 @@ void RequestProcessor::processGetLibrary(CommandType cmd, const QByteArray & /*d
     for (int bookId : DatabaseManager::getInstance().getPurchasedBookIds(userId)) {
         purchasedArr.append(bookId);
     }
+    QJsonArray purchaseHistoryArr;
+    for (const auto &entry : DatabaseManager::getInstance().getPurchaseHistoryForUser(userId)) {
+        QJsonObject item;
+        item["bookId"] = entry.first;
+        item["purchasedAt"] = entry.second;
+        purchaseHistoryArr.append(item);
+    }
     QJsonArray savedArr;
     for (int bookId : DatabaseManager::getInstance().getSavedBookIds(userId)) {
         savedArr.append(bookId);
@@ -701,6 +711,7 @@ void RequestProcessor::processGetLibrary(CommandType cmd, const QByteArray & /*d
 
     QJsonObject resp;
     resp["purchasedBookIds"] = purchasedArr;
+    resp["purchaseHistory"] = purchaseHistoryArr;
     resp["savedBookIds"] = savedArr;
     sendOk(sender, cmd, resp);
 }
