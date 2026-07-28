@@ -12,6 +12,8 @@
 #include "CommandType.h"
 #include "AnalyticsChartWidget.h"
 #include "DiscountManagerWidget.h"
+#include "NotificationCenterWidget.h"
+#include "InAppNotificationWidget.h"
 
 
 class PublisherPanelWindow : public QMainWindow {
@@ -20,6 +22,8 @@ private:
     int currentPublisherId;
 
     QTableWidget* tableMyBooks;
+    QPushButton* btnOpenNotifications;
+    NotificationCenterWidget* notificationCenter = nullptr;
 
     // فرمِ افزودنِ کتابِ جدید
     QLineEdit* txtNewBookTitle;
@@ -55,5 +59,7 @@ private slots:
     void handleDeleteSubmit();
     void openAnalyticsWindow();
     void openDiscountWindow();
+    void onOpenNotificationsClicked();
+    void onPushNotification(QJsonObject payload);
     void onNetworkReply(CommandType commandType, QJsonObject payload, bool ok);
 };

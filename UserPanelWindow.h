@@ -51,10 +51,22 @@ private:
     // ---- تب کتابخانه من ----
     QListWidget* listWidgetMyLibrary;
     QPushButton* btnRead;
+    QPushButton* btnAddToShelf;
 
     // ---- تب ذخیره‌شده‌ها ----
     QListWidget* listWidgetSaved;
     QPushButton* btnRemoveSaved;
+
+    // ---- تب قفسه‌های شخصی ----
+    QComboBox* comboShelfSelector;
+    QPushButton* btnCreateShelf;
+    QPushButton* btnRenameShelf;
+    QPushButton* btnDeleteShelf;
+    QListWidget* listWidgetShelfBooks;
+    QComboBox* comboMoveTargetShelf;
+    QPushButton* btnMoveToShelf;
+    QPushButton* btnRemoveFromShelf;
+    QJsonArray shelvesCache; // آخرین پاسخِ GetShelves: [{shelfId, shelfName, bookIds:[...]}]
 
     int currentUserId;
     BookSearchEngine searchEngine;
@@ -94,6 +106,11 @@ private:
     void refreshCartListWidget();
     Book* findCachedBookById(int bookId);
 
+    // ---- قفسه‌های شخصی ----
+    void requestShelves();
+    void refreshShelfSelector();
+    void refreshShelfBooksList();
+
     void promptFavoriteGenresIfNeeded(const QJsonArray &currentGenres);
     void openBookDetailsDialog(int bookId);
     void refreshDialogCommentsList();
@@ -115,6 +132,15 @@ private slots:
     void onReadBookClicked();
     void onRemoveSavedClicked();
     void onOpenNotificationsClicked();
+
+    // ---- قفسه‌های شخصی ----
+    void onAddToShelfFromLibraryClicked();
+    void onShelfSelectionChanged(int index);
+    void onCreateShelfClicked();
+    void onRenameShelfClicked();
+    void onDeleteShelfClicked();
+    void onMoveBookToShelfClicked();
+    void onRemoveBookFromShelfClicked();
 
     void onBookViewChanged(int index);
     void onViewDetailsClicked();

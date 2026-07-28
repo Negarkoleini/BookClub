@@ -2,8 +2,8 @@
 #include<algorithm>
 
 Publisher::Publisher(int id, std::string username, std::string passwordHash, std::string email,
-std::string registrationDate, std::string publisherName, std::string corporateId):
-User(id,username,passwordHash,email,"Publisher",registrationDate),publisherName(publisherName),corporateId(corporateId){}
+                     std::string registrationDate, std::string publisherName, std::string corporateId):
+    User(id,username,passwordHash,email,"Publisher",registrationDate),publisherName(publisherName),corporateId(corporateId){}
 
 std::string Publisher::getPublisherName() const{
     return publisherName;
@@ -39,28 +39,28 @@ bool Publisher::softDeleteBook(int bookId){
 
 void Publisher::createDiscount(const TimedDiscount &discount){
     bool ownsBook=std::any_of(publishedBooks.begin(),publishedBooks.end(),
-                               [&discount](const Book &b){
-                                   return b.getId()==discount.getTargetBookId();
-    });
+                                [&discount](const Book &b){
+                                    return b.getId()==discount.getTargetBookId();
+                                });
     if(ownsBook){
-    activeDiscounts.push_back(discount);
+        activeDiscounts.push_back(discount);
     }
 }
 std::vector<TimedDiscount> Publisher::getActiveDiscounts()const{
     return activeDiscounts;
 }
 void Publisher::applyDiscountsToOwnBooks(const std::string &currentSystemTime) {
-        for (Book &book : publishedBooks) {
-            for (const TimedDiscount &discount : activeDiscounts) {
-                if (discount.getTargetBookId() == book.getId()) {
-                    book.removeDiscount(discount.getDiscountId());
-                    if (discount.isActiveNow(currentSystemTime)) {
-                        book.addDiscount(discount);
-                    }
+    for (Book &book : publishedBooks) {
+        for (const TimedDiscount &discount : activeDiscounts) {
+            if (discount.getTargetBookId() == book.getId()) {
+                book.removeDiscount(discount.getDiscountId());
+                if (discount.isActiveNow(currentSystemTime)) {
+                    book.addDiscount(discount);
                 }
             }
         }
     }
+}
 
 
 AnalyticsData Publisher::getAnalytics() const{

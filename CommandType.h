@@ -95,6 +95,11 @@ enum class CommandType
     GetNotifications,
     MarkNotificationRead,
 
+    // ---- قفسه‌های شخصی (تکمیلی) ----
+    GetShelves,
+    RenameShelf,
+    MoveBookBetweenShelves,
+
     // ---- پاسخ‌های عمومی سرور ----
     ResponseOk,
     ResponseError,

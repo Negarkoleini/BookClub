@@ -1,7 +1,7 @@
 #include "RequestProcessor.h"
 #include "DatabaseManager.h"
 #include "SessionManager.h"
-#include "JsonPayload.h"
+#include "JsonPayLoad.h"
 
 #include "SecurityUtils.h"
 #include "RegularUser.h"
@@ -84,6 +84,10 @@ void RequestProcessor::handleRequest(CommandType commandType, const QByteArray &
     case CommandType::CreateShelf:               processCreateShelf(commandType, payload, sender); break;
     case CommandType::DeleteShelf:               processDeleteShelf(commandType, payload, sender); break;
     case CommandType::AddBookToShelf:            processAddBookToShelf(commandType, payload, sender); break;
+    case CommandType::RemoveBookFromShelf:       processRemoveBookFromShelf(commandType, payload, sender); break;
+    case CommandType::GetShelves:                processGetShelves(commandType, payload, sender); break;
+    case CommandType::RenameShelf:               processRenameShelf(commandType, payload, sender); break;
+    case CommandType::MoveBookBetweenShelves:    processMoveBookBetweenShelves(commandType, payload, sender); break;
     case CommandType::SavePageLocation:          processSavePageLocation(commandType, payload, sender); break;
     case CommandType::GetPageLocation:           processGetPageLocation(commandType, payload, sender); break;
 
@@ -440,14 +444,16 @@ void RequestProcessor::processGetBookDetails(CommandType cmd, const QByteArray &
         sendError(sender, cmd, "کتاب یافت نشد.");
         return;
     }
+    int viewerUserId = sender->getAssociatedUserId();
     QJsonArray commentsArr;
-    for (const auto &c : DatabaseManager::getInstance().getCommentsForBook(bookId)) {
+    for (const auto &c : DatabaseManager::getInstance().getCommentsForBook(bookId, viewerUserId)) {
         QJsonObject co;
         co["commentId"] = c.getCommentId();
         co["userId"] = c.getUserId();
         co["username"] = QString::fromStdString(c.getSenderUsername());
         co["text"] = QString::fromStdString(c.getTextContent());
         co["timestamp"] = QString::fromStdString(c.getTimestamp());
+        co["isApproved"] = c.getIsApproved(); // اگر false باشد یعنی این نظر فقط برای صاحبش (در انتظار تایید) نمایش داده می‌شود
         commentsArr.append(co);
     }
 
@@ -486,10 +492,13 @@ void RequestProcessor::processAddBook(CommandType cmd, const QByteArray &data, C
         return;
     }
 
+    // نکته‌ی مهم: اعلان باید برای *همه‌ی* کاربرانی که این ژانر جزو ژانرهای موردعلاقه‌شان است
+    // ساخته و در دیتابیس ذخیره شود (چه در این لحظه آنلاین باشند چه نباشند)؛ در غیر این صورت
+    // کاربرانی که هنگام انتشار کتاب آنلاین نبوده‌اند، بعداً هم که وارد شوند چیزی نخواهند دید.
     AppNotification notif = AppNotification::createNewBookNotification(0, -1, req["title"].toString().toStdString());
-    for (int uid : SessionManager::getInstance().getOnlineUserIds()) {
+    for (int uid : DatabaseManager::getInstance().getUserIdsByFavoriteGenre(newBook.getGenre())) {
         AppNotification copy = AppNotification::fromStorage(0, notif.getType(), notif.getMessage(), uid, false, notif.getTimestamp());
-        broadcaster->sendToUser(copy);
+        broadcaster->sendToUser(copy); // خودش هم ذخیره در دیتابیس و هم push آنی (اگر آنلاین باشد) را انجام می‌دهد
     }
 
     QJsonObject resp;
@@ -652,14 +661,103 @@ void RequestProcessor::processCreateShelf(CommandType cmd, const QByteArray &dat
 }
 
 void RequestProcessor::processDeleteShelf(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender) {
+    int userId = sender->getAssociatedUserId();
+    if (userId == -1) { sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید."); return; }
     QJsonObject req = JsonPayload::fromBytes(data);
-    DatabaseManager::getInstance().deleteShelf(req["shelfId"].toInt());
+    int shelfId = req["shelfId"].toInt();
+    if (DatabaseManager::getInstance().getShelfOwnerId(shelfId) != userId) {
+        sendError(sender, cmd, "شما اجازه‌ی حذفِ این قفسه را ندارید.");
+        return;
+    }
+    DatabaseManager::getInstance().deleteShelf(shelfId);
     sendOk(sender, cmd);
 }
 
 void RequestProcessor::processAddBookToShelf(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender) {
+    int userId = sender->getAssociatedUserId();
+    if (userId == -1) { sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید."); return; }
     QJsonObject req = JsonPayload::fromBytes(data);
-    DatabaseManager::getInstance().addBookToShelf(req["shelfId"].toInt(), req["bookId"].toInt());
+    int shelfId = req["shelfId"].toInt();
+    int bookId = req["bookId"].toInt();
+    if (DatabaseManager::getInstance().getShelfOwnerId(shelfId) != userId) {
+        sendError(sender, cmd, "شما اجازه‌ی افزودنِ کتاب به این قفسه را ندارید.");
+        return;
+    }
+    if (!DatabaseManager::getInstance().isBookInLibrary(userId, bookId)) {
+        sendError(sender, cmd, "فقط کتاب‌های خریداری‌شده را می‌توانید به قفسه اضافه کنید.");
+        return;
+    }
+    DatabaseManager::getInstance().addBookToShelf(shelfId, bookId);
+    sendOk(sender, cmd);
+}
+
+void RequestProcessor::processRemoveBookFromShelf(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender) {
+    int userId = sender->getAssociatedUserId();
+    if (userId == -1) { sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید."); return; }
+    QJsonObject req = JsonPayload::fromBytes(data);
+    int shelfId = req["shelfId"].toInt();
+    if (DatabaseManager::getInstance().getShelfOwnerId(shelfId) != userId) {
+        sendError(sender, cmd, "شما اجازه‌ی حذفِ کتاب از این قفسه را ندارید.");
+        return;
+    }
+    DatabaseManager::getInstance().removeBookFromShelf(shelfId, req["bookId"].toInt());
+    sendOk(sender, cmd);
+}
+
+void RequestProcessor::processGetShelves(CommandType cmd, const QByteArray & /*data*/, ClientSocketWorker* sender) {
+    int userId = sender->getAssociatedUserId();
+    if (userId == -1) { sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید."); return; }
+
+    QJsonArray shelvesArr;
+    for (const auto &s : DatabaseManager::getInstance().getShelvesForUser(userId)) {
+        QJsonObject so;
+        so["shelfId"] = s.shelfId;
+        so["shelfName"] = QString::fromStdString(s.shelfName);
+        QJsonArray bookIdsArr;
+        for (int bid : s.bookIds) bookIdsArr.append(bid);
+        so["bookIds"] = bookIdsArr;
+        shelvesArr.append(so);
+    }
+    QJsonObject resp;
+    resp["shelves"] = shelvesArr;
+    sendOk(sender, cmd, resp);
+}
+
+void RequestProcessor::processRenameShelf(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender) {
+    int userId = sender->getAssociatedUserId();
+    if (userId == -1) { sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید."); return; }
+    QJsonObject req = JsonPayload::fromBytes(data);
+    int shelfId = req["shelfId"].toInt();
+    if (DatabaseManager::getInstance().getShelfOwnerId(shelfId) != userId) {
+        sendError(sender, cmd, "شما اجازه‌ی تغییرِ نامِ این قفسه را ندارید.");
+        return;
+    }
+    std::string newName = req["shelfName"].toString().toStdString();
+    if (newName.empty()) {
+        sendError(sender, cmd, "نامِ قفسه نمی‌تواند خالی باشد.");
+        return;
+    }
+    DatabaseManager::getInstance().renameShelf(shelfId, newName);
+    sendOk(sender, cmd);
+}
+
+void RequestProcessor::processMoveBookBetweenShelves(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender) {
+    int userId = sender->getAssociatedUserId();
+    if (userId == -1) { sendError(sender, cmd, "ابتدا وارد حساب کاربری خود شوید."); return; }
+    QJsonObject req = JsonPayload::fromBytes(data);
+    int fromShelfId = req["fromShelfId"].toInt();
+    int toShelfId = req["toShelfId"].toInt();
+    int bookId = req["bookId"].toInt();
+
+    auto &dbm = DatabaseManager::getInstance();
+    if (dbm.getShelfOwnerId(fromShelfId) != userId || dbm.getShelfOwnerId(toShelfId) != userId) {
+        sendError(sender, cmd, "شما اجازه‌ی جابجاییِ کتاب بین این قفسه‌ها را ندارید.");
+        return;
+    }
+    if (!dbm.moveBookBetweenShelves(fromShelfId, toShelfId, bookId)) {
+        sendError(sender, cmd, "خطا در جابجاییِ کتاب بین قفسه‌ها.");
+        return;
+    }
     sendOk(sender, cmd);
 }
 
@@ -748,6 +846,13 @@ void RequestProcessor::processAddRating(CommandType cmd, const QByteArray &data,
         return;
     }
     DatabaseManager::getInstance().upsertRating(bookId, sender->getAssociatedUserId(), score);
+
+    // ارسال نوتیفیکیشن به ناشر کتاب برای امتیاز جدید
+    Book book;
+    if (broadcaster && DatabaseManager::getInstance().getBookById(bookId, book)) {
+        AppNotification notif = AppNotification::createNewReviewNotification(0, book.getPublisherId(), book.getTitle());
+        broadcaster->sendToUser(notif);
+    }
 
     QJsonObject resp;
     resp["newAverage"] = DatabaseManager::getInstance().getAverageRating(bookId);
@@ -1021,14 +1126,14 @@ void RequestProcessor::processGetUserDetails(CommandType cmd, const QByteArray &
     resp["status"] = static_cast<int>(summary.status);
     resp["registrationDate"] = QString::fromStdString(summary.registrationDate);
 
-    // سوابقِ خرید
+    // سوابقِ خرید (فقط برای کاربرانِ عادی معنا دارد)
     QJsonArray purchasedArr;
     for (int bookId : DatabaseManager::getInstance().getPurchasedBookIds(targetUserId)) {
         purchasedArr.append(bookId);
     }
     resp["purchasedBookIds"] = purchasedArr;
 
-    // فعالیت‌ها: نظراتِ ثبت‌شده توسطِ این کاربر
+    // فعالیت‌ها: نظراتِ ثبت‌شده توسطِ این کاربر (نظراتی که خودش نوشته، نه نظراتِ دریافتی)
     QJsonArray commentsArr;
     for (const auto &c : DatabaseManager::getInstance().getAllComments(-1, targetUserId)) {
         QJsonObject co;
@@ -1049,6 +1154,49 @@ void RequestProcessor::processGetUserDetails(CommandType cmd, const QByteArray &
     if (summary.role == "RegularUser") {
         auto regUser = DatabaseManager::getInstance().loadRegularUser(targetUserId);
         if (regUser) resp["walletBalance"] = regUser->getWalletBalance();
+    }
+
+    // برای ناشر، "کتاب خریداری‌شده" و "نظرِ نوشته‌شده" بی‌معنی است (همیشه صفر می‌شد)؛
+    // به‌جایش آمارِ واقعیِ کتاب‌های خودِ ناشر (فروش، نظراتِ دریافتی، امتیاز) نمایش داده می‌شود
+    if (summary.role == "Publisher") {
+        QVector<Book> books = DatabaseManager::getInstance().getBooksByPublisher(targetUserId);
+        int totalSales = 0;
+        double totalRevenue = 0.0;
+        int totalCommentsReceived = 0;
+        double ratingSum = 0.0;
+        int ratedBooksCount = 0;
+
+        QJsonArray publisherBooksArr;
+        for (const auto &b : books) {
+            int salesCount = 0;
+            double revenue = 0.0;
+            DatabaseManager::getInstance().getBookSalesInfo(b.getId(), salesCount, revenue);
+            totalSales += salesCount;
+            totalRevenue += revenue;
+
+            int commentsForThisBook = DatabaseManager::getInstance().getAllComments(b.getId(), -1).size();
+            totalCommentsReceived += commentsForThisBook;
+
+            double avgRating = b.getAverageRating();
+            if (avgRating > 0.0) { ratingSum += avgRating; ratedBooksCount++; }
+
+            QJsonObject bo;
+            bo["bookId"] = b.getId();
+            bo["title"] = QString::fromStdString(b.getTitle());
+            bo["salesCount"] = salesCount;
+            bo["commentsCount"] = commentsForThisBook;
+            bo["averageRating"] = avgRating;
+            publisherBooksArr.append(bo);
+        }
+
+        QJsonObject publisherStats;
+        publisherStats["publishedBooksCount"] = static_cast<int>(books.size());
+        publisherStats["totalSales"] = totalSales;
+        publisherStats["totalRevenue"] = totalRevenue;
+        publisherStats["totalCommentsReceived"] = totalCommentsReceived;
+        publisherStats["averageRatingAcrossBooks"] = ratedBooksCount > 0 ? (ratingSum / ratedBooksCount) : 0.0;
+        publisherStats["books"] = publisherBooksArr;
+        resp["publisherStats"] = publisherStats;
     }
 
     sendOk(sender, cmd, resp);

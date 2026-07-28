@@ -528,8 +528,30 @@ void AdminPanelWindow::onNetworkReply(CommandType commandType, QJsonObject paylo
         if (payload.contains("walletBalance")) {
             text += "موجودیِ کیف‌پول: " + QString::number(payload.value("walletBalance").toDouble()) + "\n";
         }
-        text += "\nتعدادِ کتاب‌های خریداری‌شده: " + QString::number(payload.value("purchasedBookIds").toArray().size()) + "\n";
-        text += "تعدادِ نظراتِ ثبت‌شده: " + QString::number(payload.value("comments").toArray().size()) + "\n";
+
+        if (payload.contains("publisherStats")) {
+            // برای ناشر: آمارهای واقعیِ کتاب‌های خودش (نه شمارنده‌های خرید/نظرِ کاربرِ عادی که همیشه صفر بود)
+            QJsonObject ps = payload.value("publisherStats").toObject();
+            text += "\n--- آمارِ ناشر ---\n";
+            text += "تعدادِ کتاب‌های منتشرشده: " + QString::number(ps.value("publishedBooksCount").toInt()) + "\n";
+            text += "تعدادِ کلِ فروش: " + QString::number(ps.value("totalSales").toInt()) + "\n";
+            text += "درآمدِ کل: " + QString::number(ps.value("totalRevenue").toDouble()) + " تومان\n";
+            text += "تعدادِ نظراتِ دریافت‌شده روی کتاب‌ها: " + QString::number(ps.value("totalCommentsReceived").toInt()) + "\n";
+            text += "میانگینِ امتیازِ کتاب‌ها: " + QString::number(ps.value("averageRatingAcrossBooks").toDouble(), 'f', 2) + "\n";
+
+            text += "\n--- کتاب‌های ناشر ---\n";
+            for (const auto &v : ps.value("books").toArray()) {
+                QJsonObject bo = v.toObject();
+                text += QString("• %1  |  فروش: %2  |  نظرات: %3  |  امتیاز: %4\n")
+                            .arg(bo.value("title").toString())
+                            .arg(bo.value("salesCount").toInt())
+                            .arg(bo.value("commentsCount").toInt())
+                            .arg(QString::number(bo.value("averageRating").toDouble(), 'f', 1));
+            }
+        } else {
+            text += "\nتعدادِ کتاب‌های خریداری‌شده: " + QString::number(payload.value("purchasedBookIds").toArray().size()) + "\n";
+            text += "تعدادِ نظراتِ ثبت‌شده: " + QString::number(payload.value("comments").toArray().size()) + "\n";
+        }
 
         text += "\n--- تاریخچه‌ی ورود (۲۰ موردِ اخیر) ---\n";
         for (const auto &v : payload.value("loginHistory").toArray()) {
@@ -579,4 +601,3 @@ void AdminPanelWindow::onNetworkReply(CommandType commandType, QJsonObject paylo
         break;
     }
 }
-

@@ -1,7 +1,7 @@
 #include "Transaction.h"
 
 Transaction::Transaction(int transactionId, int buyerUserId, int sellerPublisherId, int purchasedBookId,
- double finalAmountPaid, std::string transactionTime):
+                         double finalAmountPaid, std::string transactionTime):
     transactionId(transactionId),
     buyerUserId(buyerUserId),
     sellerPublisherId(sellerPublisherId),

@@ -4,10 +4,10 @@ User::User(int id, std::string username, std::string passwordHash, std::string e
            std::string roleString, std::string registrationDate)
     : id(id), username(username), passwordHash(passwordHash), email(email),
     roleString(roleString), registrationDate(registrationDate)
-    {status=AccountStatus::Active;
+{status=AccountStatus::Active;
     securityQuestion="";
     securityAnswerHash="";
-    }
+}
 
 int User::getId() const {
     return id;

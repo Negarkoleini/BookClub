@@ -73,8 +73,6 @@ bool Book::updateUserRating(int userId, int newScore) {
     return false;
 }
 
-void Book::setAverageRating(double rating) { averageRating = rating; }
-
 std::vector<Rating> Book::getRatings() const { return userRatings; }
 
 vector<Comment> Book::getComments() const{ return userComments; }
@@ -136,3 +134,7 @@ double Book::getFinalPrice(const std::string& currentSystemTime) const {
 }
 
 Book::Book() {}
+
+void Book::setAverageRating (double newavgrate){
+    averageRating=newavgrate;
+}

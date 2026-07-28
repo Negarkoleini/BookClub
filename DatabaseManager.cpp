@@ -618,12 +618,13 @@ static Comment rowToComment(QSqlQuery &q) {
     c.setApproved(q.value("isApproved").toInt() != 0);
     return c;
 }
-QVector<Comment> DatabaseManager::getCommentsForBook(int bookId) const {
+QVector<Comment> DatabaseManager::getCommentsForBook(int bookId, int viewerUserId) const {
     QMutexLocker locker(&dbMutex);
     QVector<Comment> result;
     QSqlQuery q(db);
-    q.prepare("SELECT * FROM comments WHERE bookId = ? AND isDeleted = 0;");
+    q.prepare("SELECT * FROM comments WHERE bookId = ? AND isDeleted = 0 AND (isApproved = 1 OR userId = ?);");
     q.addBindValue(bookId);
+    q.addBindValue(viewerUserId);
     if (q.exec()) {
         while (q.next()) result.push_back(rowToComment(q));
     }
@@ -808,6 +809,80 @@ bool DatabaseManager::removeBookFromShelf(int shelfId, int bookId) {
     q.addBindValue(shelfId);
     q.addBindValue(bookId);
     return q.exec();
+}
+QVector<ShelfInfo> DatabaseManager::getShelvesForUser(int userId) const {
+    QMutexLocker locker(&dbMutex);
+    QVector<ShelfInfo> result;
+    QSqlQuery q(db);
+    q.prepare("SELECT shelfId, shelfName FROM shelves WHERE ownerUserId = ? ORDER BY shelfId;");
+    q.addBindValue(userId);
+    if (!q.exec()) return result;
+
+    while (q.next()) {
+        ShelfInfo info;
+        info.shelfId = q.value("shelfId").toInt();
+        info.ownerUserId = userId;
+        info.shelfName = q.value("shelfName").toString().toStdString();
+
+        QSqlQuery qb(db);
+        qb.prepare("SELECT bookId FROM shelf_books WHERE shelfId = ?;");
+        qb.addBindValue(info.shelfId);
+        if (qb.exec()) {
+            while (qb.next()) info.bookIds.push_back(qb.value(0).toInt());
+        }
+        result.push_back(info);
+    }
+    return result;
+}
+bool DatabaseManager::renameShelf(int shelfId, const std::string &newName) {
+    QMutexLocker locker(&dbMutex);
+    QSqlQuery q(db);
+    q.prepare("UPDATE shelves SET shelfName = ? WHERE shelfId = ?;");
+    q.addBindValue(QString::fromStdString(newName));
+    q.addBindValue(shelfId);
+    return q.exec() && q.numRowsAffected() > 0;
+}
+bool DatabaseManager::moveBookBetweenShelves(int fromShelfId, int toShelfId, int bookId) {
+    QMutexLocker locker(&dbMutex);
+    QSqlQuery qDel(db);
+    qDel.prepare("DELETE FROM shelf_books WHERE shelfId = ? AND bookId = ?;");
+    qDel.addBindValue(fromShelfId);
+    qDel.addBindValue(bookId);
+    if (!qDel.exec()) return false;
+
+    QSqlQuery qIns(db);
+    qIns.prepare("INSERT OR IGNORE INTO shelf_books (shelfId, bookId) VALUES (?,?);");
+    qIns.addBindValue(toShelfId);
+    qIns.addBindValue(bookId);
+    return qIns.exec();
+}
+int DatabaseManager::getShelfOwnerId(int shelfId) const {
+    QMutexLocker locker(&dbMutex);
+    QSqlQuery q(db);
+    q.prepare("SELECT ownerUserId FROM shelves WHERE shelfId = ?;");
+    q.addBindValue(shelfId);
+    if (q.exec() && q.next()) return q.value(0).toInt();
+    return -1;
+}
+QVector<int> DatabaseManager::getUserIdsByFavoriteGenre(Genre genre) const {
+    QMutexLocker locker(&dbMutex);
+    QVector<int> result;
+    QSqlQuery q(db);
+    q.prepare("SELECT id, favoriteGenres FROM users WHERE role = 'RegularUser';");
+    if (q.exec()) {
+        const QString target = QString::number(static_cast<int>(genre));
+        while (q.next()) {
+            QString raw = q.value("favoriteGenres").toString();
+            // فرمتِ ذخیره: "0,2,5" -- باید دقیقاً به عنوانِ یک توکنِ کامل چک شود، نه substring
+            for (const QString &part : raw.split(',', Qt::SkipEmptyParts)) {
+                if (part == target) {
+                    result.push_back(q.value("id").toInt());
+                    break;
+                }
+            }
+        }
+    }
+    return result;
 }
 bool DatabaseManager::savePageLocation(int userId, int bookId, int pageNum) {
     QMutexLocker locker(&dbMutex);

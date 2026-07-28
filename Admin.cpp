@@ -1,7 +1,7 @@
 #include "Admin.h"
 
 Admin::Admin(int id,std::string username,std::string passwordHash,
-std::string email,std::string registrationDate,int SecurityLevel):User(id,username,passwordHash,email,"Admin",registrationDate),
+             std::string email,std::string registrationDate,int SecurityLevel):User(id,username,passwordHash,email,"Admin",registrationDate),
     SecurityLevel(SecurityLevel){}
 
 int Admin::getSecurityLevel()const{
@@ -24,8 +24,8 @@ bool Admin::banUserAccount(User &user) {
 }
 bool Admin::unbanUserAccount(User &user){
     if(user.getStatus()==AccountStatus::Blocked){
-    user.setStatus(AccountStatus::Active);
-    return true;
+        user.setStatus(AccountStatus::Active);
+        return true;
     }
     return false;
 }

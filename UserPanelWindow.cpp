@@ -25,6 +25,7 @@ UserPanelWindow::UserPanelWindow(int userId, QWidget *parent)
     requestProfile();
     requestCatalog();
     requestLibrary();
+    requestShelves();
 
     QJsonObject req;
     ClientNetworkManager::getInstance().sendRequest(CommandType::GetNotifications, req);
@@ -116,9 +117,13 @@ void UserPanelWindow::buildUi() {
     auto* libraryTab = new QWidget();
     auto* libraryLayout = new QVBoxLayout(libraryTab);
     listWidgetMyLibrary = new QListWidget();
+    auto* libraryButtons = new QHBoxLayout();
     btnRead = new QPushButton("مطالعه‌ی کتاب");
+    btnAddToShelf = new QPushButton("📚 افزودن به قفسه...");
+    libraryButtons->addWidget(btnRead);
+    libraryButtons->addWidget(btnAddToShelf);
     libraryLayout->addWidget(listWidgetMyLibrary);
-    libraryLayout->addWidget(btnRead);
+    libraryLayout->addLayout(libraryButtons);
     tabs->addTab(libraryTab, "کتابخانه‌ی من");
 
     // ---- تب ذخیره‌شده‌ها ----
@@ -129,6 +134,38 @@ void UserPanelWindow::buildUi() {
     savedLayout->addWidget(listWidgetSaved);
     savedLayout->addWidget(btnRemoveSaved);
     tabs->addTab(savedTab, "ذخیره‌شده‌ها");
+
+    // ---- تب قفسه‌های شخصی ----
+    auto* shelvesTab = new QWidget();
+    auto* shelvesLayout = new QVBoxLayout(shelvesTab);
+
+    auto* shelfTopBar = new QHBoxLayout();
+    comboShelfSelector = new QComboBox();
+    btnCreateShelf = new QPushButton("➕ قفسه‌ی جدید");
+    btnRenameShelf = new QPushButton("✏️ تغییرِ نام");
+    btnDeleteShelf = new QPushButton("🗑️ حذفِ قفسه");
+    shelfTopBar->addWidget(new QLabel("قفسه:"));
+    shelfTopBar->addWidget(comboShelfSelector, /*stretch=*/1);
+    shelfTopBar->addWidget(btnCreateShelf);
+    shelfTopBar->addWidget(btnRenameShelf);
+    shelfTopBar->addWidget(btnDeleteShelf);
+
+    listWidgetShelfBooks = new QListWidget();
+
+    auto* shelfBookButtons = new QHBoxLayout();
+    comboMoveTargetShelf = new QComboBox();
+    btnMoveToShelf = new QPushButton("➡️ انتقال به قفسه‌ی انتخاب‌شده");
+    btnRemoveFromShelf = new QPushButton("حذف از این قفسه");
+    shelfBookButtons->addWidget(new QLabel("انتقال به:"));
+    shelfBookButtons->addWidget(comboMoveTargetShelf, /*stretch=*/1);
+    shelfBookButtons->addWidget(btnMoveToShelf);
+    shelfBookButtons->addWidget(btnRemoveFromShelf);
+
+    shelvesLayout->addLayout(shelfTopBar);
+    shelvesLayout->addWidget(new QLabel("کتاب‌های این قفسه (برای سازماندهیِ کتابخانه، مطابقِ سلیقه‌ی خودتان قفسه بسازید):"));
+    shelvesLayout->addWidget(listWidgetShelfBooks);
+    shelvesLayout->addLayout(shelfBookButtons);
+    tabs->addTab(shelvesTab, "قفسه‌های من");
 
     mainLayout->addWidget(tabs);
     setCentralWidget(central);
@@ -146,6 +183,13 @@ void UserPanelWindow::buildUi() {
     connect(btnRead, &QPushButton::clicked, this, &UserPanelWindow::onReadBookClicked);
     connect(btnRemoveSaved, &QPushButton::clicked, this, &UserPanelWindow::onRemoveSavedClicked);
     connect(btnOpenNotifications, &QPushButton::clicked, this, &UserPanelWindow::onOpenNotificationsClicked);
+    connect(btnAddToShelf, &QPushButton::clicked, this, &UserPanelWindow::onAddToShelfFromLibraryClicked);
+    connect(comboShelfSelector, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &UserPanelWindow::onShelfSelectionChanged);
+    connect(btnCreateShelf, &QPushButton::clicked, this, &UserPanelWindow::onCreateShelfClicked);
+    connect(btnRenameShelf, &QPushButton::clicked, this, &UserPanelWindow::onRenameShelfClicked);
+    connect(btnDeleteShelf, &QPushButton::clicked, this, &UserPanelWindow::onDeleteShelfClicked);
+    connect(btnMoveToShelf, &QPushButton::clicked, this, &UserPanelWindow::onMoveBookToShelfClicked);
+    connect(btnRemoveFromShelf, &QPushButton::clicked, this, &UserPanelWindow::onRemoveBookFromShelfClicked);
     connect(btnChargeWallet, &QPushButton::clicked, this, &UserPanelWindow::onChargeWalletClicked);
     connect(btnProfile, &QPushButton::clicked, this, &UserPanelWindow::onProfileClicked);
 }
@@ -213,7 +257,176 @@ Book* UserPanelWindow::findCachedBookById(int bookId) {
     for (auto &b : availableBooksCache) {
         if (b.getId() == bookId) return &b;
     }
+    for (auto &b : myLibraryCache) {
+        if (b.getId() == bookId) return &b;
+    }
+    for (auto &b : savedBooksCache) {
+        if (b.getId() == bookId) return &b;
+    }
     return nullptr;
+}
+
+// =========================================================================
+// قفسه‌های شخصی
+// =========================================================================
+void UserPanelWindow::requestShelves() {
+    QJsonObject req;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::GetShelves, req);
+}
+
+void UserPanelWindow::refreshShelfSelector() {
+    int previousShelfId = comboShelfSelector->currentData().toInt();
+
+    comboShelfSelector->blockSignals(true);
+    comboMoveTargetShelf->blockSignals(true);
+    comboShelfSelector->clear();
+    comboMoveTargetShelf->clear();
+
+    for (const auto &v : shelvesCache) {
+        QJsonObject so = v.toObject();
+        comboShelfSelector->addItem(so.value("shelfName").toString(), so.value("shelfId").toInt());
+        comboMoveTargetShelf->addItem(so.value("shelfName").toString(), so.value("shelfId").toInt());
+    }
+
+    int idx = comboShelfSelector->findData(previousShelfId);
+    comboShelfSelector->setCurrentIndex(idx >= 0 ? idx : (comboShelfSelector->count() > 0 ? 0 : -1));
+    comboShelfSelector->blockSignals(false);
+    comboMoveTargetShelf->blockSignals(false);
+
+    refreshShelfBooksList();
+}
+
+void UserPanelWindow::refreshShelfBooksList() {
+    listWidgetShelfBooks->clear();
+    int shelfId = comboShelfSelector->currentData().toInt();
+    if (comboShelfSelector->currentIndex() < 0) return;
+
+    for (const auto &v : shelvesCache) {
+        QJsonObject so = v.toObject();
+        if (so.value("shelfId").toInt() != shelfId) continue;
+
+        for (const auto &bidVal : so.value("bookIds").toArray()) {
+            int bookId = bidVal.toInt();
+            QString title = QString("کتابِ شماره‌ی %1").arg(bookId);
+            if (Book* b = findCachedBookById(bookId)) {
+                title = QString::fromStdString(b->getTitle());
+            }
+            auto* item = new QListWidgetItem(title);
+            item->setData(Qt::UserRole, bookId);
+            listWidgetShelfBooks->addItem(item);
+        }
+        break;
+    }
+}
+
+void UserPanelWindow::onAddToShelfFromLibraryClicked() {
+    auto selected = listWidgetMyLibrary->selectedItems();
+    if (selected.isEmpty()) {
+        QMessageBox::information(this, "توجه", "ابتدا یک کتاب را از «کتابخانه‌ی من» انتخاب کنید.");
+        return;
+    }
+    if (shelvesCache.isEmpty()) {
+        QMessageBox::information(this, "توجه", "ابتدا از تبِ «قفسه‌های من» یک قفسه بسازید.");
+        return;
+    }
+    int bookId = selected.first()->data(Qt::UserRole).toInt();
+
+    QStringList names;
+    for (const auto &v : shelvesCache) names << v.toObject().value("shelfName").toString();
+
+    bool ok = false;
+    QString chosen = QInputDialog::getItem(this, "افزودن به قفسه", "قفسه را انتخاب کنید:", names, 0, false, &ok);
+    if (!ok || chosen.isEmpty()) return;
+
+    int shelfId = -1;
+    for (const auto &v : shelvesCache) {
+        QJsonObject so = v.toObject();
+        if (so.value("shelfName").toString() == chosen) { shelfId = so.value("shelfId").toInt(); break; }
+    }
+    if (shelfId == -1) return;
+
+    QJsonObject req;
+    req["shelfId"] = shelfId;
+    req["bookId"] = bookId;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::AddBookToShelf, req);
+}
+
+void UserPanelWindow::onShelfSelectionChanged(int /*index*/) {
+    refreshShelfBooksList();
+}
+
+void UserPanelWindow::onCreateShelfClicked() {
+    bool ok = false;
+    QString name = QInputDialog::getText(this, "قفسه‌ی جدید", "نامِ قفسه:", QLineEdit::Normal, "", &ok);
+    if (!ok || name.trimmed().isEmpty()) return;
+
+    QJsonObject req;
+    req["shelfName"] = name.trimmed();
+    ClientNetworkManager::getInstance().sendRequest(CommandType::CreateShelf, req);
+}
+
+void UserPanelWindow::onRenameShelfClicked() {
+    if (comboShelfSelector->currentIndex() < 0) {
+        QMessageBox::information(this, "توجه", "ابتدا یک قفسه انتخاب کنید.");
+        return;
+    }
+    bool ok = false;
+    QString newName = QInputDialog::getText(this, "تغییرِ نامِ قفسه", "نامِ جدید:",
+                                            QLineEdit::Normal, comboShelfSelector->currentText(), &ok);
+    if (!ok || newName.trimmed().isEmpty()) return;
+
+    QJsonObject req;
+    req["shelfId"] = comboShelfSelector->currentData().toInt();
+    req["shelfName"] = newName.trimmed();
+    ClientNetworkManager::getInstance().sendRequest(CommandType::RenameShelf, req);
+}
+
+void UserPanelWindow::onDeleteShelfClicked() {
+    if (comboShelfSelector->currentIndex() < 0) {
+        QMessageBox::information(this, "توجه", "ابتدا یک قفسه انتخاب کنید.");
+        return;
+    }
+    if (QMessageBox::question(this, "تاییدِ حذف",
+                              QString("قفسه‌ی «%1» حذف شود؟").arg(comboShelfSelector->currentText())) != QMessageBox::Yes) {
+        return;
+    }
+    QJsonObject req;
+    req["shelfId"] = comboShelfSelector->currentData().toInt();
+    ClientNetworkManager::getInstance().sendRequest(CommandType::DeleteShelf, req);
+}
+
+void UserPanelWindow::onMoveBookToShelfClicked() {
+    auto selected = listWidgetShelfBooks->selectedItems();
+    if (selected.isEmpty()) {
+        QMessageBox::information(this, "توجه", "ابتدا یک کتاب را از قفسه‌ی جاری انتخاب کنید.");
+        return;
+    }
+    if (comboMoveTargetShelf->currentIndex() < 0) return;
+
+    int fromShelfId = comboShelfSelector->currentData().toInt();
+    int toShelfId = comboMoveTargetShelf->currentData().toInt();
+    if (fromShelfId == toShelfId) {
+        QMessageBox::information(this, "توجه", "قفسه‌ی مقصد باید متفاوت از قفسه‌ی جاری باشد.");
+        return;
+    }
+
+    QJsonObject req;
+    req["fromShelfId"] = fromShelfId;
+    req["toShelfId"] = toShelfId;
+    req["bookId"] = selected.first()->data(Qt::UserRole).toInt();
+    ClientNetworkManager::getInstance().sendRequest(CommandType::MoveBookBetweenShelves, req);
+}
+
+void UserPanelWindow::onRemoveBookFromShelfClicked() {
+    auto selected = listWidgetShelfBooks->selectedItems();
+    if (selected.isEmpty()) {
+        QMessageBox::information(this, "توجه", "ابتدا یک کتاب را از قفسه‌ی جاری انتخاب کنید.");
+        return;
+    }
+    QJsonObject req;
+    req["shelfId"] = comboShelfSelector->currentData().toInt();
+    req["bookId"] = selected.first()->data(Qt::UserRole).toInt();
+    ClientNetworkManager::getInstance().sendRequest(CommandType::RemoveBookFromShelf, req);
 }
 
 // =========================================================================
@@ -342,9 +555,11 @@ void UserPanelWindow::refreshDialogCommentsList() {
     for (const auto &v : currentDetailsComments) {
         QJsonObject c = v.toObject();
         bool isMine = (c.value("userId").toInt() == currentUserId);
-        QString text = QString("%1%2: %3")
+        bool isPending = !c.value("isApproved").toBool();
+        QString text = QString("%1%2%3: %4")
                            .arg(c.value("username").toString())
                            .arg(isMine ? " (شما)" : "")
+                           .arg(isPending ? " [در انتظارِ تاییدِ ادمین - فقط شما آن را می‌بینید]" : "")
                            .arg(c.value("text").toString());
         auto* item = new QListWidgetItem(text);
         item->setData(Qt::UserRole, c.value("commentId").toInt());
@@ -710,6 +925,20 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
         requestLibrary();
         break;
     }
+    case CommandType::GetShelves: {
+        shelvesCache = payload.value("shelves").toArray();
+        refreshShelfSelector();
+        break;
+    }
+    case CommandType::CreateShelf:
+    case CommandType::DeleteShelf:
+    case CommandType::RenameShelf:
+    case CommandType::AddBookToShelf:
+    case CommandType::RemoveBookFromShelf:
+    case CommandType::MoveBookBetweenShelves: {
+        requestShelves();
+        break;
+    }
     case CommandType::GetPageLocation: {
         if (pdfReader && payload.contains("pageNum")) {
             int page = payload.value("pageNum").toInt();
@@ -766,7 +995,7 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
         }
         break;
     }
-}
+    }
 }
 
 // =========================================================================

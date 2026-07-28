@@ -2,7 +2,7 @@
 #include "SessionManager.h"
 #include "ClientSocketWorker.h"
 #include "DatabaseManager.h"
-#include "JsonPayload.h"
+#include "JsonPayLoad.h"
 #include <QJsonObject>
 
 NotificationBroadcaster::NotificationBroadcaster(QObject *parent) : QObject(parent) {

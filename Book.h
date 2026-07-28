@@ -31,7 +31,7 @@ private:
     bool isDeleted;
     std::vector<Rating> userRatings;
     vector<Comment> userComments;
-    double averageRating;
+    double averageRating=0.0;
     std::vector<TimedDiscount> discounts;
 
 
@@ -63,7 +63,6 @@ public:
     bool updateUserRating(int userId, int newScore);
     void addcomment(int userId , Comment newComment);
     void setId(int newId);
-    void setAverageRating(double rating);
     std::vector<Rating> getRatings() const ;
     vector<Comment> getComments() const;
 
@@ -78,6 +77,7 @@ public:
     bool removeDiscount(int discountId);
     void addDiscount(const TimedDiscount& discount);
     double getFinalPrice(const std::string& currentSystemTime) const;
+    void setAverageRating (double newavgrate);
 };
 
 #endif // BOOK_H

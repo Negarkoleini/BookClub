@@ -6,7 +6,7 @@
 #include <QTextEdit>
 #include <QLabel>
 #include <QTimer>
-#include "serverCore.h"
+#include "ServerCore.h"
 #include "ServerLogManager.h"
 
 class ServerDashboardWindow : public QWidget {

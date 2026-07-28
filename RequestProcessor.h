@@ -52,6 +52,10 @@ private:
     void processCreateShelf(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processDeleteShelf(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processAddBookToShelf(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
+    void processRemoveBookFromShelf(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
+    void processGetShelves(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
+    void processRenameShelf(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
+    void processMoveBookBetweenShelves(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processSavePageLocation(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
     void processGetPageLocation(CommandType cmd, const QByteArray &data, ClientSocketWorker* sender);
 

@@ -1,5 +1,4 @@
 #include "ClientNetworkManager.h"
-#include "JsonPayload.h"
 #include "JsonPayLoad.h"
 #include <QJsonDocument>
 #include <cstring>

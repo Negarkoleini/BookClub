@@ -16,8 +16,13 @@ PublisherPanelWindow::PublisherPanelWindow(int publisherId, QWidget *parent)
 
     connect(&ClientNetworkManager::getInstance(), &ClientNetworkManager::serverReplyReceived,
             this, &PublisherPanelWindow::onNetworkReply);
+    connect(&ClientNetworkManager::getInstance(), &ClientNetworkManager::pushNotificationArrived,
+            this, &PublisherPanelWindow::onPushNotification);
 
     requestMyBooks();
+
+    QJsonObject req;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::GetNotifications, req);
 }
 
 void PublisherPanelWindow::buildUi() {
@@ -25,7 +30,16 @@ void PublisherPanelWindow::buildUi() {
     resize(950, 650);
 
     auto* central = new QWidget();
-    auto* mainLayout = new QHBoxLayout(central);
+    auto* outerLayout = new QVBoxLayout(central);
+
+    auto* topBar = new QHBoxLayout();
+    btnOpenNotifications = new QPushButton("🔔 اعلان‌ها");
+    topBar->addStretch(1);
+    topBar->addWidget(btnOpenNotifications);
+    outerLayout->addLayout(topBar);
+
+    auto* mainLayout = new QHBoxLayout();
+    outerLayout->addLayout(mainLayout);
 
     // ---- ستون چپ: جدول کتاب‌های من ----
     auto* leftBox = new QGroupBox("کتاب‌های منتشرشده‌ی من");
@@ -97,6 +111,7 @@ void PublisherPanelWindow::buildUi() {
     connect(btnDeleteSelected, &QPushButton::clicked, this, &PublisherPanelWindow::handleDeleteSubmit);
     connect(btnOpenAnalytics, &QPushButton::clicked, this, &PublisherPanelWindow::openAnalyticsWindow);
     connect(btnManageDiscounts, &QPushButton::clicked, this, &PublisherPanelWindow::openDiscountWindow);
+    connect(btnOpenNotifications, &QPushButton::clicked, this, &PublisherPanelWindow::onOpenNotificationsClicked);
 }
 
 void PublisherPanelWindow::requestMyBooks() {
@@ -185,6 +200,31 @@ void PublisherPanelWindow::openDiscountWindow() {
     discountWidget->raise();
 }
 
+void PublisherPanelWindow::onOpenNotificationsClicked() {
+    if (!notificationCenter) {
+        notificationCenter = new NotificationCenterWidget();
+        notificationCenter->setWindowTitle("اعلان‌های من (فروش، نظر و امتیازِ کتاب‌ها)");
+        notificationCenter->resize(400, 500);
+    }
+    notificationCenter->show();
+    notificationCenter->raise();
+}
+
+void PublisherPanelWindow::onPushNotification(QJsonObject payload) {
+    QString message = payload.value("message").toString();
+    auto* toast = new InAppNotificationWidget(this);
+    toast->popToastMessage(message);
+
+    if (notificationCenter) {
+        AppNotification n = AppNotification::fromStorage(
+            payload.value("id").toInt(),
+            static_cast<NotificationType>(payload.value("type").toInt()),
+            message.toStdString(), currentPublisherId, false,
+            payload.value("timestamp").toString().toStdString());
+        notificationCenter->addNotification(n);
+    }
+}
+
 void PublisherPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payload, bool ok) {
     if (!ok) {
         QMessageBox::warning(this, "خطا", payload.value("error").toString());
@@ -215,6 +255,27 @@ void PublisherPanelWindow::onNetworkReply(CommandType commandType, QJsonObject p
         || commandType == CommandType::DeleteBook) {
         QMessageBox::information(this, "موفق", "عملیات با موفقیت انجام شد.");
         requestMyBooks();
+        return;
+    }
+
+    if (commandType == CommandType::GetNotifications) {
+        if (!notificationCenter) {
+            notificationCenter = new NotificationCenterWidget();
+            notificationCenter->setWindowTitle("اعلان‌های من (فروش، نظر و امتیازِ کتاب‌ها)");
+            notificationCenter->resize(400, 500);
+        }
+        QVector<AppNotification> notifs;
+        for (const auto &v : payload.value("notifications").toArray()) {
+            QJsonObject no = v.toObject();
+            notifs.push_back(AppNotification::fromStorage(
+                no.value("id").toInt(),
+                static_cast<NotificationType>(no.value("type").toInt()),
+                no.value("message").toString().toStdString(),
+                currentPublisherId,
+                no.value("isRead").toBool(),
+                no.value("timestamp").toString().toStdString()));
+        }
+        notificationCenter->loadNotifications(notifs);
         return;
     }
 }

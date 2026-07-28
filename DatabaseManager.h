@@ -28,6 +28,13 @@ struct UserSummary { //ساختار برای نمایش خلاصه کاربر
     std::string registrationDate;
 };
 
+struct ShelfInfo { // ساختار برای نمایش یک قفسه‌ی شخصی به همراه کتاب‌های داخل آن
+    int shelfId = -1;
+    int ownerUserId = -1;
+    std::string shelfName;
+    std::vector<int> bookIds;
+};
+
 class DatabaseManager{
     private:
         DatabaseManager() = default; // به علت اینکه فقط یک شی از کلاس ایجاد شود در پرایوت انده (singlton)
@@ -83,7 +90,7 @@ class DatabaseManager{
         bool upsertRating(int bookId, int userId, int score);
         double getAverageRating(int bookId) const;
         int addComment(const Comment &comment);
-        QVector<Comment> getCommentsForBook(int bookId) const;
+        QVector<Comment> getCommentsForBook(int bookId ,int viewerUserId = -1) const;
         QVector<Comment> getPendingComments() const;
         QVector<Comment> getAllComments(int filterBookId = -1, int filterUserId = -1) const;
         bool setCommentApproved(int commentId, bool approved);
@@ -110,8 +117,13 @@ class DatabaseManager{
         bool deleteShelf(int shelfId);
         bool addBookToShelf(int shelfId, int bookId);
         bool removeBookFromShelf(int shelfId, int bookId);
+        QVector<ShelfInfo> getShelvesForUser(int userId) const;
+        bool renameShelf(int shelfId, const std::string &newName);
+        bool moveBookBetweenShelves(int fromShelfId, int toShelfId, int bookId);
+        int getShelfOwnerId(int shelfId) const; // برای بررسیِ مالکیتِ قفسه قبل از هر عملیات
         bool savePageLocation(int userId, int bookId, int pageNum);
         int getPageLocation(int userId, int bookId) const;
+        QVector<int> getUserIdsByFavoriteGenre(Genre genre) const;
         //تخفیف//
         int addDiscount(const TimedDiscount &discount);
         bool removeDiscount(int discountId);

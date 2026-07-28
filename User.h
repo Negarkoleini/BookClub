@@ -20,7 +20,7 @@ private:
     std::string securityAnswerHash;
 public:
     User(int id, std::string username, std::string passwordHash, std::string email,
-        std::string roleString, std::string registrationDate);
+         std::string roleString, std::string registrationDate);
     virtual ~User()=default;
 
     int getId()const;
