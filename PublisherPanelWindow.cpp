@@ -8,6 +8,8 @@
 #include <QGroupBox>
 #include <QMessageBox>
 #include <QHeaderView>
+#include <QFileDialog>
+#include <QLabel>
 #include <QJsonArray>
 
 PublisherPanelWindow::PublisherPanelWindow(int publisherId, QWidget *parent)
@@ -44,6 +46,9 @@ void PublisherPanelWindow::buildUi() {
     // ---- ستون چپ: جدول کتاب‌های من ----
     auto* leftBox = new QGroupBox("کتاب‌های منتشرشده‌ی من");
     auto* leftLayout = new QVBoxLayout(leftBox);
+    lblMyBooksHeader = new QLabel("کتاب‌های منتشرشده‌ی من");
+    lblMyBooksHeader->setAlignment(Qt::AlignCenter);
+    lblMyBooksHeader->setStyleSheet("font-weight: bold; font-size: 14px; padding: 4px;");
     tableMyBooks = new QTableWidget(0, 5);
     tableMyBooks->setHorizontalHeaderLabels({"عنوان", "قیمت", "میانگین امتیاز", "فروش", "وضعیت"});
     tableMyBooks->horizontalHeader()->setStretchLastSection(true);
@@ -62,6 +67,7 @@ void PublisherPanelWindow::buildUi() {
     tableButtons->addWidget(btnManageDiscounts);
     tableButtons->addWidget(btnViewBookDetails);
 
+    leftLayout->addWidget(lblMyBooksHeader);
     leftLayout->addWidget(tableMyBooks);
     leftLayout->addLayout(tableButtons);
 
@@ -90,17 +96,27 @@ void PublisherPanelWindow::buildUi() {
     spinNewBookPrice->setDecimals(0);
     txtNewBookCoverPath = new QLineEdit();
     txtNewBookCoverPath->setPlaceholderText("مسیر فایلِ عکسِ جلد...");
+    btnBrowseCoverPath = new QPushButton("انتخاب فایل");
     txtNewBookPdfPath = new QLineEdit();
     txtNewBookPdfPath->setPlaceholderText("مسیر فایلِ PDF...");
+    btnBrowsePdfPath = new QPushButton("انتخاب فایل");
     btnUploadBook = new QPushButton("انتشارِ کتاب");
+
+    auto* coverRow = new QHBoxLayout();
+    coverRow->addWidget(txtNewBookCoverPath);
+    coverRow->addWidget(btnBrowseCoverPath);
+
+    auto* pdfRow = new QHBoxLayout();
+    pdfRow->addWidget(txtNewBookPdfPath);
+    pdfRow->addWidget(btnBrowsePdfPath);
 
     rightForm->addRow("عنوان:", txtNewBookTitle);
     rightForm->addRow("نویسنده:", txtNewBookAuthor);
     rightForm->addRow("ژانر:", comboNewBookGenre);
     rightForm->addRow("توضیحات:", txtNewBookDescription);
     rightForm->addRow("قیمت:", spinNewBookPrice);
-    rightForm->addRow("عکسِ جلد:", txtNewBookCoverPath);
-    rightForm->addRow("فایلِ PDF:", txtNewBookPdfPath);
+    rightForm->addRow("عکسِ جلد:", coverRow);
+    rightForm->addRow("فایلِ PDF:", pdfRow);
     rightForm->addRow(btnUploadBook);
 
     mainLayout->addWidget(leftBox, /*stretch=*/2);
@@ -115,6 +131,8 @@ void PublisherPanelWindow::buildUi() {
     connect(btnManageDiscounts, &QPushButton::clicked, this, &PublisherPanelWindow::openDiscountWindow);
     connect(btnOpenNotifications, &QPushButton::clicked, this, &PublisherPanelWindow::onOpenNotificationsClicked);
     connect(btnViewBookDetails, &QPushButton::clicked, this, &PublisherPanelWindow::onViewBookDetailsClicked);
+    connect(btnBrowseCoverPath, &QPushButton::clicked, this, &PublisherPanelWindow::onBrowseCoverPath);
+    connect(btnBrowsePdfPath, &QPushButton::clicked, this, &PublisherPanelWindow::onBrowsePdfPath);
 }
 
 void PublisherPanelWindow::requestMyBooks() {
@@ -243,6 +261,20 @@ void PublisherPanelWindow::onViewBookDetailsClicked() {
     QJsonObject req;
     req["bookId"] = bookId;
     ClientNetworkManager::getInstance().sendRequest(CommandType::GetBookDetails, req);
+}
+
+void PublisherPanelWindow::onBrowseCoverPath() {
+    QString fileName = QFileDialog::getOpenFileName(this, "انتخاب عکس جلد", QString(), "تصاویر (*.png *.jpg *.jpeg *.bmp);;همه فایل‌ها (*)");
+    if (!fileName.isEmpty()) {
+        txtNewBookCoverPath->setText(fileName);
+    }
+}
+
+void PublisherPanelWindow::onBrowsePdfPath() {
+    QString fileName = QFileDialog::getOpenFileName(this, "انتخاب فایل PDF", QString(), "PDF (*.pdf);;همه فایل‌ها (*)");
+    if (!fileName.isEmpty()) {
+        txtNewBookPdfPath->setText(fileName);
+    }
 }
 
 void PublisherPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payload, bool ok) {

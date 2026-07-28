@@ -7,6 +7,7 @@
 #include <QDoubleSpinBox>
 #include <QComboBox>
 #include <QVector>
+#include <QLabel>
 #include <QJsonObject>
 #include <QJsonArray>
 #include "Book.h"
@@ -23,6 +24,7 @@ private:
     int currentPublisherId;
 
     QTableWidget* tableMyBooks;
+    QLabel* lblMyBooksHeader;
     QPushButton* btnOpenNotifications;
     NotificationCenterWidget* notificationCenter = nullptr;
 
@@ -34,6 +36,8 @@ private:
     QDoubleSpinBox* spinNewBookPrice;
     QLineEdit* txtNewBookCoverPath;
     QLineEdit* txtNewBookPdfPath;
+    QPushButton* btnBrowseCoverPath;
+    QPushButton* btnBrowsePdfPath;
     QPushButton* btnUploadBook;
 
     QPushButton* btnEditSelected;
@@ -65,5 +69,7 @@ private slots:
     void onOpenNotificationsClicked();
     void onPushNotification(QJsonObject payload);
     void onViewBookDetailsClicked();
+    void onBrowseCoverPath();
+    void onBrowsePdfPath();
     void onNetworkReply(CommandType commandType, QJsonObject payload, bool ok);
 };
