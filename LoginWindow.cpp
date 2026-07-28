@@ -52,28 +52,69 @@ void LoginWindow::buildUi() {
     resize(420, 380);
 
     tabs = new QTabWidget(this);
+    tabs->setFixedSize(420, 430);
 
     // ================= تب ورود =================
     auto* loginPage = new QWidget();
     auto* loginForm = new QFormLayout();
+    loginForm->setContentsMargins(20,15,20,15);
+    loginForm->setSpacing(10);
     txtLoginUsername = new QLineEdit();
     txtLoginPassword = new QLineEdit();
     txtLoginPassword->setEchoMode(QLineEdit::Password);
     btnLogin = new QPushButton("ورود");
     btnForgotPassword = new QPushButton("رمز عبور را فراموش کرده‌ام");
+
+    QString buttonStyle = R"(
+QPushButton {
+    background-color: #D2A679;
+    color: black;
+    border: 2px solid #8B5E3C;
+    border-radius: 8px;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #E8C39E;
+    border: 2px solid #6B4226;
+}
+
+QPushButton:pressed {
+    background-color: #B8865A;
+}
+)";
+
+    btnLogin->setStyleSheet(buttonStyle);
+    btnForgotPassword->setStyleSheet(buttonStyle);
     lblLoginStatus = new QLabel();
     lblLoginStatus->setStyleSheet("color:red;");
 
     loginForm->addRow("نام کاربری:", txtLoginUsername);
     loginForm->addRow("رمز عبور:", txtLoginPassword);
-    loginForm->addRow(btnLogin);
-    loginForm->addRow(btnForgotPassword);
+    auto* loginButtonLayout = new QHBoxLayout();
+    loginButtonLayout->addStretch();
+    loginButtonLayout->addWidget(btnLogin);
+    loginButtonLayout->addStretch();
+
+    loginForm->addRow(loginButtonLayout);
+
+
+    auto* forgotButtonLayout = new QHBoxLayout();
+    forgotButtonLayout->addStretch();
+    forgotButtonLayout->addWidget(btnForgotPassword);
+    forgotButtonLayout->addStretch();
+
+    loginForm->addRow(forgotButtonLayout);
     loginForm->addRow(lblLoginStatus);
     loginPage->setLayout(loginForm);
 
     // ================= تب ثبت‌نام =================
     auto* registerPage = new QWidget();
     auto* regForm = new QFormLayout();
+    regForm->setContentsMargins(30, 25, 30, 25);
+    regForm->setSpacing(12);
     txtRegUsername = new QLineEdit();
     txtRegPassword = new QLineEdit();
     txtRegPassword->setEchoMode(QLineEdit::Password);
@@ -87,7 +128,26 @@ void LoginWindow::buildUi() {
     txtSecurityQuestion = new QLineEdit();
     txtSecurityQuestion->setPlaceholderText("مثلاً: نام نویسنده‌ی مورد علاقه‌تان؟");
     txtSecurityAnswer = new QLineEdit();
+    QList<QLineEdit*> inputs = {
+        txtLoginUsername,
+        txtLoginPassword,
+        txtRegUsername,
+        txtRegPassword,
+        txtRegEmail,
+        txtPublisherName,
+        txtCorporateId,
+        txtSecurityQuestion,
+        txtSecurityAnswer
+    };
+
+    for (auto input : inputs) {
+        input->setFixedWidth(170);
+        input->setFixedHeight(28);
+    }
     btnRegister = new QPushButton("ثبت‌نام");
+    btnLogin->setFixedSize(130, 45);
+    btnForgotPassword->setFixedSize(200, 45);
+    btnRegister->setFixedSize(130, 45);
     lblRegisterStatus = new QLabel();
     lblRegisterStatus->setStyleSheet("color:red;");
 
@@ -99,7 +159,12 @@ void LoginWindow::buildUi() {
     regForm->addRow("شناسه‌ی شرکتی:", txtCorporateId);
     regForm->addRow("سوال امنیتی:", txtSecurityQuestion);
     regForm->addRow("پاسخ امنیتی:", txtSecurityAnswer);
-    regForm->addRow(btnRegister);
+    auto* registerButtonLayout = new QHBoxLayout();
+    registerButtonLayout->addStretch();
+    registerButtonLayout->addWidget(btnRegister);
+    registerButtonLayout->addStretch();
+
+    regForm->addRow(registerButtonLayout);
     regForm->addRow(lblRegisterStatus);
     registerPage->setLayout(regForm);
 
@@ -112,8 +177,40 @@ void LoginWindow::buildUi() {
     tabs->addTab(loginPage, "ورود");
     tabs->addTab(registerPage, "ثبت‌نام");
 
+    // استایل تب‌ها
+    tabs->setStyleSheet(R"(
+QTabWidget::pane {
+    border: 2px solid #8B5E3C;
+    border-radius: 10px;
+    background: rgba(255,255,255,80);
+}
+
+QTabBar::tab {
+    background: #D2A679;
+    color: black;
+    padding: 6px 18px;
+    border-radius: 6px;
+    margin: 2px;
+}
+
+QTabBar::tab:selected {
+    background: #E8C39E;
+    font-weight: bold;
+}
+)");
+
+
+    // وسط چین کردن
     auto* mainLayout = new QVBoxLayout(this);
-    mainLayout->addWidget(tabs);
+    mainLayout->addStretch();
+    mainLayout->addWidget(tabs, 0, Qt::AlignCenter);
+    mainLayout->addStretch();
+
+    btnLogin->setStyleSheet(buttonStyle);
+    btnForgotPassword->setStyleSheet(buttonStyle);
+    btnRegister->setStyleSheet(buttonStyle);
+
+    setLayout(mainLayout);
 
     connect(btnLogin, &QPushButton::clicked, this, &LoginWindow::handleLoginSubmit);
     connect(btnRegister, &QPushButton::clicked, this, &LoginWindow::handleRegisterSubmit);
