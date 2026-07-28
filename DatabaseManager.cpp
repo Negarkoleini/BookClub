@@ -82,7 +82,8 @@ bool DatabaseManager::createSchema() {
         R"(CREATE TABLE IF NOT EXISTS discounts (
             discountId INTEGER PRIMARY KEY AUTOINCREMENT,
             targetBookId INTEGER, discountType INTEGER, discountValue REAL,
-            startDateTime TEXT, endDateTime TEXT
+            startDateTime TEXT, endDateTime TEXT,
+            isApproved INTEGER DEFAULT 0
         );)",
         R"(CREATE TABLE IF NOT EXISTS purchased_books (
             userId INTEGER, bookId INTEGER, PRIMARY KEY(userId, bookId)

@@ -3,6 +3,7 @@
 int TimedDiscount::NextDiscountId = 1;
 TimedDiscount::TimedDiscount(int targetBookId, DiscountType discountType, double discountValue, std::string startDateTime, std::string endDateTime):
     targetBookId(targetBookId),
+    discountType(discountType),
     discountValue(discountValue),
     startDateTime(startDateTime),
     endDateTime(endDateTime){

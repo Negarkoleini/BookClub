@@ -135,6 +135,10 @@ double Book::getFinalPrice(const std::string& currentSystemTime) const {
 
 Book::Book() {}
 
+std::vector<TimedDiscount> Book::getDiscounts() const {
+    return discounts;
+}
+
 void Book::setAverageRating (double newavgrate){
     averageRating=newavgrate;
 }

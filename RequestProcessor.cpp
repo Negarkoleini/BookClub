@@ -384,10 +384,25 @@ static QJsonObject bookToJsonObject(const Book &b, const std::string &now) {
     bo["author"] = QString::fromStdString(b.getAuthor());
     bo["genre"] = static_cast<int>(b.getGenre());
     bo["basePrice"] = b.getBasePrice();
-    bo["finalPrice"] = b.getFinalPrice(now);
+    // compute final price using active discounts from DB (approved and active now)
+    double finalPrice = b.getBasePrice();
+    QJsonArray activeArr;
+    for (const auto &d : DatabaseManager::getInstance().getActiveDiscountsForBook(b.getId(), now)) {
+        finalPrice = d.getDiscountedPrice(finalPrice);
+        QJsonObject dobj;
+        dobj["discountType"] = static_cast<int>(d.getDiscountType());
+        dobj["discountValue"] = d.getDiscountValue();
+        dobj["startDateTime"] = QString::fromStdString(d.getStartDateTime());
+        dobj["endDateTime"] = QString::fromStdString(d.getEndDateTime());
+        activeArr.append(dobj);
+    }
+    bo["finalPrice"] = finalPrice;
+    if (!activeArr.isEmpty()) bo["activeDiscounts"] = activeArr;
     bo["coverImagePath"] = QString::fromStdString(b.getCoverImagePath());
+    bo["pdfFileName"] = QString::fromStdString(b.getPdfFileName());
     bo["averageRating"] = b.getAverageRating();
     bo["isFree"] = b.isFree();
+    bo["publisherId"] = b.getPublisherId();
     return bo;
 }
 
@@ -464,7 +479,21 @@ void RequestProcessor::processGetBookDetails(CommandType cmd, const QByteArray &
     resp["description"] = QString::fromStdString(b.getDescription());
     resp["genre"] = static_cast<int>(b.getGenre());
     resp["coverImagePath"] = QString::fromStdString(b.getCoverImagePath());
-    resp["finalPrice"] = b.getFinalPrice(currentTimestamp());
+    resp["pdfFileName"] = QString::fromStdString(b.getPdfFileName());
+    // include any active discounts for this book
+    double finalPrice = b.getBasePrice();
+    QJsonArray activeArr;
+    for (const auto &d : DatabaseManager::getInstance().getActiveDiscountsForBook(b.getId(), currentTimestamp())) {
+        finalPrice = d.getDiscountedPrice(finalPrice);
+        QJsonObject dobj;
+        dobj["discountType"] = static_cast<int>(d.getDiscountType());
+        dobj["discountValue"] = d.getDiscountValue();
+        dobj["startDateTime"] = QString::fromStdString(d.getStartDateTime());
+        dobj["endDateTime"] = QString::fromStdString(d.getEndDateTime());
+        activeArr.append(dobj);
+    }
+    resp["finalPrice"] = finalPrice;
+    if (!activeArr.isEmpty()) resp["activeDiscounts"] = activeArr;
     resp["averageRating"] = b.getAverageRating();
     resp["comments"] = commentsArr;
     sendOk(sender, cmd, resp);
@@ -530,7 +559,7 @@ void RequestProcessor::processEditBook(CommandType cmd, const QByteArray &data, 
         return;
     }
 
-    if (req.contains("isActive") && isRequesterAdmin(sender)) {
+    if (req.contains("isActive") && (isRequesterAdmin(sender) || existing.getPublisherId() == sender->getAssociatedUserId())) {
         DatabaseManager::getInstance().setBookActive(bookId, req["isActive"].toBool());
     }
     sendOk(sender, cmd);

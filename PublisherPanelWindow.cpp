@@ -53,7 +53,10 @@ void PublisherPanelWindow::buildUi() {
     tableMyBooks->setHorizontalHeaderLabels({"عنوان", "قیمت", "میانگین امتیاز", "فروش", "وضعیت"});
     tableMyBooks->horizontalHeader()->setStretchLastSection(true);
     tableMyBooks->setSelectionBehavior(QAbstractItemView::SelectRows);
+    tableMyBooks->setSelectionMode(QAbstractItemView::SingleSelection);
     tableMyBooks->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    tableMyBooks->setStyleSheet(
+        "QTableWidget::item:selected { font-weight: bold; background: palette(highlight); color: palette(highlighted-text); }");
 
     auto* tableButtons = new QHBoxLayout();
     btnEditSelected = new QPushButton("ویرایشِ انتخاب‌شده");
@@ -133,6 +136,7 @@ void PublisherPanelWindow::buildUi() {
     connect(btnViewBookDetails, &QPushButton::clicked, this, &PublisherPanelWindow::onViewBookDetailsClicked);
     connect(btnBrowseCoverPath, &QPushButton::clicked, this, &PublisherPanelWindow::onBrowseCoverPath);
     connect(btnBrowsePdfPath, &QPushButton::clicked, this, &PublisherPanelWindow::onBrowsePdfPath);
+    connect(tableMyBooks, &QTableWidget::itemSelectionChanged, this, &PublisherPanelWindow::onMyBooksSelectionChanged);
 }
 
 void PublisherPanelWindow::requestMyBooks() {
@@ -180,7 +184,10 @@ void PublisherPanelWindow::handleUploadSubmit() {
 
 void PublisherPanelWindow::handleEditSubmit() {
     auto selected = tableMyBooks->selectedItems();
-    if (selected.isEmpty()) return;
+    if (selected.isEmpty()) {
+        QMessageBox::warning(this, "توجه", "لطفاً ابتدا یک کتاب را از لیست انتخاب کنید.");
+        return;
+    }
     int bookId = tableMyBooks->item(selected.first()->row(), 0)->data(Qt::UserRole).toInt();
 
     QJsonObject req;
@@ -189,6 +196,11 @@ void PublisherPanelWindow::handleEditSubmit() {
     if (!txtNewBookAuthor->text().isEmpty()) req["author"] = txtNewBookAuthor->text();
     if (!txtNewBookDescription->toPlainText().isEmpty()) req["description"] = txtNewBookDescription->toPlainText();
     if (spinNewBookPrice->value() > 0) req["basePrice"] = spinNewBookPrice->value();
+
+    if (req.keys().size() <= 1) {
+        QMessageBox::warning(this, "خطا", "هیچ اطلاعاتی برای ویرایش وارد نشده است. حداقل یکی از فیلدهای عنوان، نویسنده، توضیحات یا قیمت را وارد کنید.");
+        return;
+    }
     ClientNetworkManager::getInstance().sendRequest(CommandType::EditBook, req);
 }
 
@@ -197,11 +209,27 @@ void PublisherPanelWindow::handleDeleteSubmit() {
     if (selected.isEmpty()) return;
     int bookId = tableMyBooks->item(selected.first()->row(), 0)->data(Qt::UserRole).toInt();
 
-    if (QMessageBox::question(this, "تایید حذف", "این کتاب حذف/غیرفعال شود؟") != QMessageBox::Yes) return;
+    // find the book in local cache
+    Book foundBook;
+    bool haveBook = false;
+    for (const auto &b : myBooksCache) {
+        if (b.getId() == bookId) { foundBook = b; haveBook = true; break; }
+    }
 
+    if (haveBook && !foundBook.getIsActive()) {
+        if (QMessageBox::question(this, "فعالسازی کتاب", "این کتاب در حال حاضر غیرفعال است. آیا آن را فعال کنم؟") != QMessageBox::Yes) return;
+        QJsonObject req;
+        req["bookId"] = bookId;
+        req["isActive"] = true;
+        ClientNetworkManager::getInstance().sendRequest(CommandType::EditBook, req);
+        return;
+    }
+
+    if (QMessageBox::question(this, "تایید حذف/غیرفعال‌سازی", "آیا می‌خواهید این کتاب را غیرفعال (یا حذف نرم) کنید؟") != QMessageBox::Yes) return;
     QJsonObject req;
     req["bookId"] = bookId;
-    ClientNetworkManager::getInstance().sendRequest(CommandType::DeleteBook, req);
+    req["isActive"] = false;
+    ClientNetworkManager::getInstance().sendRequest(CommandType::EditBook, req);
 }
 
 void PublisherPanelWindow::openAnalyticsWindow() {
@@ -261,6 +289,23 @@ void PublisherPanelWindow::onViewBookDetailsClicked() {
     QJsonObject req;
     req["bookId"] = bookId;
     ClientNetworkManager::getInstance().sendRequest(CommandType::GetBookDetails, req);
+}
+
+void PublisherPanelWindow::onMyBooksSelectionChanged() {
+    auto selected = tableMyBooks->selectedItems();
+    if (selected.isEmpty()) return;
+
+    int row = selected.first()->row();
+    if (row < 0) return;
+
+    QTableWidgetItem* titleItem = tableMyBooks->item(row, 0);
+    QTableWidgetItem* priceItem = tableMyBooks->item(row, 1);
+    if (titleItem) {
+        txtNewBookTitle->setText(titleItem->text());
+    }
+    if (priceItem) {
+        spinNewBookPrice->setValue(priceItem->text().toDouble());
+    }
 }
 
 void PublisherPanelWindow::onBrowseCoverPath() {

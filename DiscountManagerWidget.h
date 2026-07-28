@@ -6,6 +6,8 @@
 #include <QPushButton>
 #include <QVector>
 #include "Book.h"
+#include <QJsonObject>
+#include "CommandType.h"
 
 
 class DiscountManagerWidget : public QWidget {
@@ -28,4 +30,5 @@ public:
 
 private slots:
     void sendDiscountToServer();
+    void onServerReply(CommandType commandType, QJsonObject payload, bool ok);
 };

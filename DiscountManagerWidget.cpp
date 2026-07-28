@@ -32,6 +32,9 @@ DiscountManagerWidget::DiscountManagerWidget(QWidget *parent) : QWidget(parent) 
     form->addRow(btnSubmitDiscount);
 
     connect(btnSubmitDiscount, &QPushButton::clicked, this, &DiscountManagerWidget::sendDiscountToServer);
+
+    connect(&ClientNetworkManager::getInstance(), &ClientNetworkManager::serverReplyReceived,
+            this, &DiscountManagerWidget::onServerReply);
 }
 
 void DiscountManagerWidget::setAvailableBooks(const QVector<Book> &books) {
@@ -60,4 +63,16 @@ void DiscountManagerWidget::sendDiscountToServer() {
     req["endDateTime"] = dateTimeEnd->dateTime().toString("yyyy-MM-dd HH:mm:ss");
 
     ClientNetworkManager::getInstance().sendRequest(CommandType::ApplyDiscount, req);
+}
+
+void DiscountManagerWidget::onServerReply(CommandType commandType, QJsonObject payload, bool ok) {
+    if (commandType != CommandType::ApplyDiscount) return;
+
+    if (!ok) {
+        QMessageBox::warning(this, "خطا", payload.value("error").toString());
+        return;
+    }
+
+    QMessageBox::information(this, "ارسال شد", "درخواستِ تخفیف ثبت شد. پس از تأییدِ مدیر سیستم، تخفیف برای کاربران قابل مشاهده خواهد شد.");
+    this->close();
 }

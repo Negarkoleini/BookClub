@@ -77,6 +77,7 @@ public:
     bool removeDiscount(int discountId);
     void addDiscount(const TimedDiscount& discount);
     double getFinalPrice(const std::string& currentSystemTime) const;
+    std::vector<TimedDiscount> getDiscounts() const;
     void setAverageRating (double newavgrate);
 };
 

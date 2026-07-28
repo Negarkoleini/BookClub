@@ -14,6 +14,7 @@ class PdfReaderWidget : public QWidget {
 private:
     QString currentLoadedFilePath;
     int currentBookId = -1;
+    qreal currentZoomFactor = 1.0;
 
     QPdfDocument* document;
     QPdfView* pdfView;

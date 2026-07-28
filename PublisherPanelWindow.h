@@ -71,5 +71,6 @@ private slots:
     void onViewBookDetailsClicked();
     void onBrowseCoverPath();
     void onBrowsePdfPath();
+    void onMyBooksSelectionChanged();
     void onNetworkReply(CommandType commandType, QJsonObject payload, bool ok);
 };

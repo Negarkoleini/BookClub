@@ -15,6 +15,8 @@
 #include <QPainter>
 #include <QIcon>
 #include <QFileInfo>
+#include <QDateTime>
+#include "TimedDiscount.h"
 
 UserPanelWindow::UserPanelWindow(int userId, QWidget *parent)
     : QMainWindow(parent), currentUserId(userId), myCart(userId) {
@@ -266,9 +268,24 @@ void UserPanelWindow::refreshCatalogListWidget(const QVector<Book> &books) {
     for (const auto &b : books) {
         QPixmap cover = loadCoverOrPlaceholder(b.getCoverImagePath(), b.getTitle(), posterSize);
 
+        double displayPrice = b.getBasePrice();
+        QString pricePart;
+        auto discounts = b.getDiscounts();
+        if (!discounts.empty()) {
+            // show first active discount info
+            const TimedDiscount &d = discounts.front();
+            displayPrice = d.getDiscountedPrice(b.getBasePrice());
+            pricePart = QString("%1 (اصل: %2)\nتا: %3")
+                            .arg(displayPrice)
+                            .arg(b.getBasePrice())
+                            .arg(QString::fromStdString(d.getEndDateTime()));
+        } else {
+            pricePart = QString("%1").arg(b.getBasePrice());
+        }
+
         QString label = QString("%1\n%2 تومان  |  ★ %3")
                             .arg(QString::fromStdString(b.getTitle()))
-                            .arg(b.getBasePrice())
+                            .arg(pricePart)
                             .arg(b.getAverageRating(), 0, 'f', 1);
 
         auto* item = new QListWidgetItem(QIcon(cover), label);
@@ -281,16 +298,23 @@ void UserPanelWindow::refreshCatalogListWidget(const QVector<Book> &books) {
 
 void UserPanelWindow::refreshCartListWidget() {
     listWidgetCart->clear();
+    QString currentTime = QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
     for (const auto &item : myCart.getItems()) {
+        double subtotalWithDiscount = item.getBook().getFinalPrice(currentTime.toStdString()) * item.getQuantity();
         QString text = QString("%1 × %2 = %3 تومان")
                            .arg(QString::fromStdString(item.getBook().getTitle()))
                            .arg(item.getQuantity())
-                           .arg(item.getSubtotal());
+                           .arg(subtotalWithDiscount);
         auto* w = new QListWidgetItem(text);
         w->setData(Qt::UserRole, item.getBook().getId());
         listWidgetCart->addItem(w);
     }
-    lblCartTotal->setText(QString("مبلغ کل: %1 تومان").arg(myCart.calculateTotal()));
+    double totalWithDiscounts = myCart.calculateTotalWithDiscounts(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss").toStdString());
+    double without = myCart.calculateTotal();
+    lblCartTotal->setText(QString("مبلغ کل: %1 تومان  |  تخفیف: %2 تومان  |  قابل پرداخت: %3 تومان")
+                          .arg(without)
+                          .arg(without - totalWithDiscounts)
+                          .arg(totalWithDiscounts));
 }
 
 Book* UserPanelWindow::findCachedBookById(int bookId) {

@@ -3,6 +3,7 @@
 #pragma once
 #include <QJsonObject>
 #include "Book.h"
+#include "TimedDiscount.h"
 #include "Genre.h"
 
 namespace ClientUtils {
@@ -26,6 +27,21 @@ inline Book bookFromJson(const QJsonObject &o) {
 
     if (o.contains("isActive")) b.setIsActive(o.value("isActive").toBool());
     if (o.contains("isDeleted")) b.setIsDeleted(o.value("isDeleted").toBool());
+
+    // parse active discounts if any
+    if (o.contains("activeDiscounts")) {
+        QJsonArray arr = o.value("activeDiscounts").toArray();
+        for (const auto &v : arr) {
+            QJsonObject d = v.toObject();
+            TimedDiscount td(
+                b.getId(),
+                static_cast<DiscountType>(d.value("discountType").toInt()),
+                d.value("discountValue").toDouble(),
+                d.value("startDateTime").toString().toStdString(),
+                d.value("endDateTime").toString().toStdString());
+            b.addDiscount(td);
+        }
+    }
 
     return b;
 }

@@ -14,7 +14,8 @@ void PdfReaderWidget::buildUi() {
     pdfView = new QPdfView(this);
     pdfView->setDocument(document);
     pdfView->setPageMode(QPdfView::PageMode::SinglePage);
-    pdfView->setZoomMode(QPdfView::ZoomMode::FitToWidth);
+    pdfView->setZoomMode(QPdfView::ZoomMode::Custom);
+    pdfView->setZoomFactor(currentZoomFactor);
 
     auto* toolbar = new QHBoxLayout();
     btnPrev = new QPushButton("◀ صفحه‌ی قبل");
@@ -60,6 +61,8 @@ void PdfReaderWidget::openFile(const QString &filePath, int bookId, int startPag
     }
 
     spinGotoPage->setMaximum(document->pageCount());
+    pdfView->setZoomMode(QPdfView::ZoomMode::Custom);
+    pdfView->setZoomFactor(currentZoomFactor);
 
     connect(pdfView->pageNavigator(), &QPdfPageNavigator::currentPageChanged,
             this, &PdfReaderWidget::onCurrentPageChanged, Qt::UniqueConnection);
@@ -100,11 +103,13 @@ void PdfReaderWidget::triggerGotoPage(int pageNumberOneBased) {
 }
 
 void PdfReaderWidget::zoomIn() {
-    pdfView->setZoomFactor(pdfView->zoomFactor() * 1.2);
+    currentZoomFactor = qBound(0.5, currentZoomFactor * 1.25, 4.0);
+    pdfView->setZoomFactor(currentZoomFactor);
 }
 
 void PdfReaderWidget::zoomOut() {
-    pdfView->setZoomFactor(pdfView->zoomFactor() / 1.2);
+    currentZoomFactor = qBound(0.5, currentZoomFactor / 1.25, 4.0);
+    pdfView->setZoomFactor(currentZoomFactor);
 }
 
 void PdfReaderWidget::onCurrentPageChanged(int newPageZeroBased)
