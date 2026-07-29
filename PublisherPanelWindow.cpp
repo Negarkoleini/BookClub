@@ -419,7 +419,7 @@ void PublisherPanelWindow::onNetworkReply(CommandType commandType, QJsonObject p
         }
         refreshTable();
         if (chartWidget && chartWidget->isVisible()) {
-            chartWidget->drawRevenueBarChart(payload);
+            chartWidget->populatePublisherDashboard(payload);
         }
         return;
     }

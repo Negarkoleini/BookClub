@@ -9,7 +9,6 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    // استایل‌شیت اصلاح‌شده: پس‌زمینه کرم مشخص + دکمه‌های قهوه‌ای ملایم (کاراملی/شکلاتی)
     QString mainStyleSheet = R"(
         /* پس‌زمینه اصلی کلیه پنجره‌ها و ویجت‌های داخل پنجره (کرم warm & soft) */
         QMainWindow, QDialog, QWidget {
@@ -23,6 +22,21 @@ int main(int argc, char *argv[])
         QFrame, QGroupBox {
             background-color: #F3E9DC;
             border: none;
+            color: #4A3B32;
+        }
+
+        /* با استایلِ سفارشی، Qt دیگر فضای پیش‌فرض برای عنوانِ QGroupBox رزرو نمی‌کند
+           و متنِ عنوان پشتِ محتوای داخلِ باکس (جدول/فرم و...) پنهان می‌شد.
+           اینجا صریحاً بالای باکس را برای عنوان خالی می‌گذاریم. */
+        QGroupBox {
+            margin-top: 22px;
+            font-weight: bold;
+        }
+
+        QGroupBox::title {
+            subcontrol-origin: margin;
+            subcontrol-position: top right;
+            padding: 2px 8px;
             color: #4A3B32;
         }
 
