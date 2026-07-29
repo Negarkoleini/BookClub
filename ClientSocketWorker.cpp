@@ -20,7 +20,7 @@ void ClientSocketWorker::initSocket() {
 
     m_socket = new QTcpSocket(this);
     if (!m_socket->setSocketDescriptor(m_descriptor)) {
-        emit logRequired(QString("خطا در اتصال به سوکت: %1").arg(m_socket->errorString()));
+        emit logRequired(QString("[CONN] خطا در اتصال به سوکت: %1").arg(m_socket->errorString()));
         emit workerDisconnected(this);
         return;
     }
@@ -28,7 +28,7 @@ void ClientSocketWorker::initSocket() {
     connect(m_socket, &QTcpSocket::readyRead, this, &ClientSocketWorker::readClientData);
     connect(m_socket, &QTcpSocket::disconnected, this, &ClientSocketWorker::handleDisconnect);
 
-    emit logRequired(QString("کلاینت جدید متصل شد (descriptor=%1)").arg(m_descriptor));
+    emit logRequired(QString("[CONN] کلاینت جدید متصل شد (descriptor=%1)").arg(m_descriptor));
 }
 
 void ClientSocketWorker::readClientData() {
@@ -41,7 +41,7 @@ void ClientSocketWorker::readClientData() {
         //آدرس خونه اولو نشون میده constData()
 
         if (length < 0) {
-            emit logRequired("پیامِ خراب دریافت شد (طول منفی)؛ اتصال قطع می‌شود.");
+            emit logRequired("[CONN] پیامِ خراب دریافت شد (طول منفی)؛ اتصال قطع می‌شود.");
             m_socket->disconnectFromHost();
             return;
         }
@@ -59,9 +59,12 @@ void ClientSocketWorker::readClientData() {
         try {
             NetworkMessage msg = NetworkMessage::unwrap(rawVec);
             QByteArray payload(msg.getPayload().data(), static_cast<int>(msg.getPayload().size()));
+            emit logRequired(QString("[REQ] %1 (userId=%2)")
+                                 .arg(commandTypeToString(msg.getCommandType()))
+                                 .arg(associatedUserId.load()));
             emit dataReadyForProcessing(msg.getCommandType(), payload, this);
         } catch (const std::exception &ex) {
-            emit logRequired(QString("خطا در unwrap پیام: %1").arg(ex.what()));
+            emit logRequired(QString("[CONN] خطا در unwrap پیام: %1").arg(ex.what()));
         }
     }
 }
@@ -74,13 +77,16 @@ void ClientSocketWorker::sendResponse(CommandType type, const QByteArray &jsonPa
     NetworkMessage msg(type, payloadVec);
     std::vector<char> raw = msg.wrap();
     m_socket->write(raw.data(), static_cast<qint64>(raw.size()));
+    emit logRequired(QString("[RES] %1 (userId=%2)")
+                         .arg(commandTypeToString(type))
+                         .arg(associatedUserId.load()));
 }
 
 void ClientSocketWorker::handleDisconnect() {
     if (associatedUserId != -1) {
         SessionManager::getInstance().removeSession(this);
     }
-    emit logRequired(QString("اتصال قطع شد (userId=%1)")
+    emit logRequired(QString("[CONN] اتصال قطع شد (userId=%1)")
                          .arg(associatedUserId.load()));
     emit workerDisconnected(this);
 }

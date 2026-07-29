@@ -12,4 +12,7 @@ public:
 
     // برای اعلان‌های همگانی (مثلاً اطلاع‌رسانی سیستمی)
     void broadcastToAll(const AppNotification &notif, const QList<int> &allUserIds);
+
+signals:
+    void logRequired(QString log);
 };
