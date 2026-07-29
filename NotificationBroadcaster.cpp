@@ -13,7 +13,15 @@ void NotificationBroadcaster::sendToUser(const AppNotification &notif) {
     int dbId = DatabaseManager::getInstance().saveNotification(notif);
 
     ClientSocketWorker* worker = SessionManager::getInstance().getWorkerForUser(notif.getTargetUserId());
-    if (worker == nullptr) return;
+    if (worker == nullptr) {
+        emit logRequired(QString("[EVENT] اعلان برای کاربر %1 در دیتابیس ذخیره شد (کاربر آفلاین است)")
+                              .arg(notif.getTargetUserId()));
+        return;
+    }
+
+    emit logRequired(QString("[EVENT] اعلان به کاربر %1 ارسال شد: %2")
+                          .arg(notif.getTargetUserId())
+                          .arg(QString::fromStdString(notif.getMessage())));
 
     QJsonObject json;
     json["id"] = dbId; // <--- قرار دادن آی‌دی واقعی دیتابیس در پکت شبکه

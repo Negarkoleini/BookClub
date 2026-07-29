@@ -14,116 +14,101 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS
 )
 qt_standard_project_setup()
 
-qt_add_executable(BookClub
-    WIN32 MACOSX_BUNDLE
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
-    Book.cpp
-    Book.h
-    Genre.h
-    CartItem.cpp
-    CartItem.h
-    Comment.h
-    Rating.h
-    Rating.cpp
-    ShoppingCart.cpp
-    ShoppingCart.h
-    Genre.cpp
-    Bookshelf.h
-    Bookshelf.cpp
-    AppNotification.h AppNotification.cpp
-    NetworkMessage.h NetworkMessage.cpp
+# ---------------------------------------------------------------------------
+# فایل‌های مشترک (مدل‌های داده) که هم در سرور و هم در کلاینت استفاده می‌شوند
+# ---------------------------------------------------------------------------
+set(COMMON_SOURCES
+    AppTheme.h
+    Book.cpp Book.h
+    Genre.cpp Genre.h
+    CartItem.cpp CartItem.h
+    Comment.cpp Comment.h
+    Rating.cpp Rating.h
+    ShoppingCart.cpp ShoppingCart.h
+    Bookshelf.cpp Bookshelf.h
+    AppNotification.cpp AppNotification.h
+    NetworkMessage.cpp NetworkMessage.h
     CommandType.h
-    User.h
-    User.cpp
-    Admin.h
-    Admin.cpp
-    RegularUser.h
-    RegularUser.cpp
-    Publisher.h
-    Publisher.cpp
-    TimedDiscount.cpp
-    AnalyticsData.h
-    AnalyticsData.cpp
-    SecurityUtils.h
-    SecurityUtils.cpp
-    Transaction.h
-    Transaction.cpp
-    ReadingSession.h
-    ReadingSession.cpp
-    Comment.cpp
-    ServerCore.h ServerCore.cpp
-    DatabaseManager.h
-    DatabaseManager.cpp
-    TimedDiscount.h
-    ClientHandlerThread.h ClientHandlerThread.cpp
-    DatabaseManager.h
-    DatabaseManager.cpp
-    TimedDiscount.h
-    ClientHandlerThread.h
-    ClientHandlerThread.cpp
-    RequestProcessor.h
-    RequestProcessor.cpp
+    User.cpp User.h
+    Admin.cpp Admin.h
+    RegularUser.cpp RegularUser.h
+    Publisher.cpp Publisher.h
+    TimedDiscount.cpp TimedDiscount.h
+    AnalyticsData.cpp AnalyticsData.h
+    Transaction.cpp Transaction.h
+    ReadingSession.cpp ReadingSession.h
     JsonPayLoad.h
-    ServerLogManager.h
-    ServerLogManager.cpp
-    ClientSocketWorker.h
-    ClientSocketWorker.cpp
-    ServerDashboardWindow.h
-    ServerDashboardWindow.cpp
+)
+
+# ---------------------------------------------------------------------------
+# فایل‌های اختصاصی سرور (Server.exe)
+# ---------------------------------------------------------------------------
+set(SERVER_SOURCES
+    MainServer.cpp
+    DatabaseManager.h DatabaseManager.cpp
+    ServerCore.h ServerCore.cpp
+    ClientHandlerThread.h ClientHandlerThread.cpp
+    ClientSocketWorker.h ClientSocketWorker.cpp
+    RequestProcessor.h RequestProcessor.cpp
+    ServerLogManager.h ServerLogManager.cpp
+    ServerDashboardWindow.h ServerDashboardWindow.cpp
     SessionManager.h SessionManager.cpp
     NotificationBroadcaster.h NotificationBroadcaster.cpp
-    ClientNetworkManager.h ClientNetworkManager.cpp
-    UserPanelWindow.h
-    UserPanelWindow.cpp
-    DashboardController.h
-    DashboardController.cpp
-    LoginWindow.h LoginWindow.cpp
-    PdfReaderWidget.h
-    PdfReaderWidget.cpp
-    PublisherPanelWindow.h PublisherPanelWindow.cpp
-    BookSearchEngine.h
-    BookSearchEngine.cpp
-    DiscountManagerWidget.h DiscountManagerWidget.cpp
-    AdminPanelWindow.h
-    AdminPanelWindow.cpp
-    AnalyticsChartWidget.h AnalyticsChartWidget.cpp
-    NotificationCenterWidget.h
-    NotificationCenterWidget.cpp
-    InAppNotificationWidget.h InAppNotificationWidget.cpp
-    ClientUtils.h
-    MainServer.cpp
+    SecurityUtils.h SecurityUtils.cpp
+    SystemResourceMonitor.h SystemResourceMonitor.cpp
+)
+
+# ---------------------------------------------------------------------------
+# فایل‌های اختصاصی کلاینت (Client.exe)
+# ---------------------------------------------------------------------------
+set(CLIENT_SOURCES
     MainClient.cpp
-    main.cpp
+    ClientNetworkManager.h ClientNetworkManager.cpp
+    LoginWindow.h LoginWindow.cpp
+    DashboardController.h DashboardController.cpp
+    UserPanelWindow.h UserPanelWindow.cpp
+    PublisherPanelWindow.h PublisherPanelWindow.cpp
+    AdminPanelWindow.h AdminPanelWindow.cpp
+    AnalyticsChartWidget.h AnalyticsChartWidget.cpp
+    DiscountManagerWidget.h DiscountManagerWidget.cpp
+    NotificationCenterWidget.h NotificationCenterWidget.cpp
+    InAppNotificationWidget.h InAppNotificationWidget.cpp
+    PdfReaderWidget.h PdfReaderWidget.cpp
+    BookSearchEngine.h BookSearchEngine.cpp
+    ClientUtils.h
     loginpic.qrc
 )
 
+# ---------------------------------------------------------------------------
+# اجرایی سرور: هسته اصلی سامانه که همیشه در حال اجراست و روی یک پورت Listen
+# می‌کند. تمام اطلاعات و درخواست‌ها را مدیریت می‌کند.
+# ---------------------------------------------------------------------------
+qt_add_executable(BookClubServer
+    WIN32 MACOSX_BUNDLE
+    ${COMMON_SOURCES}
+    ${SERVER_SOURCES}
+)
 
-target_link_libraries(BookClub
+target_link_libraries(BookClubServer
     PRIVATE
         Qt::Core
+        Qt::Gui
         Qt::Widgets
         Qt::Sql
         Qt::Network
-        Qt::Pdf
-        Qt::PdfWidgets
 )
 
-install(TARGETS BookClub
-    BUNDLE  DESTINATION .
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+# ---------------------------------------------------------------------------
+# اجرایی کلاینت: برنامه‌ای که کاربران (کاربر عادی، ناشر و مدیر سیستم) اجرا
+# می‌کنند و از طریق سوکت با سرور در ارتباط هستند.
+# ---------------------------------------------------------------------------
+qt_add_executable(BookClubClient
+    WIN32 MACOSX_BUNDLE
+    ${COMMON_SOURCES}
+    ${CLIENT_SOURCES}
 )
 
-qt_generate_deploy_app_script(
-    TARGET BookClub
-    OUTPUT_SCRIPT deploy_script
-    NO_UNSUPPORTED_PLATFORM_ERROR
-)
-install(SCRIPT ${deploy_script})
-
-target_link_libraries(BookClub
+target_link_libraries(BookClubClient
     PRIVATE
         Qt::Core
         Qt::Gui
@@ -134,3 +119,26 @@ target_link_libraries(BookClub
         Qt::PdfWidgets
         Qt::Charts
 )
+
+# ---------------------------------------------------------------------------
+# نصب و بسته‌بندی هر دو اجرایی (برای اینستالر نهایی)
+# ---------------------------------------------------------------------------
+install(TARGETS BookClubServer BookClubClient
+    BUNDLE  DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+qt_generate_deploy_app_script(
+    TARGET BookClubServer
+    OUTPUT_SCRIPT deploy_script_server
+    NO_UNSUPPORTED_PLATFORM_ERROR
+)
+install(SCRIPT ${deploy_script_server})
+
+qt_generate_deploy_app_script(
+    TARGET BookClubClient
+    OUTPUT_SCRIPT deploy_script_client
+    NO_UNSUPPORTED_PLATFORM_ERROR
+)
+install(SCRIPT ${deploy_script_client})

@@ -12,12 +12,12 @@ ServerCore::~ServerCore() {
 bool ServerCore::start(quint16 port) {
     if (isRunning) return true;
     if (!listen(QHostAddress::Any, port)) {
-        emit logGenerated(QString("خطا در راه‌اندازی سرور روی پورت %1: %2").arg(port).arg(errorString()));
+        emit logGenerated(QString("[SERVER] خطا در راه‌اندازی سرور روی پورت %1: %2").arg(port).arg(errorString()));
         return false;
     }
     listeningPort = port;
     isRunning = true;
-    emit logGenerated(QString("سرور روی پورت %1 راه‌اندازی شد.").arg(port));
+    emit logGenerated(QString("[SERVER] سرور روی پورت %1 راه‌اندازی شد.").arg(port));
     return true;
 }
 
@@ -25,7 +25,7 @@ void ServerCore::stop() {
     if (!isRunning) return;
     close();
     isRunning = false;
-    emit logGenerated("سرور متوقف شد.");
+    emit logGenerated("[SERVER] سرور متوقف شد.");
 }
 
 bool ServerCore::getIsRunning() const { return isRunning; }
