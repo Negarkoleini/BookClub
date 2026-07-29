@@ -20,19 +20,52 @@ const char* CARD_STYLE =
     "  border:1px solid #CDBA9F;"
     "  border-radius:10px;"
     "}";
+
+// FIX: بدون این استایل صریح، عنوان QGroupBox فضای مخصوص به خودش را
+// رزرو نمی‌کند و QTextEdit سفیدِ داخلش از بالا روی متن عنوان می‌افتد
+// (دقیقا همان چیزی که در اسکرین‌شات دیده می‌شود). با margin-top فضای
+// عنوان را رزرو و با QGroupBox::title محل دقیق آن (بالا-راست، چون
+// جهت برنامه RightToLeft است) را مشخص می‌کنیم.
+const char* GROUPBOX_STYLE =
+    "QGroupBox {"
+    "  font-weight:bold;"
+    "  color:#8C6239;"
+    "  border:1px solid #CDBA9F;"
+    "  border-radius:10px;"
+    "  margin-top:22px;"
+    "  padding-top:6px;"
+    "}"
+    "QGroupBox::title {"
+    "  subcontrol-origin: margin;"
+    "  subcontrol-position: top right;"
+    "  right:10px;"
+    "  padding:2px 6px;"
+    "  background-color: transparent;"
+    "}";
 }
 
 ServerDashboardWindow::ServerDashboardWindow(ServerCore* server, QWidget *parent)
     : QWidget(parent), m_server(server), m_logManager("server.log") {
+
+    // FIX: متن‌های داشبورد فارسی هستند، پس باید کل ویجت راست‌به‌چپ باشد
+    // وگرنه عنوان‌های بلند (مثل «میزان استفاده از CPU/RAM») می‌توانند از
+    // عرض کارت خودشان بیرون بزنند و زیر/پشت کارت سفید مجاور مخفی شوند.
+    setLayoutDirection(Qt::RightToLeft);
+
     buildUi();
 
     connect(btnToggleServer, &QPushButton::clicked, this, &ServerDashboardWindow::onStartStopClicked);
     connect(m_server, &ServerCore::logGenerated, this, &ServerDashboardWindow::handleNewLog);
     connect(m_server, &ServerCore::clientCountChanged, this, &ServerDashboardWindow::handleConnectionUpdate);
 
+    // FIX: پورت پیکربندی‌شده باید همیشه از سرور خوانده شود، نه فقط
+    // زمانی که سرور از قبل در حال اجراست. قبلاً اگر سرور در ابتدا
+    // متوقف بود، m_configuredPort مقدار 0 می‌ماند و کلیک روی
+    // «راه‌اندازی سرور» باعث می‌شد start(0) صدا زده شود.
+    m_configuredPort = m_server->serverPort();
+
     // مقداردهی اولیه‌ی وضعیت با توجه به اینکه سرور معمولا از قبل توسط main راه‌اندازی شده
     if (m_server->getIsRunning()) {
-        m_configuredPort = m_server->serverPort();
         btnToggleServer->setText("متوقف‌کردن سرور");
         lblConnectionStatus->setText(QString("در حال اجرا — پورت %1").arg(m_configuredPort));
     }
@@ -48,10 +81,14 @@ QWidget* ServerDashboardWindow::buildStatCard(const QString &title, QLabel* valu
     auto* card = new QFrame();
     card->setObjectName("statCard");
     card->setStyleSheet(CARD_STYLE);
+    // FIX: حداقل عرض تا کارت‌های آماری خیلی باریک نشوند و متن جا نشود
+    card->setMinimumWidth(140);
 
     auto* layout = new QVBoxLayout(card);
     auto* titleLabel = new QLabel(title);
     titleLabel->setStyleSheet("color:#8C6239; font-weight:bold; font-size:11px;");
+    // FIX: اجازه‌ی شکستن خط برای عنوان‌های بلند تا از عرض کارت بیرون نزنند
+    titleLabel->setWordWrap(true);
 
     QFont valueFont = valueLabel->font();
     valueFont.setPointSize(18);
@@ -107,9 +144,11 @@ void ServerDashboardWindow::buildUi() {
     auto* cpuCard = new QFrame();
     cpuCard->setObjectName("statCard");
     cpuCard->setStyleSheet(CARD_STYLE);
+    cpuCard->setMinimumWidth(140);
     auto* cpuLayout = new QVBoxLayout(cpuCard);
     auto* cpuTitle = new QLabel("میزان استفاده از CPU");
     cpuTitle->setStyleSheet("color:#8C6239; font-weight:bold; font-size:11px;");
+    cpuTitle->setWordWrap(true);
     cpuBar = new QProgressBar();
     cpuBar->setRange(0, 100);
     cpuBar->setFormat("%p%");
@@ -120,9 +159,11 @@ void ServerDashboardWindow::buildUi() {
     auto* ramCard = new QFrame();
     ramCard->setObjectName("statCard");
     ramCard->setStyleSheet(CARD_STYLE);
+    ramCard->setMinimumWidth(140);
     auto* ramLayout = new QVBoxLayout(ramCard);
     auto* ramTitle = new QLabel("میزان استفاده از RAM");
     ramTitle->setStyleSheet("color:#8C6239; font-weight:bold; font-size:11px;");
+    ramTitle->setWordWrap(true);
     ramBar = new QProgressBar();
     ramBar->setRange(0, 100);
     ramBar->setFormat("%p%");
@@ -138,6 +179,7 @@ void ServerDashboardWindow::buildUi() {
     auto* logsRow = new QHBoxLayout();
 
     auto* requestsBox = new QGroupBox("لاگِ زنده‌ی درخواست‌ها و پاسخ‌ها");
+    requestsBox->setStyleSheet(GROUPBOX_STYLE);
     auto* requestsLayout = new QVBoxLayout(requestsBox);
     textEditRequestsLog = new QTextEdit();
     textEditRequestsLog->setReadOnly(true);
@@ -145,6 +187,7 @@ void ServerDashboardWindow::buildUi() {
     requestsLayout->addWidget(textEditRequestsLog);
 
     auto* eventsBox = new QGroupBox("اعلان‌ها و رویدادهای سیستمی");
+    eventsBox->setStyleSheet(GROUPBOX_STYLE);
     auto* eventsLayout = new QVBoxLayout(eventsBox);
     textEditEventsLog = new QTextEdit();
     textEditEventsLog->setReadOnly(true);
