@@ -78,22 +78,34 @@ AnalyticsChartWidget::AnalyticsChartWidget(QWidget *parent) : QWidget(parent) {
     layout->addLayout(summaryRow);
 
     // ---- ردیفِ جدول‌ها: امتیازها | پرفروش‌ترین‌ها | کم‌فروش‌ترین‌ها، هر سه هم‌عرض ----
+    // نکته: عنوانِ توکارِ QGroupBox در این استایل درست رندر نمی‌شد و پشتِ جدول می‌رفت،
+    // برای همین به‌جای تکیه بر آن، یک QLabel صریح بالای هر جدول قرار می‌گیرد.
     auto* tablesGrid = new QGridLayout();
     tablesGrid->setSpacing(12);
 
-    auto* ratingsBox = new QGroupBox("میانگین امتیاز کتاب‌ها");
+    auto makeTableTitle = [](const QString &text) {
+        auto* lbl = new QLabel(text);
+        lbl->setAlignment(Qt::AlignCenter);
+        lbl->setStyleSheet("font-size: 14px; font-weight: bold; padding: 4px;");
+        return lbl;
+    };
+
+    auto* ratingsBox = new QGroupBox();
     auto* ratingsLayout = new QVBoxLayout(ratingsBox);
     setupTable(tableAverageRatings, {"کتاب", "میانگین امتیاز"});
+    ratingsLayout->addWidget(makeTableTitle("میانگین امتیاز کتاب‌ها"));
     ratingsLayout->addWidget(tableAverageRatings);
 
-    auto* topBox = new QGroupBox("۵ کتاب پرفروش");
+    auto* topBox = new QGroupBox();
     auto* topLayout = new QVBoxLayout(topBox);
     setupTable(tableTopBooks, {"کتاب", "فروش", "درآمد"});
+    topLayout->addWidget(makeTableTitle("۵ کتاب پرفروش"));
     topLayout->addWidget(tableTopBooks);
 
-    auto* leastBox = new QGroupBox("۵ کتاب کم‌فروش");
+    auto* leastBox = new QGroupBox();
     auto* leastLayout = new QVBoxLayout(leastBox);
     setupTable(tableLeastBooks, {"کتاب", "فروش", "درآمد"});
+    leastLayout->addWidget(makeTableTitle("۵ کتاب کم‌فروش"));
     leastLayout->addWidget(tableLeastBooks);
 
     for (QGroupBox* box : {ratingsBox, topBox, leastBox}) {

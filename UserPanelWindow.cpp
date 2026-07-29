@@ -24,6 +24,10 @@
 namespace {
 QString formatRemainingTime(const QString &endDateTime);
 
+bool shouldShowNotificationToRegularUser(NotificationType type) {
+    return type != NotificationType::NewSale && type != NotificationType::NewReview;
+}
+
 QString formatPriceValue(double value) {
     return QString::number(value, 'f', 0);
 }
@@ -1250,6 +1254,11 @@ void UserPanelWindow::updateWalletDisplay(double currentBalance) {
 void UserPanelWindow::onPushNotification(QJsonObject payload) {
     QString message = payload.value("message").toString();
     const NotificationType notificationType = static_cast<NotificationType>(payload.value("type").toInt());
+
+    if (!shouldShowNotificationToRegularUser(notificationType)) {
+        return;
+    }
+
     auto* toast = new InAppNotificationWidget(this);
     toast->popToastMessage(message);
 
@@ -1434,9 +1443,13 @@ void UserPanelWindow::onNetworkReply(CommandType commandType, QJsonObject payloa
         QVector<AppNotification> notifs;
         for (const auto &v : payload.value("notifications").toArray()) {
             QJsonObject no = v.toObject();
+            const NotificationType notificationType = static_cast<NotificationType>(no.value("type").toInt());
+            if (!shouldShowNotificationToRegularUser(notificationType)) {
+                continue;
+            }
             notifs.push_back(AppNotification::fromStorage(
                 no.value("id").toInt(),
-                static_cast<NotificationType>(no.value("type").toInt()),
+                notificationType,
                 no.value("message").toString().toStdString(),
                 currentUserId,
                 no.value("isRead").toBool(),
