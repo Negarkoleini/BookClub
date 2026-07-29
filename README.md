@@ -1,38 +1,64 @@
-# BookClub
-A cross-platform Book Club Management System built with C++ and Qt Framework. This application features a robust backend powered by the C++ Standard Template Library (STL)
+# 📚 BookClub Client-Server System (Advanced Programming Final Project)
 
-## Architecture: Server + Client (two separate executables)
+A robust, enterprise-grade, multi-threaded **Client-Server Book Club Management System** built with **C++** and **Qt 6**. This application features a modular architecture separating core server management from client graphical interfaces, supporting multiple user roles, secure TCP/IP network communication, real-time broadcasting, built-in PDF reading, interactive charts, and advanced database operations.
 
-This repository builds **two independent executables** from one CMake project,
-communicating over TCP sockets:
+---
 
-- **BookClubServer** (`Server.exe`) — the core of the system. It owns the
-  database, listens on a TCP port (default `5555`), and handles every
-  request coming from clients. It must be started first and must stay
-  running for as long as clients need to use the system.
-- **BookClubClient** (`Client.exe`) — the app run by end users (regular
-  user, publisher, or system admin). It connects to a running server over
-  a socket using the server's IP + port, and cannot do anything if the
-  server isn't reachable.
+## 🌟 Key Features
 
-### How to run
+### 🖥️ Server Side (`BookClubServer`)
+* **Multi-Threaded Architecture:** Utilizes dedicated worker threads (`ClientHandlerThread`, `ClientSocketWorker`) to manage concurrent client connections safely and efficiently.
+* **Database Management (`DatabaseManager`):** Persistent storage using SQLite/Qt SQL for users, books, transactions, comments, and ratings.
+* **Security & Monitoring:** Built-in cryptographic security utilities (`SecurityUtils`), live system resource monitoring (`SystemResourceMonitor`), and comprehensive server logging (`ServerLogManager`).
+* **Notification Broadcaster:** Real-time event broadcasting and session management (`SessionManager`).
+* **Server Dashboard:** Live GUI dashboard (`ServerDashboardWindow`) monitoring active connections, server logs, and system health.
 
-1. Build the project (CMake + Qt6, `qt_add_executable` generates both
-   `BookClubServer` and `BookClubClient`).
-2. Run `Server.exe` first. It starts listening on port `5555` (or a custom
-   port passed as `Server.exe <port>`) and shows a dashboard with logs,
-   connected-client count, and start/stop control.
-3. Run one or more `Client.exe` instances. Each one asks for the server's
-   IP and port, then connects over a socket.
-4. While the server is running, all connected clients can use the system
-   at the same time.
-5. If the server is closed:
-   - New clients can no longer connect (`establishConnection` fails and
-     the client shows an error).
-   - Already-connected clients get a "disconnected from server" message
-     when their socket drops.
+### 💻 Client Side (`BookClubClient`)
+* **Role-Based Access Control (RBAC):** Distinct panels and permissions for:
+  * 👤 **Regular Users:** Browse books, read summaries, manage shopping carts, write reviews, and track reading sessions.
+  * 📖 **Publishers:** Add/manage books, set timed discounts, and view sales performance.
+  * 👑 **Administrators:** Full system oversight, user management, and analytics monitoring.
+* **Interactive GUI Components:**
+  * **Advanced Book Search Engine (`BookSearchEngine`):** Fast querying and filtering by genre, author, and title.
+  * **Built-in PDF Reader (`PdfReaderWidget`):** Direct in-app reading experience for digital books.
+  * **Analytics & Charts (`AnalyticsChartWidget`):** Visual representation of sales, reading trends, and user statistics using `QtCharts`.
+  * **In-App Notifications (`NotificationCenterWidget`, `InAppNotificationWidget`):** Real-time alerts and announcements.
+* **Network & Localization:** Asynchronous TCP communication (`ClientNetworkManager`) with multilingual support (`.ts` translation files).
 
-Shared domain/model classes (`Book`, `User`, `Publisher`, `NetworkMessage`,
+---
+
+## 🛠️ Tech Stack & Libraries
+
+* **Language:** C++ (Modern C++17/20 standards)
+* **Framework:** Qt 6 (Core, Gui, Widgets, Sql, Network, Pdf, PdfWidgets, Charts, LinguistTools)
+* **Build System:** CMake (>= 3.19)
+* **Database:** SQLite
+
+---
+
+## 📁 Project Structure
+
+```text
+BookClub/
+├── COMMON_SOURCES (Shared Models & Entities)
+│   ├── Book.cpp / .h
+│   ├── Genre.cpp / .h
+│   ├── User.cpp / .h (Admin, RegularUser, Publisher)
+│   ├── ShoppingCart.cpp / .h
+│   ├── Transaction.cpp / .h
+│   ├── Comment.cpp / .h & Rating.cpp / .h
+│   └── NetworkMessage.cpp / .h
+├── SERVER_SOURCES (Backend)
+│   ├── MainServer.cpp & ServerCore.cpp / .h
+│   ├── DatabaseManager.cpp / .h
+│   ├── ClientHandlerThread.cpp / .h
+│   └── ServerDashboardWindow.cpp / .h
+└── CLIENT_SOURCES (Frontend)
+│   ├── MainClient.cpp & LoginWindow.cpp / .h
+│   ├── UserPanelWindow.cpp / .h
+│   ├── PublisherPanelWindow.cpp / .h
+│   ├── AdminPanelWindow.cpp / .h
+│   └── PdfReaderWidget.cpp / .h
 etc.) are compiled into both executables; server-only classes
 (`DatabaseManager`, `ServerCore`, `RequestProcessor`, ...) and client-only
 classes (`LoginWindow`, `DashboardController`, `ClientNetworkManager`, ...)
